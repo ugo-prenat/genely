@@ -2,7 +2,7 @@
 function App() {
   return (
     <div className="App">
-      Genely
+      dev.genely
     </div>
   );
 }
