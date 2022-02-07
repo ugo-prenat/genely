@@ -17,7 +17,7 @@ export default function Header() {
     
     {
       isAuth ?
-      <div>
+      <div className='right-part'>
         <Link to='/new-component'>
           <p className='second-btn'>+ nouveau composant</p>
         </Link>

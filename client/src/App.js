@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 
 import Home from "./components/pages/Home";
 import Login from "./components/pages/Login";
+import About from './components/pages/About';
 import Profil from "./components/pages/Profil";
 import Settings from "./components/pages/Settings"
 import Component from "./components/pages/Component";
@@ -20,6 +21,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/settings' element={<Settings />} />
         <Route path='/new-component' element={<CreateComponent />} />
+        <Route path='/about' element={<About />} />
         <Route path='/:username' element={<Profil />} />
         <Route path='/:username/:component' element={<Component />} />
         <Route path='*' element={<PageNotFound />} />
