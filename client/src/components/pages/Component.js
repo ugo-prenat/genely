@@ -11,7 +11,7 @@ export default function Component() {
   }, [username, component])
   
   
-  return <div>
+  return <div className='main-component'>
     <p>Page composant</p>
     <p>/ {username} / {component}</p>
   </div>;

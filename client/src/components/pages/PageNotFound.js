@@ -6,5 +6,7 @@ export default function PageNotFound() {
     document.title = 'Genely - Page introuvable'
   }, [])
   
-  return <div>404</div>;
+  return <div className='main-component'>
+    404
+  </div>;
 }

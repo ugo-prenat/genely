@@ -6,5 +6,7 @@ export default function CreateComponent() {
     document.title = 'Nouveau composant'
   }, [])
   
-  return <div>nouveau composant</div>;
+  return <div className='main-component'>
+    nouveau composant
+  </div>;
 }

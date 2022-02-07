@@ -6,5 +6,7 @@ export default function Settings() {
     document.title = 'Genely - Paramètres'
   }, [])
   
-  return <div>Paramètre du profil</div>;
+  return <div className='main-component'>
+    Paramètre du profil
+  </div>;
 }

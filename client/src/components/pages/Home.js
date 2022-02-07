@@ -6,5 +6,7 @@ export default function Home() {
     document.title = 'Genely'
   }, [])
   
-  return <div>Home</div>;
+  return <div className='main-component'>
+    Home
+  </div>;
 }

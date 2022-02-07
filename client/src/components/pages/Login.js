@@ -8,5 +8,7 @@ export default function Login() {
     document.title = `Genely - ${showForm === 'login' ? 'Connexion' : 'Inscription'}`
   }, [showForm])
   
-  return <div>login</div>;
+  return <div className='main-component'>
+    login
+  </div>;
 }

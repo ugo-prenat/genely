@@ -10,7 +10,7 @@ export default function Profil() {
     document.title = `Profil de ${username}`
   }, [username])
   
-  return <div>
+  return <div className='main-component'>
     <p>Page profil</p>
     <p>Profil de {username}</p>
   </div>;
