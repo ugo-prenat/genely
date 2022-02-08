@@ -9,7 +9,7 @@ import Question from '../assets/svg/Question';
 import '../styles/header.scss'
 
 export default function Header() {
-  const [isAuth, setIsAuth] = useState(true);
+  const [isAuth, setIsAuth] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   
   const tempUsername = 'ougo'
@@ -34,7 +34,10 @@ export default function Header() {
         </div>
       </div>
       :
-      <div>pas auth</div>
+      <div className='btns'>
+        <Link to='/login' className='tertiary-btn'>Connexion</Link>
+        <Link to='/signup' className='secondary-btn'>Inscription</Link>
+      </div>
     }
     
   </div>;

@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 
 import Home from "./components/pages/Home";
 import Login from "./components/pages/Login";
+import Signup from "./components/pages/Signup";
 import About from './components/pages/About';
 import Profil from "./components/pages/Profil";
 import Settings from "./components/pages/Settings"
@@ -19,6 +20,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/login' element={<Login />} />
+        <Route path='/signup' element={<Signup />} />
         <Route path='/settings' element={<Settings />} />
         <Route path='/new-component' element={<CreateComponent />} />
         <Route path='/about' element={<About />} />

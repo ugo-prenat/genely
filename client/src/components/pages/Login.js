@@ -5,7 +5,7 @@ export default function Login() {
   
   useEffect(() => {
     // Setup tab title
-    document.title = `Genely - ${showForm === 'login' ? 'Connexion' : 'Inscription'}`
+    document.title = 'Genely - Connection'
   }, [showForm])
   
   return <div className='main-component'>
