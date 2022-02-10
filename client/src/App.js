@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import Home from "./components/pages/Home";
@@ -13,9 +14,12 @@ import CreateComponent from "./components/pages/CreateComponent";
 import Header from "./components/Header";
 
 function App() {
+  const [isAuth, setIsAuth] = useState(true)
+  
   return (
     <div className="App">
-      <Header />
+      <button onClick={() => setIsAuth(!isAuth)} style={{position: 'absolute'}}>toggle auth</button>
+      <Header isAuth={isAuth} />
       
       <Routes>
         <Route path='/' element={<Home />} />

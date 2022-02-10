@@ -8,9 +8,9 @@ import Question from '../assets/svg/Question';
 
 import '../styles/header.scss'
 
-export default function Header() {
-  const [isAuth, setIsAuth] = useState(false);
+export default function Header(props) {
   const [showDropdown, setShowDropdown] = useState(false);
+  const isAuth = props.isAuth
   
   const tempUsername = 'ougo'
   const tempPP = 'https://rocket-league.com/content/media/users/avatar/600px/5d587182eb1640995184.png'
@@ -24,7 +24,7 @@ export default function Header() {
       isAuth ?
       <div className='right-part'>
         <Link to='/new-component'>
-          <p className='second-btn'>+ nouveau composant</p>
+          <p className='secondary-btn'>+ nouveau composant</p>
         </Link>
         <div className='pp-container' onMouseEnter={() => setShowDropdown(true)} onMouseLeave={() => setShowDropdown(false)}>
           <Link to={tempUsername}>

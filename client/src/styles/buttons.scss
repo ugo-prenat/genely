@@ -1,6 +1,17 @@
 @import './variables';
 
-
+.primary-btn {
+  background: $color-blue-200;
+  padding: 12px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: white;
+  border-radius: 7px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  font-family: $poppins;
+}
 .secondary-btn {
   background-color: $color-blue-100-opacity-20;
   border: 1px solid $color-blue-100;
