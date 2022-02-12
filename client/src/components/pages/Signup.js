@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom'
 import '../../styles/signup.scss'
 import '../../styles/forms.scss'
 
+import SignupForm from '../login/SignupForm';
+
 export default function Signup() {
   useEffect(() => {
     // Setup tab title
@@ -14,5 +16,7 @@ export default function Signup() {
     <h1>
       <Link className='home-link' to='/'>Genely</Link>
     </h1>
+    
+    <SignupForm />
   </div>;
 }

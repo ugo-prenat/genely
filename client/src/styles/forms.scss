@@ -12,10 +12,20 @@ form {
     text-align: center;
   }
   .google-btn {
+    display: flex;
+    justify-content: center;
     background: $color-white;
-    padding: 5px 15px;
+    color: $color-dark-300;
+    font-family: $poppins;
+    font-weight: 500;
+    padding: 15px 0;
     margin: 30px 0;
-    border-radius: 3px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    svg {
+      margin-right: 10px;
+    }
   }
   .separation {
     display: flex;
@@ -93,7 +103,6 @@ form {
     position: absolute;
     top: 15px;
     right: 10px;
-    background: $color-dark-300;
     height: 25px;
     width: 25px;
     cursor: pointer;
