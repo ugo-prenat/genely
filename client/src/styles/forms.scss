@@ -42,35 +42,64 @@ form {
   .input-group {
     position: relative;
     border-radius: 7px;
+    height: 53px;
     margin: 30px 0;
-    border: 2px solid $color-dark-100;
+    background: $color-dark-300;
     label {
       position: absolute;
-      top: -15px;
+      top: 15px;
       left: 10px;
       padding: 0 7px;
-      color: $color-dark-100;
       background: $color-dark-300;
+      color: $color-dark-100;
+      cursor: text;
+      padding: 0 5px;
+      transition: top .15s ease-in, font-size .15s ease-in;
     }
     input {
-      width: calc(100% - 30px);
+      position: absolute;
+      top: 0;
+      width: calc(100% - 30px - 4px);
       font-family: $poppins;
       padding: 13px 15px;
-      background: $color-dark-300;
+      background: transparent;
       color: white;
       font-size: 15px;
       border-radius: 7px;
+      border: 2px solid $color-dark-100;
       outline: none;
-      border: none;
-    }
-    &.active {
-      border: 2px solid $color-blue-200;
-      label {
-        color: $color-white;
+      z-index: 1;
+      &:focus {
+        border: 2px solid $color-blue-200;
+        & + label {
+          color: $color-blue-200;
+          top: -10px;
+          font-size: 14px;
+          font-weight: 500;
+          z-index: 2;
+        }
       }
     }
   }
+  .password-eye {
+    position: absolute;
+    right: 0;
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
+    cursor: pointer;
+    z-index: 2;
+    background: red;
+  }
   .submit-btn {
     margin: 20px 0 10px;
+    user-select: none;
   }
+}
+.input-field:not(:placeholder-shown).input-field:not(:focus) + label {
+  color: $color-dark-100;
+  top: -10px;
+  font-size: 14px;
+  z-index: 2;
+  font-weight: 500;
 }

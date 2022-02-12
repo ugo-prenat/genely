@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
 import { useForm } from "react-hook-form";
 
+import EyeOpen from '../../assets/svg/EyeOpen'
+import EyeClose from '../../assets/svg/EyeClose'
+
 import '../../styles/login.scss'
 import '../../styles/forms.scss'
 
@@ -10,7 +13,7 @@ import Warning from '../../assets/svg/Warning'
 export default function Login() {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [showForm, setShowForm] = useState('login');
-  const [focus, setFocus] = useState()
+  const [showPassword, setShowPassword] = useState(false)
   
   useEffect(() => {
     // Setup tab title
@@ -20,8 +23,6 @@ export default function Login() {
   const onSubmit = data => {
     console.log(data)
   }
-  console.log(focus);
-  
   
   return <div className='fullscreen-component login-component'>
     <h1>
@@ -43,8 +44,7 @@ export default function Login() {
           
           <div className='separation'><p>ou connectez-vous par email</p></div>
           
-          <div className={`input-group ${focus === 'email' && 'active'}`}>
-            <label>Email</label>
+          <div className='input-group'>
             <input 
               {...register(
                 'email',
@@ -57,24 +57,30 @@ export default function Login() {
                 }
               )}
               type='email'
-              
-              onFocus={() => setFocus('email')}
-              onBlur={() => setFocus()}
+              placeholder=' '
+              className='input-field'
+              autoFocus
             />
+            <label>Email</label>
             { errors.email && <ErrorMsg msg={errors.email.message} /> }          
           </div>
           
-          <div className={`input-group ${focus === 'password' && 'active'}`}>
-            <label>Mot de passe</label>
+          <div className='input-group'>
             <input 
               {...register(
                 'password',
                 { required: 'Mot de passe obligatoire' }
               )}
-              type='password'
-              onFocus={() => setFocus('password')}
-              onBlur={() => setFocus()}
+              type={showPassword ? 'text' : 'password'}
+              placeholder=' '
+              className='input-field'
             />
+            <label>Mot de passe</label>
+            
+           {/*  <div className='password-eye' onClick={() => setShowPassword(!showPassword)}>
+              { showPassword ? <EyeClose /> : <EyeOpen /> }
+            </div> */}
+            
             { errors.password && <ErrorMsg msg={errors.password.message} /> }          
           </div>
           

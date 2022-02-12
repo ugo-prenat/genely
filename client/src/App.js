@@ -14,11 +14,10 @@ import CreateComponent from "./components/pages/CreateComponent";
 import Header from "./components/Header";
 
 function App() {
-  const [isAuth, setIsAuth] = useState(true)
+  const [isAuth, setIsAuth] = useState(false)
   
   return (
     <div className="App">
-      <button onClick={() => setIsAuth(!isAuth)} style={{position: 'absolute'}}>toggle auth</button>
       <Header isAuth={isAuth} />
       
       <Routes>
