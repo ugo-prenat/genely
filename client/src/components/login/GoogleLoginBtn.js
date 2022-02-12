@@ -5,7 +5,7 @@ import GoogleLogin from 'react-google-login'
 import { Google as GoogleLogo } from '../../assets/svg/Google'
 import { request as fetch } from '../../controller/request'
 
-export default function GoogleLoginBtn() {
+export default function GoogleLoginBtn(props) {
   const navigate = useNavigate()
   
   const handleSuccess = async data => {
@@ -13,11 +13,16 @@ export default function GoogleLoginBtn() {
 
     const res = await fetch.post('/auth/login/google', { token })
     if (res.status === 200) {
-      // Store token in localstorage and redirect user to homepage
-      //localStorage.setItem('token', res.token)
+      // Store token in localstorage
+      localStorage.setItem('token', res.token)
+      // Reset errors
+      props.loginError()
+      // Redirect user to homepage and refresh to apply localstorage
       navigate('/')
+      window.location.reload(false);
     } else {
-      console.log('Login error', res);
+      // Display error
+      props.loginError(res.msg)
     }
   }
   const handleFailure = err => console.error('Google login error', err)

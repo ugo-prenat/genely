@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import Home from "./components/pages/Home";
@@ -15,6 +15,11 @@ import Header from "./components/Header";
 
 function App() {
   const [isAuth, setIsAuth] = useState(false)
+  const token = localStorage.getItem('token')
+  
+  useEffect(() => {
+    setIsAuth(token ? true : false)
+  }, [token])
   
   return (
     <div className="App">

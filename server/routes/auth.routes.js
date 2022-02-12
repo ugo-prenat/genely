@@ -22,8 +22,13 @@ router.post('/login/google', async (req, res) => {
   })
   const { email } = ticket.getPayload()
   
-  
-  res.status(200).send({ status: 200, data: email })
+  // Check if user exists
+  const user = await Users.findOne({ email })
+  if (!user) res.status(400).send({ status: 400, msg: 'Aucun compte n\'est rattaché à cet email' })
+  else {
+    const jwttoken = generateAccessToken(user)
+    res.status(200).send({ status: 200, token: jwttoken })
+  }
 })
 router.post('/signup/google', async(req, res) => {
   // Signup with Google
@@ -42,7 +47,6 @@ router.post('/signup/google', async(req, res) => {
   else {
     const userId = await getNewId()
     const username = await getUsername(ticket.getPayload(), userId)
-    
     
     const user = new Users({
       id: userId,
@@ -88,7 +92,6 @@ async function getUsername(data, userId) {
     // If a user is find, regenerate a username
     username = `${firstName}-${userId}`
   }
-  
   return username
 }
 function generateAccessToken(user) {

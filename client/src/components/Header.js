@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom'
 
 import Logout from '../assets/svg/Logout';
 import Profil from '../assets/svg/Profil';
@@ -10,7 +10,20 @@ import '../styles/header.scss'
 
 export default function Header(props) {
   const [showDropdown, setShowDropdown] = useState(false);
+  const navigate = useNavigate()
   const isAuth = props.isAuth
+  
+  useEffect(() => {
+    console.log('Auth', isAuth);
+  }, [isAuth])
+  
+  const disconnection = () => {
+    setShowDropdown(false)
+    
+    localStorage.clear()
+    navigate('/login')
+    window.location.reload(false);
+  }
   
   const tempUsername = 'ougo'
   const tempPP = 'https://rocket-league.com/content/media/users/avatar/600px/5d587182eb1640995184.png'
@@ -30,7 +43,13 @@ export default function Header(props) {
           <Link to={tempUsername}>
             <img src={tempPP} alt='Profil' />
           </Link>
-          { showDropdown && <Dropdown username={tempUsername} hideDropdown={() => setShowDropdown(false)} /> }
+          { showDropdown &&
+            <Dropdown
+              username={tempUsername}
+              hideDropdown={() => setShowDropdown(false)}
+              disconnection={() => disconnection()}
+            />
+          }
         </div>
       </div>
       :
@@ -57,7 +76,7 @@ function Dropdown(props) {
       <Question />
       A propos
     </Link>
-    <Link to='/' onClick={() => props.hideDropdown()}>
+    <Link to='/' onClick={() => props.disconnection()}>
       <Logout />
       Déconnexion
     </Link>

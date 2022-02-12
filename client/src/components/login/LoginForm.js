@@ -12,6 +12,7 @@ import GoogleLoginBtn from './GoogleLoginBtn';
 
 export default function LoginForm(props) {
   const { register, handleSubmit, formState: { errors } } = useForm();
+  const [googleLoginError, setGoogleLoginError] = useState()
   const [showPassword, setShowPassword] = useState(false)
   
   const onSubmit = data => {
@@ -23,7 +24,7 @@ export default function LoginForm(props) {
       <form onSubmit={handleSubmit(onSubmit)}>
         <p className='form-title'>Connexion</p>
         
-        <GoogleLoginBtn />
+        <GoogleLoginBtn loginError={err => setGoogleLoginError(err)} />
         <div className='separation'><p>ou connectez-vous par email</p></div>
         
         <div className={`${errors.email && 'input-group-error'} input-group`}>
@@ -68,6 +69,11 @@ export default function LoginForm(props) {
           <span onClick={() => props.setShowForm('forgotPassword')}>Mot de passe oublié</span>
         </div>
         
+        { googleLoginError && 
+          <div className='google-error'>
+            <ErrorMsg msg={googleLoginError} /> 
+          </div> 
+        }
       </form>
     </div>
   )

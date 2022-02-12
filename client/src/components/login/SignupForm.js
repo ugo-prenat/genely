@@ -11,6 +11,7 @@ import GoogleSignupBtn from './GoogleSignupBtn';
 export default function SignupForm() {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [showPassword, setShowPassword] = useState(false)
+  const [googleSignupError, setGoogleSignupError] = useState()
   
   const onSubmit = data => {
     console.log(data)
@@ -21,7 +22,7 @@ export default function SignupForm() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <p className='form-title'>Inscription</p>
         
-        <GoogleSignupBtn />
+        <GoogleSignupBtn signupError={err => setGoogleSignupError(err)} />
         <div className='separation'><p>ou inscrivez-vous par email</p></div>
         
         <div className={`${errors.email && 'input-group-error'} input-group`}>
@@ -65,6 +66,11 @@ export default function SignupForm() {
           <p>Vous avez déjà un compte ? <Link to='/login'>Se connecter</Link></p>
         </div>
         
+        { googleSignupError && 
+          <div className='google-error'>
+            <ErrorMsg msg={googleSignupError} /> 
+          </div> 
+        }
       </form>
     </div>
   )
