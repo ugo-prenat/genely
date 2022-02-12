@@ -39,26 +39,25 @@ form {
     bottom: 50%;
     background: $color-dark-100;
   }
-  .input-group {
+  .input-group {   
     position: relative;
     border-radius: 7px;
-    height: 53px;
     margin: 30px 0;
     background: $color-dark-300;
     label {
       position: absolute;
-      top: 15px;
-      left: 10px;
+      top: -10px;
+      left: 12px;
       padding: 0 7px;
       background: $color-dark-300;
       color: $color-dark-100;
       cursor: text;
       padding: 0 5px;
-      transition: top .15s ease-in, font-size .15s ease-in;
+      font-size: 14px;
+      font-weight: 500;
+      user-select: none;
     }
     input {
-      position: absolute;
-      top: 0;
       width: calc(100% - 30px - 4px);
       font-family: $poppins;
       padding: 13px 15px;
@@ -68,38 +67,67 @@ form {
       border-radius: 7px;
       border: 2px solid $color-dark-100;
       outline: none;
-      z-index: 1;
       &:focus {
         border: 2px solid $color-blue-200;
         & + label {
           color: $color-blue-200;
-          top: -10px;
-          font-size: 14px;
-          font-weight: 500;
-          z-index: 2;
         }
+      }
+    }
+    &-error {
+      input {
+        border: 2px solid $error-color;
+        &:focus {
+          border: 2px solid $error-color;
+          & + label {
+            color: $error-color;
+          }
+        }
+      }
+      label {
+        color: $error-color;
       }
     }
   }
   .password-eye {
     position: absolute;
-    right: 0;
-    width: 24px;
-    height: 24px;
-    margin-right: 5px;
+    top: 15px;
+    right: 10px;
+    background: $color-dark-300;
+    height: 25px;
+    width: 25px;
     cursor: pointer;
-    z-index: 2;
-    background: red;
+    svg path, svg circle {
+      stroke: $color-grey;
+    }
   }
   .submit-btn {
     margin: 20px 0 10px;
     user-select: none;
   }
-}
-.input-field:not(:placeholder-shown).input-field:not(:focus) + label {
-  color: $color-dark-100;
-  top: -10px;
-  font-size: 14px;
-  z-index: 2;
-  font-weight: 500;
+  .error-msg {
+    position: absolute;
+    bottom: -24px;
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    color: $error-color;
+    svg {
+      width: 18px;
+      height: 18px;
+      margin-right: 5px;
+    }
+  }
+  .bottom-links {
+    font-size: 13px;
+    text-align: center;
+    color: $color-grey;
+    font-weight: 300;
+    user-select: none;
+    a, span {
+      text-decoration: underline;
+      color: $color-blue-100;
+      cursor: pointer;
+    }
+  }
 }

@@ -44,8 +44,8 @@ export default function Login() {
           
           <div className='separation'><p>ou connectez-vous par email</p></div>
           
-          <div className='input-group'>
-            <input 
+          <div className={`${errors.email && 'input-group-error'} input-group`}>
+            <input
               {...register(
                 'email',
                 {
@@ -56,30 +56,25 @@ export default function Login() {
                   }
                 }
               )}
-              type='email'
-              placeholder=' '
-              className='input-field'
-              autoFocus
+              type='text'
             />
             <label>Email</label>
             { errors.email && <ErrorMsg msg={errors.email.message} /> }          
           </div>
           
-          <div className='input-group'>
+          <div className={`${errors.password && 'input-group-error'} input-group`}>
             <input 
               {...register(
                 'password',
                 { required: 'Mot de passe obligatoire' }
               )}
               type={showPassword ? 'text' : 'password'}
-              placeholder=' '
-              className='input-field'
             />
             <label>Mot de passe</label>
             
-           {/*  <div className='password-eye' onClick={() => setShowPassword(!showPassword)}>
-              { showPassword ? <EyeClose /> : <EyeOpen /> }
-            </div> */}
+            <div className='password-eye' onClick={() => setShowPassword(!showPassword)}>
+              { showPassword ? <EyeOpen /> : <EyeClose /> }
+            </div>
             
             { errors.password && <ErrorMsg msg={errors.password.message} /> }          
           </div>
@@ -101,7 +96,7 @@ export default function Login() {
         <form onSubmit={handleSubmit(onSubmit)}>
           <p className='form-title'>Connexion</p>
           
-          <div className='input-group active'>
+          <div className={`${errors.email && 'input-group-error'} input-group`}>
             <label>Email</label>
             <input 
               {...register(
@@ -114,7 +109,6 @@ export default function Login() {
                   }
                 }
               )}
-              autoFocus
             />
             { errors.email && <ErrorMsg msg={errors.email.message} /> }          
           </div>
