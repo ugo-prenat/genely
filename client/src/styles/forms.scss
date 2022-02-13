@@ -99,6 +99,13 @@ form {
       }
     }
   }
+  .signup-fullname-input-group {
+    display: flex;
+    justify-content: space-between;
+    .input-group {
+      width: 48%;
+    }
+  }
   .password-eye {
     position: absolute;
     top: 15px;

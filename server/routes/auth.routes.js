@@ -1,5 +1,10 @@
 require('dotenv').config()
+
+const bcrypt = require('bcrypt')
+const saltRounds = 10;
+
 const jwt = require('jsonwebtoken')
+
 const express = require('express')
 const router = express.Router()
 
@@ -43,30 +48,68 @@ router.post('/signup/google', async(req, res) => {
   const { name, email, picture } = ticket.getPayload()
   const isEmailExists = await Users.findOne({ email })
   
-  if (isEmailExists) res.status(400).send({ status: 400, msg: 'Un compte est déjà rattaché à cette adresse mail' })
-  else {
-    const userId = await getNewId()
-    const username = await getUsername(ticket.getPayload(), userId)
-    
-    const user = new Users({
-      id: userId,
-      username,
-      fullName: name,
-      email,
-      password: undefined,
-      avatarUrl: picture,
-      isAdmin: false,
-      publicComponents: 0,
-      privateComponents: 0
-    })
-    
-    const jwtToken = generateAccessToken(user)
-    
-    await user.save(err => {
-      if (err) res.status(400).send({ status: 400, msg: err })
-      else res.status(200).send({ status: 200, token: jwtToken })
-    })
+  if (isEmailExists) {
+    res.status(400).send({ status: 400, msg: 'Un compte est déjà rattaché à cette adresse mail' })
+    return
   }
+  const userId = await getNewId()
+  const username = await getUsername(ticket.getPayload(), userId)
+  
+  const user = new Users({
+    id: userId,
+    username,
+    fullName: name,
+    email,
+    password: undefined,
+    avatarUrl: picture,
+    isAdmin: false,
+    publicComponents: 0,
+    privateComponents: 0
+  })
+  
+  const jwtToken = generateAccessToken(user)
+  
+  await user.save(err => {
+    if (err) res.status(401).send({ status: 400, error: { msg: err }})
+    else res.status(200).send({ status: 200, token: jwtToken })
+  })
+  
+})
+router.post('/signup', async (req, res) => {
+  // Signup manually
+  const data = req.body
+  const email = data.email.toLowerCase()
+  const username = data.username.toLowerCase()
+  
+  if (await Users.findOne({ email })) {
+    res.status(400).send({ status: 400, error: { input: 'email', msg: 'Cet email est rattaché à un compte' }})
+    return;
+  }
+  if (await Users.findOne({ username })) {
+    res.status(400).send({ status: 400, error: { input: 'username', msg: 'Nom d\'utilisateur déjà pris' }})
+    return;
+  }
+  
+  const fullName = data.firstname + ' ' + data.lastname
+  const password = await bcrypt.hash(data.password, saltRounds)
+  const user = new Users({
+    id: await getNewId(),
+    username,
+    fullName,
+    email,
+    password,
+    avatarUrl: 'https://oasys.ch/wp-content/uploads/2019/03/photo-avatar-profil.png',
+    isAdmin: false,
+    publicComponents: 0,
+    privateComponents: 0
+  })
+  
+  const jwtToken = generateAccessToken(user)
+  
+  await user.save(err => {
+    if (err) res.status(401).send({ status: 401, error: { msg: err }})
+    else res.status(200).send({ status: 200, token: jwtToken })
+  })
 })
 
 

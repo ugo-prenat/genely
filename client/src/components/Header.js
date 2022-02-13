@@ -14,7 +14,7 @@ export default function Header(props) {
   const isAuth = props.isAuth
   
   useEffect(() => {
-    console.log('Auth', isAuth);
+    //console.log('Auth', isAuth);
   }, [isAuth])
   
   const disconnection = () => {
