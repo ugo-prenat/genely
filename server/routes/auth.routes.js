@@ -29,11 +29,29 @@ router.post('/login/google', async (req, res) => {
   
   // Check if user exists
   const user = await Users.findOne({ email })
-  if (!user) res.status(400).send({ status: 400, msg: 'Aucun compte n\'est rattaché à cet email' })
-  else {
-    const jwttoken = generateAccessToken(user)
-    res.status(200).send({ status: 200, token: jwttoken })
+  if (!user) {
+    res.status(400).send({ status: 400, msg: 'Aucun compte n\'est rattaché à cet email' })
+    return
+  } 
+  const jwtToken = generateAccessToken(user)
+  res.status(200).send({ status: 200, token: jwtToken })
+})
+router.post('/login', async (req, res) => {
+  // Login manually
+  const data = req.body
+  const email = data.email
+  const user = await Users.findOne({ email })
+  
+  if (!user || !user.password) {
+    return res.status(400).send({ status: 400, error: { input: 'email', msg: 'Cet email n\'est rattaché à aucun compte' }})
   }
+  // Check if the given password is correct
+  else if (!bcrypt.compareSync(data.password, user.password)) {
+    return res.status(400).send({ status: 400, error: { input: 'password', msg: 'mot de passe incorrect' }})
+  }
+
+  const jwtToken = generateAccessToken(user)
+  res.status(200).send({ status: 200, token: jwtToken })
 })
 router.post('/signup/google', async(req, res) => {
   // Signup with Google
