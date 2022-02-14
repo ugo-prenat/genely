@@ -10,12 +10,9 @@ function App() {
         <p>La plateforme est en cours de développement...</p>
       </div>
       
-      <footer>
-        <a href="https://dev.genely.dev/">Accéder à la version dev</a>
-        <a href='https://github.com/ugo-prenat/genely/tree/dev'>
-          <Github />
-        </a>
-      </footer>
+      <a href='https://github.com/ugo-prenat/genely'>
+        <Github />
+      </a>
     </div>
   );
 }
