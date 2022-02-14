@@ -7,6 +7,7 @@ import App from './App';
 import './styles/index.scss'
 import './styles/reset.scss'
 import './styles/buttons.scss'
+import './styles/loading.scss'
 
 ReactDOM.render(
   <BrowserRouter>

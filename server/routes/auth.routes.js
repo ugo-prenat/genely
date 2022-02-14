@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt')
 const saltRounds = 10;
 
 const jwt = require('jsonwebtoken')
+const authenticateToken = require('../middlewares/authenticateToken')
 
 const express = require('express')
 const router = express.Router()
@@ -14,8 +15,9 @@ const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID)
 const db = require('../db/export')
 const Users = db.schema.users
 
-router.get('/', (req, res) => {
-  res.status(200).send({ msg: 'auth' })
+router.get('/', authenticateToken, (req, res) => {
+  // Return a user based on his authentication token
+  res.status(200).send({ status: 200, user: req.user })
 })
 router.post('/login/google', async (req, res) => {
   // Login with Google

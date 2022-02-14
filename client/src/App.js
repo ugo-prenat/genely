@@ -14,12 +14,8 @@ import CreateComponent from "./components/pages/CreateComponent";
 import Header from "./components/Header";
 
 function App() {
-  const [isAuth, setIsAuth] = useState(false)
   const token = localStorage.getItem('token')
-  
-  useEffect(() => {
-    setIsAuth(token ? true : false)
-  }, [token])
+  const [isAuth] = useState(token ? true : false)
   
   return (
     <div className="App">
@@ -30,7 +26,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/settings' element={<Settings />} />
-        <Route path='/new-component' element={<CreateComponent />} />
+        <Route path='/new-component' element={<CreateComponent isAuth={isAuth} />} />
         <Route path='/about' element={<About />} />
         <Route path='/:username' element={<Profil />} />
         <Route path='/:username/:component' element={<Component />} />

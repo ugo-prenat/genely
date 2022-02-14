@@ -1,0 +1,13 @@
+@import './variables';
+
+.skeleton-loading {
+  background: red;
+  
+}
+.pp-container.skeleton-loading {
+  width: 20px;
+  height: 40px;
+  border-radius: 50%;
+  margin-left: 20px;
+  background: $color-dark-200;
+}

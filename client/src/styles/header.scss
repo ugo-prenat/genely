@@ -10,6 +10,7 @@
   border-bottom: 1px solid $color-dark-100;
   h1 {
     font-size: 25px;
+    color: $color-white;
   }
   .right-part {
     height: 100%;
@@ -29,6 +30,9 @@
       height: 40px;
       border-radius: 50%;
     }
+    a {
+      height: 40px;
+    }
   }
   .btns {
     .tertiary-btn {
@@ -47,7 +51,7 @@
     a {
       display: flex;
       align-items: center;
-      color: $color-dark-100;
+      color: $color-dark-300;
       padding: 5px 10px;
       font-size: 14px;
       border-radius: 5px;

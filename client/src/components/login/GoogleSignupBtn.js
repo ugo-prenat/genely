@@ -30,10 +30,10 @@ export default function GoogleSignupBtn(props) {
   return (
     <GoogleLogin
       render={renderProps => (
-        <button className='google-btn' onClick={renderProps.onClick} disabled={renderProps.disabled}>
+        <p className='google-btn' onClick={renderProps.onClick} disabled={renderProps.disabled}>
           <GoogleLogo />
           Inscription avec Google
-        </button>
+        </p>
       )}
       clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
       onSuccess={handleSuccess}

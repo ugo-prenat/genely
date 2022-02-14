@@ -1,9 +1,14 @@
+@import './variables';
+
 .login-component {
   h1 {
     position: absolute;
     top: 20px;
     right: 30px;
     font-size: 25px;
+    a {
+      color: $color-white;
+    }
   }
   .login-form {
     width: 450px;
