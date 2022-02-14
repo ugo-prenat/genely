@@ -1,13 +1,34 @@
 @import './variables';
 
 .skeleton-loading {
-  background: red;
-  
+  position: relative;
+  background: $color-dark-300;
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: translateX(-100%);
+    background-image: linear-gradient(
+      90deg,
+      rgba($color-dark-200, 0) 0,
+      rgba($color-dark-200, 0.2) 20%,
+      rgba($color-dark-200, 0.5) 60%,
+      rgba($color-dark-200, 0)
+    );
+    animation: shimmer 2s infinite;
+    
+  }
+  @keyframes shimmer {
+    100% { transform: translateX(100%); }
+  }
 }
 .pp-container.skeleton-loading {
   width: 20px;
   height: 40px;
   border-radius: 50%;
   margin-left: 20px;
-  background: $color-dark-200;
+  background: $color-dark-300;
 }

@@ -9,7 +9,7 @@ export default function CreateComponent(props) {
     document.title = 'Nouveau composant'
     
     console.log('auth :', isAuth);
-  }, [])
+  }, [isAuth])
   
   return <div className='main-component'>
     {  

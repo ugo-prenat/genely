@@ -23,7 +23,7 @@ export default function Header(props) {
     const getUser = async() => {
       const res = await fetch.get('/auth/')
       setUser(res.user)
-      //setIsLoading(false)
+      setIsLoading(false)
     }
     getUser()
     

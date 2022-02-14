@@ -41,7 +41,7 @@
   }
   .dropdown {
     position: absolute;
-    bottom: -145px;
+    top: 80px;
     right: 0;
     display: flex;
     flex-direction: column;
@@ -51,6 +51,7 @@
     a {
       display: flex;
       align-items: center;
+      height: 27px;
       color: $color-dark-300;
       padding: 5px 10px;
       font-size: 14px;
