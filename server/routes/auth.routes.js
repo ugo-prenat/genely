@@ -16,7 +16,7 @@ const db = require('../db/export')
 const Users = db.schema.users
 
 router.get('/', authenticateToken, (req, res) => {
-  // Return a user based on his authentication token
+  // Return user based on his authentication token
   res.status(200).send({ status: 200, user: req.user })
 })
 router.post('/login/google', async (req, res) => {
@@ -32,8 +32,7 @@ router.post('/login/google', async (req, res) => {
   // Check if user exists
   const user = await Users.findOne({ email })
   if (!user) {
-    res.status(400).send({ status: 400, msg: 'Aucun compte n\'est rattaché à cet email' })
-    return
+    return res.status(400).send({ status: 400, msg: 'Aucun compte n\'est rattaché à cet email' })
   } 
   const jwtToken = generateAccessToken(user)
   res.status(200).send({ status: 200, token: jwtToken })
@@ -44,8 +43,11 @@ router.post('/login', async (req, res) => {
   const email = data.email
   const user = await Users.findOne({ email })
   
-  if (!user || !user.password) {
+  if (!user) {
     return res.status(400).send({ status: 400, error: { input: 'email', msg: 'Cet email n\'est rattaché à aucun compte' }})
+  }
+  else if (user.isAuthWithGoogle) {
+    return res.status(400).send({ status: 400, error: { input: 'email', msg: 'Connectez-vous avec Google' }})
   }
   // Check if the given password is correct
   else if (!bcrypt.compareSync(data.password, user.password)) {
@@ -69,8 +71,7 @@ router.post('/signup/google', async(req, res) => {
   const isEmailExists = await Users.findOne({ email })
   
   if (isEmailExists) {
-    res.status(400).send({ status: 400, msg: 'Un compte est déjà rattaché à cette adresse mail' })
-    return
+    return res.status(400).send({ status: 400, msg: 'Un compte est déjà rattaché à cette adresse mail' })
   }
   const userId = await getNewId()
   const username = await getUsername(ticket.getPayload(), userId)
@@ -80,7 +81,8 @@ router.post('/signup/google', async(req, res) => {
     username,
     fullName: name,
     email,
-    password: undefined,
+    password: null,
+    isAuthWithGoogle: true,
     avatarUrl: picture,
     isAdmin: false,
     publicComponents: 0,
@@ -102,12 +104,10 @@ router.post('/signup', async (req, res) => {
   const username = data.username.toLowerCase()
   
   if (await Users.findOne({ email })) {
-    res.status(400).send({ status: 400, error: { input: 'email', msg: 'Cet email est rattaché à un compte' }})
-    return;
+    return res.status(400).send({ status: 400, error: { input: 'email', msg: 'Cet email est rattaché à un compte' }})
   }
   if (await Users.findOne({ username })) {
-    res.status(400).send({ status: 400, error: { input: 'username', msg: 'Nom d\'utilisateur déjà pris' }})
-    return;
+    return res.status(400).send({ status: 400, error: { input: 'username', msg: 'Nom d\'utilisateur déjà pris' }})
   }
   
   const fullName = data.firstname + ' ' + data.lastname
@@ -118,6 +118,7 @@ router.post('/signup', async (req, res) => {
     fullName,
     email,
     password,
+    isAuthWithGoogle: false,
     avatarUrl: 'https://oasys.ch/wp-content/uploads/2019/03/photo-avatar-profil.png',
     isAdmin: false,
     publicComponents: 0,
@@ -131,6 +132,22 @@ router.post('/signup', async (req, res) => {
     else res.status(200).send({ status: 200, token: jwtToken })
   })
 })
+router.post('/reset/password', async(req, res) => {
+  // Reset password
+  const email = req.body.email
+  const user = await Users.findOne({ email })
+  
+  if (!user) {
+    return res.status(400).send({ status: 400, error: { input: 'email', msg: 'Cet email n\'est rattaché à aucun compte' }})
+  } else if (user.isAuthWithGoogle) {
+    return res.status(400).send({ status: 400, error: { input: 'email', msg: 'Connectez-vous avec Google' }})
+  }
+  // Send a reset password mail
+  return res.status(200).send({ status: 200, msg: 'Email sent' })
+})
+
+
+
 
 
 /* FUNCTIONS */
@@ -139,7 +156,7 @@ async function getNewId() {
   const users = await Users.find()
   
   const highestId = Math.max.apply(Math, users.map(user => { return user.id; }))
-  return highestId + 1
+  return highestId === -Infinity ? 0 : highestId + 1
 }
 async function getUsername(data, userId) {
   // Get user's data from Google token

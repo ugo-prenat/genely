@@ -25,6 +25,3 @@ const routes = require('./routes/export.routes')
 app.use('/auth', routes.auth)
 app.use('/users', routes.users)
 app.use('/components', routes.components)
-
-// Test mail 
-const mail = require('./middlewares/mail/mailer')
