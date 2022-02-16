@@ -1,8 +1,8 @@
-const transporter = require('./transporter')
+const componentCreation = require('./templates/componentCreation')
+const confirmResetPassword = require('./templates/confirmResetPassword')
+const resetPassword = require('./templates/resetPassword')
+const signup = require('./templates/signup')
 
 module.exports = {
-  componentCreation: require('./templates/componentCreation'),
-  confirmResetPassword: require('./templates/confirmResetPassword'),
-  resetPassword: require('./templates/resetPassword'),
-  signup: require('./templates/signup')
+  send: { componentCreation, confirmResetPassword, resetPassword, signup }
 }

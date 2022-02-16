@@ -2,7 +2,6 @@ const backendUrl = process.env.REACT_APP_BACKEND_URL
 const token = localStorage.getItem('token')
 
 const get = async url => {
-  // Make a GET request
   const req = await fetch(
     `${backendUrl}${url}`,
     {
@@ -15,7 +14,6 @@ const get = async url => {
   return res
 }
 const post = async (url, data) => {
-  // Make a POST request
   const req = await fetch(
     `${backendUrl}${url}`,
     {

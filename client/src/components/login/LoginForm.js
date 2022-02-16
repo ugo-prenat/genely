@@ -11,10 +11,13 @@ import GoogleLoginBtn from './GoogleLoginBtn';
 import { request as fetch } from '../../controller/request';
 
 export default function LoginForm(props) {
-  const { register, handleSubmit, formState: { errors }, setError } = useForm();
+  const { register, handleSubmit, formState, setError } = useForm();
+  const { isSubmitting, errors } = formState
   const [googleLoginError, setGoogleLoginError] = useState()
   const [showPassword, setShowPassword] = useState(false)
   const navigate = useNavigate()
+  
+  
   
   const onSubmit = data => {
     fetch.post('/auth/login', data)
@@ -82,7 +85,7 @@ export default function LoginForm(props) {
         { googleLoginError && 
           <div className='google-error'>
             <ErrorMsg msg={googleLoginError} /> 
-          </div> 
+          </div>
         }
       </form>
     </div>

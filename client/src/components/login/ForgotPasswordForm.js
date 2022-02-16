@@ -8,8 +8,6 @@ import { request as fetch } from '../../controller/request'
 export default function ForgotPasswordForm(props) {
   const [SuccessReset, setSuccessReset] = useState(false)
   
-  
-  
   return (
     <div className='forgot-password-form'>
       {
@@ -26,7 +24,7 @@ export function Form(props) {
   const { register, handleSubmit, formState: { errors }, setError } = useForm();
   
   const onSubmit = data => {
-    fetch.post('/auth/reset/password', data)
+    fetch.post('/auth/reset/password?sendEmail=true', data)
     .then(res => {
       if (res.status === 200) {
         console.log(res);

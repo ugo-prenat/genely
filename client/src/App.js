@@ -9,6 +9,7 @@ import Profil from "./components/pages/Profil";
 import Settings from "./components/pages/Settings"
 import Component from "./components/pages/Component";
 import PageNotFound from "./components/pages/PageNotFound";
+import ResetPassword from "./components/pages/ResetPassword";
 import CreateComponent from "./components/pages/CreateComponent";
 
 import Header from "./components/Header";
@@ -30,6 +31,7 @@ function App() {
         <Route path='/about' element={<About />} />
         <Route path='/:username' element={<Profil />} />
         <Route path='/:username/:component' element={<Component />} />
+        <Route path='/reset/password/:token' element={<ResetPassword />} />
         <Route path='*' element={<PageNotFound />} />
       </Routes>
     </div>
