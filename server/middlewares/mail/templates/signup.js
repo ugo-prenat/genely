@@ -1,11 +1,12 @@
 const transporter = require('../transporter')
+const template = require('../models/signup')
 
-module.exports = () => {
+module.exports = to => {
   const options = {
     from: process.env.MAIL_GENELY,
-    to: process.env.MAIL_ADMIN,
-    subject: 'Genely - Inscription',
-    html: '<p>Merci de vous être inscrit sur Genely</p>'
+    to,
+    subject: 'Bienvenu sur Genely !',
+    html: template()
   }
   transporter.sendMail(options, (err, info) => { if (err) console.log(err) })
 }

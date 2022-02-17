@@ -96,7 +96,10 @@ router.post('/signup/google', async(req, res) => {
   
   await user.save(err => {
     if (err) res.status(401).send({ status: 400, error: { msg: err }})
-    else res.status(200).send({ status: 200, token: jwtToken })
+    else {
+      mailer.send.signup(email)
+      res.status(200).send({ status: 200, token: jwtToken })
+    }
   })
   
 })
