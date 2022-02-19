@@ -1,0 +1,16 @@
+.create-component-component {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  .not-connected {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  a {
+    font-size: 15px;
+    margin-top: 5px;
+    text-decoration: underline;
+  }
+}

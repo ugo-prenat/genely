@@ -19,7 +19,6 @@ export default function ResetPassword() {
   const { token } = useParams()
   
   const onSubmit = async (password) => {
-    console.log(password);
     await fetch(
       `${URL}/users`,
       {
