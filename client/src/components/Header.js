@@ -12,7 +12,7 @@ import '../styles/header.scss'
 
 export default function Header(props) {
   const navigate = useNavigate()
-  const isAuth = props.isAuth
+  const [isAuth, setIsAuth] = useState(props.isAuth)
   
   const [showDropdown, setShowDropdown] = useState(false);
   const [isLoading, setIsLoading] = useState(isAuth)
@@ -21,8 +21,10 @@ export default function Header(props) {
   useEffect(() => {
     // Get user
     const getUser = async() => {
-      const res = await fetch.get('/auth/')
-      setUser(res.user)
+      const res = await fetch.get('/auth')
+      if (res.status !== 200) setIsAuth(false)
+      else setUser(res.user)
+      
       setIsLoading(false)
     }
     getUser()

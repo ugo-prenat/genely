@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from "react-hook-form";
 
-import ErrorMsg from './ErrorMsg';
+import ErrorMsg from '../forms/ErrorMsg';
 import EyeOpen from '../../assets/svg/EyeOpen'
 import EyeClose from '../../assets/svg/EyeClose'
 
@@ -12,7 +12,7 @@ import { request as fetch } from '../../controller/request';
 
 export default function LoginForm(props) {
   const { register, handleSubmit, formState, setError } = useForm();
-  const { isSubmitting, errors } = formState
+  const { errors } = formState
   const [googleLoginError, setGoogleLoginError] = useState()
   const [showPassword, setShowPassword] = useState(false)
   const navigate = useNavigate()

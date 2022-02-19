@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 
 import { request as fetch } from '../../controller/request';
 
-import ErrorMsg from './ErrorMsg';
+import ErrorMsg from '../forms/ErrorMsg';
 import EyeOpen from '../../assets/svg/EyeOpen'
 import EyeClose from '../../assets/svg/EyeClose'
 
@@ -69,7 +69,7 @@ export default function SignupForm() {
                 required: 'Nom d\'utilisateur obligatoire',
                 validate: {
                   noSpace: value => !/\s/.test(value) || 'Ne peut pas contenir d\'espace',
-                  noSpecialChar: value => !/[$&+,:;=?@#|\/éçàè'<>.^*()%!]/.test(value) || 'Ne peut pas contenir de caractère spécial'
+                  noSpecialChar: value => !/[$&+,:;=?@#|/éçàè'<>.^*()%!]/.test(value) || 'Ne peut pas contenir de caractère spécial'
                 }
               }
             )}

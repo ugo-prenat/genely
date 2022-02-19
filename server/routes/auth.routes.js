@@ -138,31 +138,6 @@ router.post('/signup', async (req, res) => {
     else res.status(200).send({ status: 200, token: jwtToken })
   })
 })
-router.post('/reset/password', async(req, res) => {
-  // Reset password
-  if (req.query.sendEmail) {
-    // Send an email with the reset password link
-    const email = req.body.email
-    const user = await Users.findOne({ email })
-    
-    if (!user) {
-      return res.status(400).send({ status: 400, error: { input: 'email', msg: 'Cet email n\'est rattaché à aucun compte' }})
-    } else if (user.isAuthWithGoogle) {
-      return res.status(400).send({ status: 400, error: { input: 'email', msg: 'Connectez-vous avec Google' }})
-    }
-    
-    mailer.send.resetPassword(email, generateAccessToken(user))
-    return res.status(200).send({ status: 200, msg: 'Email sent to '+email })
-  }
-  else if (req.query.updatePassword) {
-    // Update the user's profile with the new password
-    
-  }
-  
-  
-  
-})
-
 
 
 
