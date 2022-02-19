@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import CreateComponentForm from '../createComponent/CreateComponentForm';
+import { BigForm as CreateComponentForm } from '../createComponent/BigForm';
 import ProgressBar from '../createComponent/ProgressBar';
 
 import '../../styles/createComponent.scss'
@@ -19,8 +19,10 @@ export default function CreateComponent(props) {
     {  
       isAuth ?
         <>
-          <h2>Nouveau composant</h2>
-          <ProgressBar />
+          <div className='header'>
+            <h2>Nouveau composant</h2>
+            <ProgressBar />
+          </div>
           <CreateComponentForm />
         </>
         :

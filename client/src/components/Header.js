@@ -39,7 +39,7 @@ export default function Header(props) {
     window.location.reload(false);
   }
   
-  return <div className='header'>
+  return <div className='header-component'>
     <Link to='/'>
       <h1>Genely</h1>  
     </Link>
