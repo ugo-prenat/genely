@@ -17,6 +17,47 @@
       font-size: 13px;
       opacity: .3;
       margin-top: 5px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .radio-input {
+      input {
+        display: none;
+      }
+      input:checked + label {
+        border-color: $color-blue-200;
+        svg path, svg circle {
+          stroke: $color-blue-200;
+        }
+        .title {
+          color: $color-blue-200;
+        }
+      }
+      label {
+        display: flex;
+        padding: 10px;
+        border: 2px solid $color-dark-100;
+        margin: 20px 0;
+        border-radius: 7px;
+        transition: .1s;
+        cursor: pointer;
+        .description {
+          font-size: 13px;
+          opacity: .3;
+        }
+        svg {
+          height: auto;
+          width: 25px;
+          margin-right: 10px;
+          path, circle {
+            transition: .1s;
+          }
+        }
+        .title {
+          transition: .1s;
+        }
+      }
     }
   }
   

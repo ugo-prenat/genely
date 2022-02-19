@@ -53,7 +53,7 @@ export function Form1() {
         
         <div className='separation'><p>visibilité du composant</p></div>
         
-        <ComponentVisibility />
+        <ComponentVisibility register={register} />
         
         <button type='submit' className='submit-btn primary-btn'>Étape suivante</button>
         
