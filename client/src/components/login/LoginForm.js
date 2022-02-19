@@ -17,8 +17,6 @@ export default function LoginForm(props) {
   const [showPassword, setShowPassword] = useState(false)
   const navigate = useNavigate()
   
-  
-  
   const onSubmit = data => {
     fetch.post('/auth/login', data)
     .then(res => {

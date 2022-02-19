@@ -35,7 +35,6 @@ export function Form(props) {
     fetch.post('/users/reset/password', data)
     .then(res => {
       if (res.status === 200) {
-        console.log(res);
         props.setSuccessReset()
       } else {
         // Handle error
