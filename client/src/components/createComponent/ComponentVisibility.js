@@ -8,10 +8,12 @@ export default function ComponentVisibility(props) {
     <div>
       <div className='radio-input'>
           <input
-          {...props.register("weather")}
+          {...props.register('visibility')}
             type='radio'
             name='visibility'
             id='public'
+            value='public'
+            checked
           />
         <label htmlFor='public'>
           <Globe />
@@ -19,15 +21,17 @@ export default function ComponentVisibility(props) {
             <p className='title'>Public</p>
             <p className='description'>N'importe qui peut voir ce composant</p>
           </div>
+          <span className='checkmark'></span>
         </label>
       </div>
       
       <div className='radio-input'>
           <input
-          {...props.register("weather")}
+          {...props.register('visibility')}
             type='radio'
             name='visibility'
             id='private'
+            value='private'
           />
         <label htmlFor='private'>
           <Lock />
@@ -35,6 +39,7 @@ export default function ComponentVisibility(props) {
             <p className='title'>Privé</p>
             <p className='description'>Vous seul pouvez voir ce composant</p>
           </div>
+          <span className='checkmark'></span>
         </label>
       </div>
     </div>

@@ -5,7 +5,7 @@ import ErrorMsg from '../forms/ErrorMsg';
 import ComponentVisibility from './ComponentVisibility';
 
 export function Form1() {
-  const { register, handleSubmit, formState: { errors }, setError, getValues } = useForm();
+  const { register, handleSubmit, formState: { errors }, setError } = useForm();
   const [shortname, setShortname] = useState('')
   
   const username = 'ougo'
