@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 
 import Logout from '../assets/svg/Logout';
@@ -6,30 +6,14 @@ import Profil from '../assets/svg/Profil';
 import Settings from '../assets/svg/Settings';
 import Question from '../assets/svg/Question';
 
-import { request as fetch } from '../controller/request'
-
 import '../styles/header.scss'
 
 export default function Header(props) {
   const navigate = useNavigate()
-  const [isAuth, setIsAuth] = useState(props.isAuth)
+  const isAuth = props.isAuth
+  const user = props.user
   
   const [showDropdown, setShowDropdown] = useState(false);
-  const [isLoading, setIsLoading] = useState(isAuth)
-  const [user, setUser] = useState()
-  
-  useEffect(() => {
-    // Get user
-    const getUser = async() => {
-      const res = await fetch.get('/auth')
-      if (res.status !== 200) setIsAuth(false)
-      else setUser(res.user)
-      
-      setIsLoading(false)
-    }
-    getUser()
-    
-  }, [isAuth])
   
   const disconnection = () => {
     setShowDropdown(false)
@@ -50,23 +34,20 @@ export default function Header(props) {
         <Link to='/new-component'>
           <p className='secondary-btn'>+ nouveau composant</p>
         </Link>
-        {
-          isLoading ? <div className='pp-container skeleton-loading'></div>
-          :
-          <div className='pp-container' onMouseEnter={() => setShowDropdown(true)} onMouseLeave={() => setShowDropdown(false)}>
-            <Link to={user.username}>
-              <img src={user.avatarUrl} alt='Profil' />
-            </Link>
-            { showDropdown &&
-              <Dropdown
-                isLoading={isLoading}
-                username={user.username}
-                hideDropdown={() => setShowDropdown(false)}
-                disconnection={() => disconnection()}
-              />
-            }
-          </div>
-        }
+        
+        <div className='pp-container' onMouseEnter={() => setShowDropdown(true)} onMouseLeave={() => setShowDropdown(false)}>
+          <Link to={user.username}>
+            <img src={user.avatarUrl} alt='Profil' />
+          </Link>
+          { showDropdown &&
+            <Dropdown
+              username={user.username}
+              hideDropdown={() => setShowDropdown(false)}
+              disconnection={() => disconnection()}
+            />
+          }
+        </div>
+        
       </div>
       :
       <div className='btns'>
@@ -79,10 +60,6 @@ export default function Header(props) {
 }
 
 function Dropdown(props) {
-  const isLoading = props.isLoading
-  
-  if (isLoading) return( <div className='loading'>Chargement</div> )
-  
   return <div className='dropdown'>
     <Link to={props.username} onClick={() => props.hideDropdown()}>
       <Profil />

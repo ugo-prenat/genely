@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import Home from "./components/pages/Home";
@@ -14,20 +14,45 @@ import CreateComponent from "./components/pages/CreateComponent";
 
 import Header from "./components/Header";
 
+import { request as fetch } from './controller/request'
+
 function App() {
   const token = localStorage.getItem('token')
-  const [isAuth] = useState(token ? true : false)
+  
+  const [isLoading, setIsLoading] = useState(true)
+  const [isAuth, setIsAuth] = useState()
+  const [user, setUser] = useState()
+  
+  useEffect(() => {
+    if (token) {
+      const getUser = async() => {
+        const res = await fetch.get('/auth')
+        if (res.status !== 200) setIsAuth(false)
+        else {
+          setUser(res.user)
+          setIsAuth(true)
+        }
+        
+      }
+      getUser()
+    }
+    else setIsAuth(false)
+    
+    setIsLoading(false)
+  }, [token])
+  
+  if (isLoading) return( <div className="loading">Chargement...</div> )
   
   return (
     <div className="App">
-      <Header isAuth={isAuth} />
+      <Header isAuth={isAuth} user={user} />
       
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/settings' element={<Settings />} />
-        <Route path='/new-component' element={<CreateComponent isAuth={isAuth} />} />
+        <Route path='/new-component' element={<CreateComponent isAuth={isAuth} user={user} />} />
         <Route path='/about' element={<About />} />
         <Route path='/:username' element={<Profil />} />
         <Route path='/:username/:component' element={<Component />} />

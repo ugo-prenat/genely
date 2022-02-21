@@ -8,6 +8,7 @@ import '../../styles/createComponent.scss'
 
 export default function CreateComponent(props) {
   const isAuth = props.isAuth
+  const user = props.user
   
   useEffect(() => {
     // Setup tab title
@@ -23,7 +24,7 @@ export default function CreateComponent(props) {
             <h2>Nouveau composant</h2>
             <ProgressBar />
           </div>
-          <CreateComponentForm />
+          <CreateComponentForm user={user} />
         </>
         :
         <div className='not-connected'>

@@ -4,15 +4,18 @@ import { useForm } from 'react-hook-form'
 import ErrorMsg from '../forms/ErrorMsg';
 import ComponentVisibility from './ComponentVisibility';
 
-export function Form1() {
+export function Form1(props) {
   const { register, handleSubmit, formState: { errors }, setError } = useForm();
+  const [visibility, setVisibility] = useState('public')
   const [shortname, setShortname] = useState('')
   
-  const username = 'ougo'
+  const username = props.username
   
   const onSubmit = data => {
+    data.visibility = visibility
     console.log(data);
   }
+  
   
   return (
     <div className='step-form-container'>
@@ -25,6 +28,7 @@ export function Form1() {
               { required: 'Champ obligatoire' }
             )}
             type='text'
+            autoComplete="off"
           />
           <label>Nom complet du composant</label>
           { errors.fullname && <ErrorMsg msg={errors.fullname.message} /> }          
@@ -45,15 +49,16 @@ export function Form1() {
             type='text'
             value={shortname}
             onChange={e => setShortname(e.target.value)}
+            autoComplete="off"
           />
           <label>Nom court du composant</label>
-          <p className='url-example'>url : genely.dev/{username}/{shortname}</p>
+          <p className='url-example'>https://genely.dev/{username}/{shortname}</p>
           { errors.shortname && <ErrorMsg msg={errors.shortname.message} /> }          
         </div>
         
         <div className='separation'><p>visibilité du composant</p></div>
         
-        <ComponentVisibility register={register} />
+        <ComponentVisibility register={register} visibility={visibility} setVisibility={visibility => setVisibility(visibility)} />
         
         <button type='submit' className='submit-btn primary-btn'>Étape suivante</button>
         

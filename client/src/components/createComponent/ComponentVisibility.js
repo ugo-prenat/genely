@@ -4,16 +4,18 @@ import Lock from '../../assets/svg/Lock'
 import Globe from '../../assets/svg/Globe'
 
 export default function ComponentVisibility(props) {
+  const visibility = props.visibility
+
   return (
     <div>
       <div className='radio-input'>
           <input
-          {...props.register('visibility')}
             type='radio'
             name='visibility'
             id='public'
             value='public'
-            checked
+            checked={visibility === 'public'}
+            onChange={() => props.setVisibility('public')}
           />
         <label htmlFor='public'>
           <Globe />
@@ -27,11 +29,12 @@ export default function ComponentVisibility(props) {
       
       <div className='radio-input'>
           <input
-          {...props.register('visibility')}
             type='radio'
             name='visibility'
             id='private'
             value='private'
+            checked={visibility === 'private'}
+            onChange={() => props.setVisibility('private')}
           />
         <label htmlFor='private'>
           <Lock />
