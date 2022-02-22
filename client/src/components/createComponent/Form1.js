@@ -21,7 +21,7 @@ export function Form1(props) {
       const res = await fetch.post('/components?step=1', data)
 
       if (res.status === 200) {
-        console.log(res);
+        props.nextStep(2, data)
       }
       else setError(res.error.input, { type: 'manual', message: res.error.msg })
     }
