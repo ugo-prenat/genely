@@ -4,12 +4,13 @@ const componentSchema = new mongoose.Schema({
   id: Number,
   shortname: String,
   fullname: String,
+  isPublic: Boolean,
   creator: {
     id: Number,
     username: String,
     avatarUrl: String
   },
-  isPublic: Boolean,
+  files: Object,
   technologies: {
     framework: {
       name: String,
