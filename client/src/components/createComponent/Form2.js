@@ -4,15 +4,38 @@ import { useForm } from 'react-hook-form'
 import Files from '../../assets/svg/Files';
 
 export function Form2() {
-  const { register, handleSubmit, getValues } = useForm();
-  //const [fileList, setFileList] = useState([]);
+  const { register, handleSubmit, setError } = useForm();
+  const [filesLength, setFilesLength] = useState()
   
   const wrapperRef = useRef(null);
 
-  const onDragEnter = () => wrapperRef.current.classList.add('dragover');
-  const onDragLeave = () => wrapperRef.current.classList.remove('dragover');
-  const onDrop = () => wrapperRef.current.classList.remove('dragover');
-
+  const onSelectFolder = e => {
+    const newFiles = e.target.files
+    
+    // Don't take node_modules folder and .env file
+    const files = Array.from(newFiles).filter(file => 
+      !file.webkitRelativePath.includes('/node_modules/') ||
+      !file.webkitRelativePath.includes('/.env')
+    )
+    
+    
+    
+    /*
+    
+      TODO
+    
+      dégager les node_modules et les fichier .env
+      set error si pas de fichier fourni
+      
+    */
+    
+    
+    
+    
+    
+    console.log(files);
+    setFilesLength(files.length)
+  }
   
   const onSubmit = data => {
     console.log(data);
@@ -25,7 +48,13 @@ export function Form2() {
         
         <p className='form-title'>Ajoutez votre code</p>
         
-        <div className='drop-file-input'>
+        <div
+          ref={wrapperRef}
+          className="drop-file-input"
+          onDragEnter={() => wrapperRef.current.classList.add('dragover')}
+          onDragLeave={() => wrapperRef.current.classList.remove('dragover')}
+          onDrop={() => wrapperRef.current.classList.remove('dragover')}
+        >
           <label>
               <Files />
               <p>Sélectionnez vos fichiers</p>
@@ -35,11 +64,14 @@ export function Form2() {
             type='file'
             webkitdirectory=''
             directory=''
+            onChange={onSelectFolder}
           />
       </div>
       
       <div className='files-data'>
-        <p>Des stats</p>
+        <p>
+          { filesLength ? `${filesLength} fichier${filesLength > 1 ? 's' : ''} ajouté${filesLength > 1 ? 's' : ''}` : 'En attente de fichiers...' }
+        </p>
       </div>
       
       <button type='submit' className='submit-btn primary-btn'>Étape suivante</button>

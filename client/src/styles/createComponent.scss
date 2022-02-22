@@ -93,7 +93,6 @@
       align-items: center;
       justify-content: center;
       border: 2px dashed $color-blue-200;
-      background-repeat: repeat-x;
       border-radius: 7px;
       padding: 50px 0;
       margin-top: 50px;
@@ -123,6 +122,18 @@
           margin-top: 10px;
         }
       }
+      &.dragover {
+        width: calc(100% - 4px);
+        height: calc(100% - 4px);
+        border-radius: 7px;
+        background: repeating-linear-gradient(
+          -55deg,
+          rgba(48, 67, 138, .4) 2px,
+          rgba(48, 67, 138, .4) 23px,
+          rgba(80, 118, 251, .1) 12px,
+          rgba(80, 118, 251, .1) 45px
+        );
+      }
     }
     .files-data {
       font-size: 13px;
@@ -130,11 +141,6 @@
       margin-top: 3px;
     }
   }
-  
-  
-  
-  
-  
   
   
   

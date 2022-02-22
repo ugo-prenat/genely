@@ -72,7 +72,11 @@ export default function Component() {
     <p>/ {username} / {component}</p>
     <div>
       <Code
-        customStyle={{background: 'red'}}
+        customStyle={{
+          background: '#1B1F2E',
+          border: '1px solid #555C76',
+          borderRadius: '7px'
+        }}
         language='jsx'
         style={theme}
       >
