@@ -24,21 +24,20 @@ function App() {
   const [user, setUser] = useState()
   
   useEffect(() => {
-    if (token) {
-      const getUser = async() => {
+    const getUser = async() => {
+      if (token) {
         const res = await fetch.get('/auth')
         if (res.status !== 200) setIsAuth(false)
         else {
           setUser(res.user)
           setIsAuth(true)
         }
-        
       }
-      getUser()
+      else setIsAuth(false)
+      setIsLoading(false)
     }
-    else setIsAuth(false)
+    getUser()
     
-    setIsLoading(false)
   }, [token])
   
   if (isLoading) return( <div className="loading">Chargement...</div> )

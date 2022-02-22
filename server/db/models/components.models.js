@@ -2,8 +2,8 @@ const mongoose = require('mongoose')
 
 const componentSchema = new mongoose.Schema({
   id: Number,
-  shortName: String,
-  fullName: String,
+  shortname: String,
+  fullname: String,
   creator: {
     id: Number,
     username: String,
