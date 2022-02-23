@@ -6,6 +6,8 @@ const componentController = require('../controllers/components/export.controller
 
 
 router.post('/', authenticateToken, componentController.create)
-
+router.delete('/', (req, res) => {
+  console.log(req.body);
+})
 
 module.exports = router

@@ -140,6 +140,11 @@
       color: $color-dark-100;
       margin-top: 3px;
     }
+    .error-container {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
   }
   
   
