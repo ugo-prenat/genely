@@ -16,8 +16,8 @@ export function Form2(props) {
   
   
   const onSelectFolder = async(e) => {
-    setIgnoreNodeModules(false)    
-    setIgnoreDsStoreFile(false)    
+    setIgnoreNodeModules(false)
+    setIgnoreDsStoreFile(false)
     setIgnoreEnvFile(false)
     setError(null)
     

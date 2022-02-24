@@ -34,17 +34,17 @@ export function Form1(props) {
       <form onSubmit={handleSubmit(onSubmit)}>
         
       <div className={`${errors.fullname && 'input-group-error'} input-group`}>
-          <input
-            {...register(
-              'fullname',
-              { required: 'Champ obligatoire' }
-            )}
-            type='text'
-            autoComplete='off'
-          />
-          <label>Nom complet du composant</label>
-          { errors.fullname && <ErrorMsg msg={errors.fullname.message} /> }          
-        </div>
+        <input
+          {...register(
+            'fullname',
+            { required: 'Champ obligatoire' }
+          )}
+          type='text'
+          autoComplete='off'
+        />
+        <label>Nom complet du composant</label>
+        { errors.fullname && <ErrorMsg msg={errors.fullname.message} /> }          
+      </div>
         
         <div className={`${errors.shortname && 'input-group-error'} input-group`}>
           <input

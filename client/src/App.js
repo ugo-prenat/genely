@@ -24,6 +24,8 @@ function App() {
   const [user, setUser] = useState()
   
   useEffect(() => {
+    //fetch.post('/filters', { name: 'SCSS', type: 'technology' })
+    
     const getUser = async() => {
       if (token) {
         const res = await fetch.get('/auth')

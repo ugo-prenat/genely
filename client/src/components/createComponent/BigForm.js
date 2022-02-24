@@ -7,7 +7,7 @@ import { Form3 as Step3 } from './Form3'
 import { request as fetch } from '../../controller/request'
 
 export function BigForm(props) {
-  const [showStep, setShowStep] = useState(2)
+  const [showStep, setShowStep] = useState(3)
   const [componentData, setComponentData] = useState()
   const user = props.user
   

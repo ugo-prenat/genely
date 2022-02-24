@@ -10,7 +10,7 @@ const componentSchema = new mongoose.Schema({
     username: String,
     avatarUrl: String
   },
-  tree: Object,
+  tree: Array,
   technologies: {
     framework: {
       name: String,
