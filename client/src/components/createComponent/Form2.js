@@ -4,54 +4,68 @@ import { useForm } from 'react-hook-form'
 import Files from '../../assets/svg/Files';
 import ErrorMsg from '../forms/ErrorMsg'
 
-import { fileReader } from '../../controller/fileReader';
-
 export function Form2(props) {
   const { register, handleSubmit } = useForm();
-  
   const [filesLength, setFilesLength] = useState(0)
-  const [files, setFiles] = useState()
-  
   const [ignoreNodeModules, setIgnoreNodeModules] = useState(false)
-  const [ignoreEnvFile, setIgnoreEnvFile] = useState(false)
   const [ignoreDsStoreFile, setIgnoreDsStoreFile] = useState(false)
+  const [ignoreEnvFile, setIgnoreEnvFile] = useState(false)
+  const [files, setFiles] = useState()
   const [error, setError] = useState()
-  
   const wrapperRef = useRef(null);
-
+  
+  
   const onSelectFolder = async(e) => {
-    const newFiles = e.target.files
-    
     setIgnoreNodeModules(false)    
     setIgnoreDsStoreFile(false)    
     setIgnoreEnvFile(false)
     setError(null)
     
     // Don't take node_modules folder and .env file
-    const files = Array.from(newFiles).filter(file => {
+    const newFiles = Array.from(e.target.files).filter(file => {
      
       if (file.webkitRelativePath.includes('node_modules')) setIgnoreNodeModules(true)
       else if (file.webkitRelativePath.includes('.env')) setIgnoreEnvFile(true)
       else if (file.webkitRelativePath.includes('.DS_Store')) setIgnoreDsStoreFile(true)
       
       return (
-        !file.webkitRelativePath.includes('node_modules/') &&
+        !file.webkitRelativePath.includes('node_modules') &&
         !file.webkitRelativePath.includes('.env') &&
         !file.webkitRelativePath.includes('.DS_Store')
       )
     })
-    
-    setFiles(files)
-    setFilesLength(files.length)
-    const structure = getFolderTree(files)
-    
-  }  
+    setFilesLength(newFiles.length)
+    setFiles(newFiles)
+  }
+
   const onSubmit = () => {
     if (filesLength < 1) setError('Déposez au moins un fichier')
     else {
-      // Set the next step
-      const structure = getFolderTree(files)
-      //props.nextStep(3, structure)
+      // Create the folder tree
+      let data = { paths: [], filenames: [], contents: [] }
+      let totalFiles = files.length
+      let filesLoaded = 0
+      
+      Array.from(files).forEach(file => {
+        const path = file.webkitRelativePath
+        const filename = file.name
+        
+        const reader = new FileReader();
+        reader.readAsText(file);
+        
+        reader.onload = res => {
+          filesLoaded++
+          if (filesLoaded === totalFiles) {
+            // Send data and display the next step
+            props.nextStep(3, getFolderTree(data))
+          }
+          const content = res.target.result
+          
+          data.paths.push(path)
+          data.filenames.push(filename)
+          data.contents.push(content)
+        }
+      })
     }
   }
   
@@ -102,19 +116,25 @@ export function Form2(props) {
     </div>
   )
 }
-async function getFolderTree(files) {
-  // Create the folder tree
-  const structure = []
+function getFolderTree(data) {
+  let result = [];
+  let level = {result};
   
-  const data = new FormData()
-
-  data.append('file', files[0])
-
-  fetch('http://localhost:4000/components', { method: 'DELETE', body: data})
-  
-  /* Array.from(files).forEach(file => {
-    const blob = new Blob([file], { type: 'text/javascript' })
-    console.log(blob.text());
+  data.paths.forEach((path, index) => {
+    path.split('/').reduce((r, name) => {
+      
+      if(!r[name]) {
+        r[name] = {result: []}
+        const isFile = name === data.filenames[index]
+        
+        if (isFile) {
+          r.result.push({ name, type: 'file', content: data.contents[index] })
+        } else {
+          r.result.push({ name, type: 'folder', children: r[name].result })
+        }
+      }
+      return r[name];
+    }, level)
   })
-  console.log(structure); */
+  return result[0].children
 }

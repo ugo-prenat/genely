@@ -9,7 +9,6 @@ module.exports = async(req, res) => {
   
   if (step === 1) return await checkStep1(res, user, data)
   
-  
   const newComponent = new Components({
     id: await getComponentId(),
     shortname: data.shortname,
@@ -20,6 +19,7 @@ module.exports = async(req, res) => {
       avatarUrl: user.avatarUrl
     },
     isPublic: data.visibility === 'public',
+    tree: data.tree,
     technologies: {
       framework: {
         name: 'React',
@@ -34,6 +34,7 @@ module.exports = async(req, res) => {
   })
   
   console.log('new component created', newComponent);
+  //res.status(200).send({ status: 200, msg: `Component ${newComponent.id} created` })
   
   /* newComponent.save(() => {
     res.status(200).send({ status: 200, msg: `Component ${newComponent.id} created` })
