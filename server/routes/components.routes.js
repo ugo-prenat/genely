@@ -1,11 +1,13 @@
 const express = require('express')
 const router = express.Router()
 
-const db = require('../db/export')
-const Components = db.schema.components
+const authenticateToken = require('../middlewares/token/authenticateToken')
+const componentController = require('../controllers/components/export.controller')
 
-router.get('/', (req, res) => {
-  res.status(200).send({ msg: 'components' })
+
+router.post('/', authenticateToken, componentController.create)
+router.delete('/', (req, res) => {
+  console.log(req.body);
 })
 
 module.exports = router

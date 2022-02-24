@@ -2,14 +2,15 @@ const mongoose = require('mongoose')
 
 const componentSchema = new mongoose.Schema({
   id: Number,
-  shortName: String,
-  fullName: String,
+  shortname: String,
+  fullname: String,
+  isPublic: Boolean,
   creator: {
     id: Number,
     username: String,
     avatarUrl: String
   },
-  isPublic: Boolean,
+  tree: Array,
   technologies: {
     framework: {
       name: String,

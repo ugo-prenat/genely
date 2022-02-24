@@ -7,7 +7,7 @@ const Users = db.schema.users
 const mailer = require('../middlewares/mail/export')
 
 const jwt = require('jsonwebtoken')
-const authenticateToken = require('../middlewares/authenticateToken')
+const authenticateToken = require('../middlewares/token/authenticateToken')
 
 const bcrypt = require('bcrypt')
 const saltRounds = 10;
