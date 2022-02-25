@@ -14,7 +14,6 @@ router.get('/', async(req, res) => {
 router.post('/', authenticateToken, async(req, res) => {
   // Create a filter
   const data = req.body
-  
   if (!req.user.isAdmin) {
     return res.status(401).send({ status: 401, msg: 'Only admins can create filters' })
   }

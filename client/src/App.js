@@ -6,7 +6,7 @@ import Login from "./components/pages/Login";
 import About from './components/pages/About';
 import Signup from "./components/pages/Signup";
 import Profil from "./components/pages/Profil";
-import Settings from "./components/pages/Settings"
+import Settings from "./components/pages/Settings";
 import Component from "./components/pages/Component";
 import PageNotFound from "./components/pages/PageNotFound";
 import ResetPassword from "./components/pages/ResetPassword";
@@ -24,7 +24,7 @@ function App() {
   const [user, setUser] = useState()
   
   useEffect(() => {
-    //fetch.post('/filters', { name: 'SCSS', type: 'technology' })
+    //fetch.post('/filters', { name: 'animation', type: 'category' })
     
     const getUser = async() => {
       if (token) {

@@ -11,16 +11,6 @@ const componentSchema = new mongoose.Schema({
     avatarUrl: String
   },
   tree: Array,
-  technologies: {
-    framework: {
-      name: String,
-      icon: String
-    },
-    css: {
-      name: String,
-      icon: String
-    }
-  },
   filters: Array
 }, {timestamps: true})
 
