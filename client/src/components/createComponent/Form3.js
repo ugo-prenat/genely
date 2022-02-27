@@ -3,12 +3,12 @@ import { useForm } from 'react-hook-form'
 
 import ErrorMsg from '../forms/ErrorMsg'
 
-export function Form3() {
+export function Form3(props) {
   const { register, handleSubmit, formState: { errors }, setError } = useForm();
   const [filters, setFilters] = useState([])
   
-  const onSubmit = data => {
-    console.log(data);
+  const onSubmit = () => {
+    props.nextStep(4, ['react', 'css'])
   }
   
   return (
@@ -26,7 +26,9 @@ export function Form3() {
         <label>Filtres</label>
         { errors.filters && <ErrorMsg msg={errors.filters.message} /> }          
       </div>
-        
+      
+      <button type='submit' className='submit-btn primary-btn'>Créer le composant</button>
+      
       </form>
     </div>
   )

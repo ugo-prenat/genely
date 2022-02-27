@@ -24,7 +24,7 @@ function App() {
   const [user, setUser] = useState()
   
   useEffect(() => {
-    //fetch.post('/filters', { name: 'animation', type: 'category' })
+    //fetch.post('/components', ['nouv', 'filt'])
     
     const getUser = async() => {
       if (token) {

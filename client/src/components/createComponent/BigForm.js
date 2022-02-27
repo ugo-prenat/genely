@@ -7,7 +7,7 @@ import { Form3 as Step3 } from './Form3'
 import { request as fetch } from '../../controller/request'
 
 export function BigForm(props) {
-  const [showStep, setShowStep] = useState(3)
+  const [showStep, setShowStep] = useState(1)
   const [componentData, setComponentData] = useState()
   const user = props.user
   
@@ -23,9 +23,9 @@ export function BigForm(props) {
       setComponentData(prevData => ({...prevData, tree: data }))
     }
     else {
-      // Send the component's data to create it
-      const res = await fetch.post('/components', componentData)
-      console.log(res);
+      // Send the component's data to backend
+      const res = await fetch.post('/components', {...componentData, filters: data})
+      console.log(res)
     }
     
     // Display the next step
