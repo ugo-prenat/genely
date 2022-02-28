@@ -8,7 +8,7 @@ const authenticateToken = require('../middlewares/token/authenticateToken')
 
 router.get('/', async(req, res) => {
   // Return all filters
-  const filters = await Filters.find()
+  const filters = (await Filters.find()).map(filter => ({ name: filter.name, type: filter.type }))
   res.status(200).send({ status: 200, filters })
 })
 router.post('/', authenticateToken, async(req, res) => {

@@ -5,11 +5,13 @@ import ErrorMsg from '../forms/ErrorMsg'
 
 export function Form3(props) {
   const { register, handleSubmit, formState: { errors }, setError } = useForm();
-  const [filters, setFilters] = useState([])
+  const [filters, setFilters] = useState(props.filters)
   
   const onSubmit = () => {
     props.nextStep(4, ['react', 'css'])
   }
+  
+  console.log(filters);
   
   return (
     <div className='step-form-container'>
