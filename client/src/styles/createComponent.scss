@@ -145,6 +145,26 @@
       display: flex;
       justify-content: center;
     }
+    .input-group {
+      .filters-select-list {
+        position: absolute;
+        top: 54px;
+        width: 100%;
+        background: $color-white;
+        color: black;
+        max-height: 150px;
+        overflow: auto;
+        border-radius: 4px;
+        .filter {
+          padding: 5px 20px;
+          font-size: 15px;
+          cursor: pointer;
+          &:hover {
+            background: rgba(0, 0, 0, .03);
+          }
+        }
+      }
+    }
   }
   
   
