@@ -11,7 +11,10 @@ const componentSchema = new mongoose.Schema({
     avatarUrl: String
   },
   tree: Array,
-  filters: Array
+  filters: {
+    technologies: Array,
+    categories: Array
+  }
 }, {timestamps: true})
 
 module.exports = mongoose.model('components', componentSchema)

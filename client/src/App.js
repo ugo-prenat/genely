@@ -36,13 +36,13 @@ function App() {
         }
       }
       else setIsAuth(false)
-      //setIsLoading(false)
+      setIsLoading(false)
     }
     getUser()
     
   }, [token])
   
-  if (isLoading) return( <div className="App loading">Genely se réveille</div> )
+  if (isLoading) return( <div className="App loading">Genely se réveille...</div> )
   
   return (
     <div className="App">

@@ -4,23 +4,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  height: calc(100% - #{$header-height} - 1px);
   font-size: 14px;
   opacity: .3;
-  &:after {
-    overflow: hidden;
-    display: inline-block;
-    vertical-align: bottom;
-    animation: ellipsis steps(4,end) 900ms forwards;
-    content: "\2026";
-    width: 0px;
-  }
   &.App {
     height: 100vh;
-  }
-}
-@keyframes ellipsis {
-  to {
-    width: 20px;    
   }
 }
 .skeleton-loading {

@@ -1,20 +1,34 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { BigForm as CreateComponentForm } from '../createComponent/BigForm';
 import ProgressBar from '../createComponent/ProgressBar';
+import { BigForm as CreateComponentForm } from '../createComponent/BigForm';
+
+import { request as fetch } from '../../controller/request'
 
 import '../../styles/createComponent.scss'
 
+
 export default function CreateComponent(props) {
+  const [isLoading, setIsLoading] = useState(true) 
+  const [filters, setFilters] = useState() 
+  
   const isAuth = props.isAuth
   const user = props.user
   
   useEffect(() => {
     // Setup tab title
     document.title = 'Genely - Nouveau composant'
-    
+    // Get all filters
+    const getFilters = async() => {
+      const res = await fetch.get('/filters')
+      setFilters(res.filters)
+      setIsLoading(false)
+    }
+    getFilters()
   }, [])
+  
+  if (isLoading) return( <div className='loading'>Initialisation de votre composant...</div> )
   
   return <div className='main-component create-component-component'>
     {  
@@ -24,7 +38,7 @@ export default function CreateComponent(props) {
             <h2>Nouveau composant</h2>
             <ProgressBar />
           </div>
-          <CreateComponentForm user={user} />
+          <CreateComponentForm user={user} filters={filters} />
         </>
         :
         <div className='not-connected'>

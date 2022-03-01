@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
 import { Form1 as Step1 } from './Form1'
 import { Form2 as Step2 } from './Form2'
@@ -8,21 +8,10 @@ import { request as fetch } from '../../controller/request'
 
 export function BigForm(props) {
   const [componentData, setComponentData] = useState()
-  const [isLoading, setIsLoading] = useState(true)
   const [showStep, setShowStep] = useState(3)
-  const [filters, setFilters] = useState()
+  
   const user = props.user
-  
-  
-  useEffect(() => {
-    // Get all filters
-    const getFilters = async() => {
-      const res = await fetch.get('/filters')
-      setFilters(res.filters)
-      //setIsLoading(false)
-    }
-    getFilters()
-  }, [])
+  const filters = props.filters
   
   const nextStep = async (step, data) => {
     // Update the component data with the data from the actual step
@@ -44,8 +33,6 @@ export function BigForm(props) {
     // Display the next step
     setShowStep(step)
   }
-  
-  if (isLoading) return( <div className='loading'>Initialisation de votre composant...</div> )
   
   return (
     <div className='create-component-form'>
