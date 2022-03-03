@@ -24,6 +24,17 @@ export function Form3(props) {
     )
     setValue(value)
   }
+  const addFilter = newFilter => {
+    // Add a new filter to the filter's list
+    setfilters(prevData => (
+      [
+        ...prevData,
+        {name: newFilter.name, type: newFilter.type}
+      ]
+    ))
+    // Delete the select filter from the all list
+    setAllFiltersList(allFilters => allFilters.filter(filter => filter.name !== newFilter.name))
+  }
   console.log(filters);
   return (
     <div className='step-form-container'>
@@ -55,7 +66,7 @@ export function Form3(props) {
             onChange={e => updateFiltersList(e.target.value)}
             autoComplete='off'
             onFocus={() => setShowFiltersList(true)}
-            onBlur={() => setShowFiltersList(false)}
+            //onBlur={() => setShowFiltersList(false)}
           />
           <label>Filtres</label>
           
@@ -69,14 +80,7 @@ export function Form3(props) {
                     className='filter'
                     type={filter.type}
                     key={index}
-                    onClick={() =>
-                      setfilters(prevData => (
-                        [
-                          ...prevData,
-                          {name: filter.name, type: filter.type}
-                        ]
-                      ))
-                    }
+                    onClick={filter => addFilter(filter)}
                   >
                     { filter.name }
                   </p>
