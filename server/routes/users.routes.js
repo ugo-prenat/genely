@@ -1,8 +1,6 @@
 const express = require('express')
 const router = express.Router()
 
-const mailer = require('../middlewares/mail/export')
-
 const authenticateToken = require('../middlewares/token/authenticateToken')
 const userController = require('../controllers/users/users.controller')
 

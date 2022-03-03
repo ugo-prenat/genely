@@ -4,6 +4,8 @@ const saltRounds = 10;
 const db = require('../../db/export')
 const Users = db.schema.users
 
+const mailer = require('../../middlewares/mail/export')
+const generateAccessToken = require('../../middlewares/token/generateToken')
 
 const update = async(req, res) => {
   // Update a user's profil
