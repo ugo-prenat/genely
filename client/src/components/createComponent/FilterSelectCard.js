@@ -7,7 +7,10 @@ export default function FilterSelectCard(props) {
     <p
       className='filter'
       type={filter.type}
-      onClick={() => props.addFilter(filter)}
+      onClick={() => {
+        props.focus()
+        props.addFilter(filter)
+      }}
     >
       { filter.name }
     </p>

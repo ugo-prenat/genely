@@ -12,7 +12,7 @@ app.use(cors())
 const PORT = process.env.PORT
 app.listen(PORT, () => {
   console.log(`Server listenning on port ${PORT}`)
-  //figlet('Genely', (err, data) => console.log(data))
+  figlet('Genely', (err, data) => console.log(data))
 })
 
 // DB init
