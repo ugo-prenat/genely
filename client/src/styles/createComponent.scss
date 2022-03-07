@@ -167,14 +167,13 @@
     }
     .filters-list {
       display: flex;
-      align-items: start;
       flex-wrap: wrap;
-      border-bottom: 1px solid $color-dark-100;
       color: $color-dark-100;
       font-size: 14px;
-      height: 100px;
+      height: 65px;
       overflow: auto;
       .filter {
+        height: 22px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -186,12 +185,19 @@
         border-radius: 5px;
         cursor: pointer;
         .bin-container {
+          height: 100%;
+          width: 100%;
           position: absolute;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 5px;
           background: $color-dark-300;
         }
       }
       .empty-filters-list {
         cursor: default;
+        opacity: .7;
       }
     }
   }

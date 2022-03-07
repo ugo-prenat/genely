@@ -33,7 +33,7 @@ export function Form1(props) {
     <div className='step-form-container'>
       <form onSubmit={handleSubmit(onSubmit)}>
         
-      <div className={`${errors.fullname && 'input-group-error'} input-group`}>
+      <div className={`${errors.fullname ? 'input-group-error' : ''} input-group`}>
         <input
           {...register(
             'fullname',
@@ -46,7 +46,7 @@ export function Form1(props) {
         { errors.fullname && <ErrorMsg msg={errors.fullname.message} /> }          
       </div>
         
-        <div className={`${errors.shortname && 'input-group-error'} input-group`}>
+        <div className={`${errors.shortname ? 'input-group-error' : ''} input-group`}>
           <input
             {...register(
               'shortname',

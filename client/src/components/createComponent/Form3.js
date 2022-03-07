@@ -54,7 +54,7 @@ export function Form3(props) {
       <form onSubmit={handleSubmit(onSubmit)}>
         
         <div className='filters-list'>
-          { filters.length === 0 && <p className='empty-filters-list'>+ ajouter un filtre</p> }
+          { filters.length === 0 && <p className='empty-filters-list'>+ ajouter un filtre...</p> }
           { filters.map((filter, index) =>
             <FilterCard
               filter={filter}
@@ -64,7 +64,7 @@ export function Form3(props) {
           )}
         </div>
         
-        <div className={`${errors.filters && 'input-group-error'} input-group`}>
+        <div className={`${errors.filters ? 'input-group-error' : ''} input-group`}>
           <input
             {...register(
               'filters',

@@ -8,7 +8,7 @@ import { request as fetch } from '../../controller/request'
 
 export function BigForm(props) {
   const [componentData, setComponentData] = useState()
-  const [showStep, setShowStep] = useState(3)
+  const [showStep, setShowStep] = useState(1)
   
   const user = props.user
   const filters = props.filters

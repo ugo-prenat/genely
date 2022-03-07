@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import Lock from '../../assets/svg/Lock'
+import Cross from '../../assets/svg/Cross'
 
 export default function FilterCard(props) {
   const [showDeleteIcon, setShowDeleteIcon] = useState(false)
@@ -14,7 +14,7 @@ export default function FilterCard(props) {
       onMouseLeave={() => setShowDeleteIcon(false)}
       onClick={props.deleteFilter}
     >
-      { showDeleteIcon && <span className='bin-container'><Lock /></span>}
+      { showDeleteIcon && <span className='bin-container'><Cross /></span>}
       {filter.name}
     </p>
   )
