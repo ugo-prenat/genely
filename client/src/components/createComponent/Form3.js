@@ -21,12 +21,15 @@ export function Form3(props) {
     
   const updateFiltersList = value => {
     // Search filter system
+    setShowFiltersList(true)
+    
     setAllFiltersList(
-      allFiltersList.filter(filter => 
+      allFilters.filter(filter => 
         filter.name.toLowerCase().indexOf(value.toLowerCase()) > -1
       )
     )
     setValue(value)
+    console.log(allFiltersList);
   }
   const addFilter = newFilter => {
     // Add a new filter to the filter's list

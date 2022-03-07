@@ -44,7 +44,7 @@ export default function LoginForm(props) {
         <GoogleLoginBtn loginError={err => setGoogleLoginError(err)} />
         <div className='separation'><p>ou connectez-vous par email</p></div>
         
-        <div className={`${errors.email && 'input-group-error'} input-group`}>
+        <div className={`${errors.email ? 'input-group-error' : ''} input-group`}>
           <input
             {...register(
               'email',
@@ -56,7 +56,7 @@ export default function LoginForm(props) {
           { errors.email && <ErrorMsg msg={errors.email.message} /> }          
         </div>
         
-        <div className={`${errors.password && 'input-group-error'} input-group`}>
+        <div className={`${errors.password ? 'input-group-error' : ''} input-group`}>
           <input 
             {...register(
               'password',

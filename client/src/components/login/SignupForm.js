@@ -43,7 +43,7 @@ export default function SignupForm() {
         <GoogleSignupBtn signupError={err => setGoogleSignupError(err)} />
         <div className='separation'><p>ou inscrivez-vous par email</p></div>
         
-        <div className={`${errors.email && 'input-group-error'} input-group`}>
+        <div className={`${errors.email ? 'input-group-error' : ''} input-group`}>
           <input
             {...register(
               'email',
@@ -61,7 +61,7 @@ export default function SignupForm() {
           { errors.email && <ErrorMsg msg={errors.email.message} /> }          
         </div>
         
-        <div className={`${errors.username && 'input-group-error'} input-group`}>
+        <div className={`${errors.username ? 'input-group-error' : ''} input-group`}>
           <input
             {...register(
               'username',
@@ -80,7 +80,7 @@ export default function SignupForm() {
         </div>
         
         <div className='signup-fullname-input-group'>
-        <div className={`${errors.firstname && 'input-group-error'} input-group`}>
+        <div className={`${errors.firstname ? 'input-group-error' : ''} input-group`}>
           <input
             {...register(
               'firstname',
@@ -94,7 +94,7 @@ export default function SignupForm() {
           { errors.firstname && <ErrorMsg msg={errors.firstname.message} /> }          
         </div>
         
-        <div className={`${errors.lastname && 'input-group-error'} input-group`}>
+        <div className={`${errors.lastname ? 'input-group-error' : ''} input-group`}>
           <input
             {...register('lastname')}
             type='text'
@@ -104,7 +104,7 @@ export default function SignupForm() {
         </div>
         </div>
         
-        <div className={`${errors.password && 'input-group-error'} input-group`}>
+        <div className={`${errors.password ? 'input-group-error' : ''} input-group`}>
           <input 
             {...register(
               'password',
@@ -137,7 +137,7 @@ export default function SignupForm() {
           <p>Vous avez déjà un compte ? <Link to='/login'>Se connecter</Link></p>
         </div>
         
-        { googleSignupError && 
+        { googleSignupError &&
           <div className='google-error'>
             <ErrorMsg msg={googleSignupError} /> 
           </div>

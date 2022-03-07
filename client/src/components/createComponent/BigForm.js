@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { Form1 as Step1 } from './Form1'
 import { Form2 as Step2 } from './Form2'
@@ -8,7 +8,7 @@ import { request as fetch } from '../../controller/request'
 
 export function BigForm(props) {
   const [componentData, setComponentData] = useState()
-  const [showStep, setShowStep] = useState(1)
+  const [showStep, setShowStep] = useState(3)
   
   const user = props.user
   const filters = props.filters
