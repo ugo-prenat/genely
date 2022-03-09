@@ -6,7 +6,7 @@ import FilterCard from './FilterCard';
 import FilterSelectCard from './FilterSelectCard';
 
 export function Form3(props) {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors }, setError } = useForm();
   const [isMouseOnFiltersList, setIsMouseOnFiltersList] = useState(false)
   const [showFiltersList, setShowFiltersList] = useState(false)
   const [filters, setfilters] = useState([])
@@ -17,7 +17,10 @@ export function Form3(props) {
   
   const inputRef = useRef(null)
   
-  const onSubmit = () => props.nextStep(4, filters)
+  const onSubmit = () => {
+    if (filters.length > 0) props.nextStep(4, filters)
+    else setError('filters', { type: 'manual', message: 'Sélectionnez au moins un filtre' })
+  }
     
   const updateFiltersList = value => {
     // Search filter system
@@ -25,11 +28,18 @@ export function Form3(props) {
     
     setAllFiltersList(
       allFilters.filter(filter => 
-        filter.name.toLowerCase().indexOf(value.toLowerCase()) > -1
+        filter.name.toLowerCase().indexOf(value.toLowerCase()) > -1 &&
+        !isFilterAdded(filter)        
       )
     )
     setValue(value)
-    console.log(allFiltersList);
+  }
+  const isFilterAdded = filter => {
+    // Look if the given filter is already in the filters list
+    for (let i = 0; i < filters.length; i++) {
+      if (filters[i] === filter) return true
+    }
+    return false
   }
   const addFilter = newFilter => {
     // Add a new filter to the filter's list
@@ -55,6 +65,7 @@ export function Form3(props) {
   return (
     <div className='step-form-container'>
       <form onSubmit={handleSubmit(onSubmit)}>
+        <p className='form-title'>Ajoutez des filtres</p>
         
         <div className='filters-list'>
           { filters.length === 0 && <p className='empty-filters-list'>+ ajouter un filtre...</p> }
@@ -69,10 +80,7 @@ export function Form3(props) {
         
         <div className={`${errors.filters ? 'input-group-error' : ''} input-group`}>
           <input
-            {...register(
-              'filters',
-              { required: 'Champ obligatoire' }
-            )}
+            {...register('filters')}
             type='text'
             value={value}
             ref={inputRef}

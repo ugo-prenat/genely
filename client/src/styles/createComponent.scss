@@ -13,6 +13,9 @@
   }
   .create-component-form {
     width: 450px;
+    .form-title {
+      font-size: 18px;
+    }
     .url-example {
       font-size: 13px;
       color: $color-dark-100;
@@ -172,6 +175,7 @@
       font-size: 14px;
       height: 65px;
       overflow: auto;
+      margin-top: 15px;
       .filter {
         height: 22px;
         display: flex;
@@ -200,6 +204,10 @@
         opacity: .7;
       }
     }
+  }
+  .success-creation form {
+    justify-content: center;
+    align-items: center;
   }
   
   

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import { Form1 as Step1 } from './Form1'
 import { Form2 as Step2 } from './Form2'
@@ -8,10 +9,12 @@ import { request as fetch } from '../../controller/request'
 
 export function BigForm(props) {
   const [componentData, setComponentData] = useState()
-  const [showStep, setShowStep] = useState(3)
+  const [showStep, setShowStep] = useState(1)
   
   const user = props.user
   const filters = props.filters
+  
+  const navigate = useNavigate()
   
   const nextStep = async (step, data) => {
     // Update the component data with the data from the actual step
@@ -27,7 +30,12 @@ export function BigForm(props) {
     else {
       // Send the component's data to backend
       const res = await fetch.post('/components', {...componentData, filters: data})
-      console.log(res)
+      if (res.status === 200) {
+        // Redirect to the created component page
+        navigate(`/${user.username}/${componentData.shortname}`)
+      } else {
+        console.log('error', res);
+      }
     }
     
     // Display the next step
@@ -48,19 +56,11 @@ export function BigForm(props) {
             nextStep={(step, data) => nextStep(step, data)}
           /> 
         :
-        showStep === 3 ?
           <Step3
             filters={filters}
             nextStep={(step, data) => nextStep(step, data)}
           />
-        :
-          <SuccessCreation />
       }
     </div>
-  )
-}
-export function SuccessCreation() {
-  return (
-    <div>Composant créé</div>
   )
 }

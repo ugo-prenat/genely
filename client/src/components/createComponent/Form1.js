@@ -32,6 +32,7 @@ export function Form1(props) {
   return (
     <div className='step-form-container'>
       <form onSubmit={handleSubmit(onSubmit)}>
+        <p className='form-title'>Initialisation</p>
         
       <div className={`${errors.fullname ? 'input-group-error' : ''} input-group`}>
         <input
