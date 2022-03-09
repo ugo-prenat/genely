@@ -13,6 +13,9 @@
   }
   .create-component-form {
     width: 450px;
+    .form-title {
+      font-size: 18px;
+    }
     .url-example {
       font-size: 13px;
       color: $color-dark-100;
@@ -145,6 +148,66 @@
       display: flex;
       justify-content: center;
     }
+    .input-group {
+      .filters-select-list {
+        position: absolute;
+        top: 54px;
+        width: 100%;
+        background: $color-white;
+        color: black;
+        max-height: 150px;
+        overflow: auto;
+        border-radius: 4px;
+        .filter {
+          padding: 5px 20px;
+          font-size: 15px;
+          cursor: pointer;
+          &:hover {
+            background: rgba(0, 0, 0, .03);
+          }
+        }
+      }
+    }
+    .filters-list {
+      display: flex;
+      flex-wrap: wrap;
+      color: $color-dark-100;
+      font-size: 14px;
+      height: 65px;
+      overflow: auto;
+      margin-top: 15px;
+      .filter {
+        height: 22px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        background: $color-dark-300;
+        border: 1px solid $color-dark-100;
+        margin: 2px;
+        padding: 1px 6px;
+        border-radius: 5px;
+        cursor: pointer;
+        .bin-container {
+          height: 100%;
+          width: 100%;
+          position: absolute;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 5px;
+          background: $color-dark-300;
+        }
+      }
+      .empty-filters-list {
+        cursor: default;
+        opacity: .7;
+      }
+    }
+  }
+  .success-creation form {
+    justify-content: center;
+    align-items: center;
   }
   
   

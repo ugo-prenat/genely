@@ -1,5 +1,16 @@
 @import './variables';
 
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100% - #{$header-height} - 1px);
+  font-size: 14px;
+  opacity: .3;
+  &.App {
+    height: 100vh;
+  }
+}
 .skeleton-loading {
   position: relative;
   background: $color-dark-300;

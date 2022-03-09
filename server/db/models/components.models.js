@@ -11,17 +11,10 @@ const componentSchema = new mongoose.Schema({
     avatarUrl: String
   },
   tree: Array,
-  technologies: {
-    framework: {
-      name: String,
-      icon: String
-    },
-    css: {
-      name: String,
-      icon: String
-    }
-  },
-  filters: Array
+  filters: {
+    technologies: Array,
+    categories: Array
+  }
 }, {timestamps: true})
 
 module.exports = mongoose.model('components', componentSchema)

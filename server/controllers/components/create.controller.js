@@ -20,25 +20,12 @@ module.exports = async(req, res) => {
     },
     isPublic: data.visibility === 'public',
     tree: data.tree,
-    technologies: {
-      framework: {
-        name: 'React',
-        icon: 'icon'
-      },
-      css: {
-        name: 'Sass',
-        icon: 'icon'
-      }
-    },
-    filters: [ 'React', 'Sass' ]
+    filters: data.filters
   })
-  
-  console.log('new component created', newComponent);
-  //res.status(200).send({ status: 200, msg: `Component ${newComponent.id} created` })
-  
-  /* newComponent.save(() => {
+
+  newComponent.save(() => {
     res.status(200).send({ status: 200, msg: `Component ${newComponent.id} created` })
-  }) */
+  })
 }
 
 
