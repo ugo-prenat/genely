@@ -4,6 +4,8 @@ import { useForm } from 'react-hook-form'
 import Files from '../../assets/svg/Files';
 import ErrorMsg from '../forms/ErrorMsg'
 
+import { request as fetch } from '../../controller/request';
+
 export function Form2(props) {
   const { register, handleSubmit } = useForm();
   const [filesLength, setFilesLength] = useState(0)
@@ -36,6 +38,12 @@ export function Form2(props) {
     })
     setFilesLength(newFiles.length)
     setFiles(newFiles)
+    
+    
+    
+    // Tring somethings
+    const res = await fetch.post('/components/testfiles', newFiles)
+    console.log(res);
   }
 
   const onSubmit = () => {
@@ -89,8 +97,8 @@ export function Form2(props) {
           <input
             {...register('files')}
             type='file'
-            webkitdirectory=''
-            directory=''
+            /* webkitdirectory=''
+            directory='' */
             onChange={onSelectFolder}
           />
       </div>
