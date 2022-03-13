@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const fs = require('fs')
 
 // Initiation of gridfs stream
 const connect = mongoose.createConnection(process.env.DB_URI, {
@@ -49,10 +50,9 @@ const getFile = async (req, res) => {
   // Return a specific file
   gfs.find({ filename: req.params.filename }).toArray((err, files) => {
     if (!files[0] || files.length === 0) {
-      return res.status(400).send({ status: 400, msg: 'No files available' })
+      return res.status(400).send('error')
     }
-
-    res.status(200).send({ status: 200, file: files[0] })
+    gfs.openDownloadStreamByName(req.params.filename).pipe(res);
   })
 }
 
