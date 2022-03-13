@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import Files from '../../assets/svg/Files';
 import ErrorMsg from '../forms/ErrorMsg'
 
-import { request as fetch } from '../../controller/request';
+//import { request as fetch } from '../../controller/request';
 
 export function Form2(props) {
   const { register, handleSubmit } = useForm();
@@ -42,8 +42,20 @@ export function Form2(props) {
     
     
     // Tring somethings
-    const res = await fetch.post('/components/testfiles', newFiles)
-    console.log(res);
+    const formData = new FormData();
+    newFiles.forEach(file => {
+      formData.append("files", file);
+    });
+    console.log(formData);
+    
+    const res = await fetch('http://localhost:4000/components/testfiles', {
+      method: 'POST', headers: { 
+        'Content-Type': 'multipart/form-data',
+        'authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjBkNDQ2OTViNTZkZWMwMjQzZTkyNmEiLCJpZCI6MCwidXNlcm5hbWUiOiJnZW5lbHktdGVhbSIsImZ1bGxOYW1lIjoiR2VuZWx5IFRlYW0iLCJlbWFpbCI6ImdlbmVseS5kZXZAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkMU4xN2M0QTJkYmgvS1NVWHpZaXJFLnBlTGY1ZWljNFZ3a0NNa1BISUEvb1hoVzhRM2JhOE8iLCJpc0F1dGhXaXRoR29vZ2xlIjpmYWxzZSwiYXZhdGFyVXJsIjoiaHR0cHM6Ly9pY29ucy5pY29uYXJjaGl2ZS5jb20vaWNvbnMvZGl2ZXJzaXR5LWF2YXRhcnMvYXZhdGFycy8xMjgvcm9ib3QtMDItaWNvbi5wbmciLCJpc0FkbWluIjp0cnVlLCJwdWJsaWNDb21wb25lbnRzIjowLCJwcml2YXRlQ29tcG9uZW50cyI6MCwiY3JlYXRlZEF0IjoiMjAyMi0wMi0xNlQxODozNzoyOS45MjZaIiwidXBkYXRlZEF0IjoiMjAyMi0wMi0yMlQxMzowMTo0Ni45NTFaIiwiX192IjowLCJpYXQiOjE2NDU5NTYzOTl9.gjhvYrtAv1F5swb7C-pFX9zoqCfBk12VJfaIGNEl2no`
+      },
+      data: formData
+    })
+    console.log(res.json());
   }
 
   const onSubmit = () => {
@@ -97,6 +109,7 @@ export function Form2(props) {
           <input
             {...register('files')}
             type='file'
+            multiple
             /* webkitdirectory=''
             directory='' */
             onChange={onSelectFolder}
