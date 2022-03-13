@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import Files from '../../assets/svg/Files';
 import ErrorMsg from '../forms/ErrorMsg'
 
-//import { request as fetch } from '../../controller/request';
+import { request as fetch } from '../../controller/request';
 
 export function Form2(props) {
   const { register, handleSubmit } = useForm();
@@ -39,53 +39,38 @@ export function Form2(props) {
     setFilesLength(newFiles.length)
     setFiles(newFiles)
     
+    // Add all files to the formData
+    /* const formData = new FormData();
+    newFiles.map(file => formData.append("files", file))
     
-    
-    // Tring somethings
-    const formData = new FormData();
-    newFiles.forEach(file => {
-      formData.append("files", file);
-    });
-    console.log(formData);
-    
-    const res = await fetch('http://localhost:4000/components/testfiles', {
-      method: 'POST', headers: { 
-        'Content-Type': 'multipart/form-data',
-        'authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjBkNDQ2OTViNTZkZWMwMjQzZTkyNmEiLCJpZCI6MCwidXNlcm5hbWUiOiJnZW5lbHktdGVhbSIsImZ1bGxOYW1lIjoiR2VuZWx5IFRlYW0iLCJlbWFpbCI6ImdlbmVseS5kZXZAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkMU4xN2M0QTJkYmgvS1NVWHpZaXJFLnBlTGY1ZWljNFZ3a0NNa1BISUEvb1hoVzhRM2JhOE8iLCJpc0F1dGhXaXRoR29vZ2xlIjpmYWxzZSwiYXZhdGFyVXJsIjoiaHR0cHM6Ly9pY29ucy5pY29uYXJjaGl2ZS5jb20vaWNvbnMvZGl2ZXJzaXR5LWF2YXRhcnMvYXZhdGFycy8xMjgvcm9ib3QtMDItaWNvbi5wbmciLCJpc0FkbWluIjp0cnVlLCJwdWJsaWNDb21wb25lbnRzIjowLCJwcml2YXRlQ29tcG9uZW50cyI6MCwiY3JlYXRlZEF0IjoiMjAyMi0wMi0xNlQxODozNzoyOS45MjZaIiwidXBkYXRlZEF0IjoiMjAyMi0wMi0yMlQxMzowMTo0Ni45NTFaIiwiX192IjowLCJpYXQiOjE2NDU5NTYzOTl9.gjhvYrtAv1F5swb7C-pFX9zoqCfBk12VJfaIGNEl2no`
-      },
-      data: formData
-    })
-    console.log(res.json());
+    const res = await fetch.postFiles('/components/testfiles', formData)
+    console.log(res); */
   }
 
-  const onSubmit = () => {
+  const onSubmit = async() => {
     if (filesLength < 1) setError('Déposez au moins un fichier')
     else {
-      // Create the folder tree
-      let data = { paths: [], filenames: [], contents: [] }
-      let totalFiles = files.length
-      let filesLoaded = 0
+      // Save files in DB
+      const formData = new FormData();
+      files.map(file => formData.append("files", file))
+      const res = await fetch.postFiles('/uploads/', formData)
+      if (res.status !== 200) return setError('Un problème est survenu')
+      let filesUrl = res.data
       
-      Array.from(files).forEach(file => {
+      // Create the folder tree
+      let data = { paths: [], filenames: [], url: [] }
+      
+      Array.from(files).forEach((file, index) => {
         const path = file.webkitRelativePath
-        const filename = file.name
+        const originalName = file.name
+        const url = filesUrl[index]
         
-        const reader = new FileReader();
-        reader.readAsText(file);
-        
-        reader.onload = res => {
-          filesLoaded++
-          if (filesLoaded === totalFiles) {
-            // Send data and display the next step
-            props.nextStep(3, getFolderTree(data))
-          }
-          const content = res.target.result
-          
-          data.paths.push(path)
-          data.filenames.push(filename)
-          data.contents.push(content)
-        }
+        data.paths.push(path)
+        data.filenames.push(originalName)
+        data.url.push(url)
       })
+      // Display the next step
+      props.nextStep(3, getFolderTree(data))
     }
   }
   
@@ -109,9 +94,8 @@ export function Form2(props) {
           <input
             {...register('files')}
             type='file'
-            multiple
-            /* webkitdirectory=''
-            directory='' */
+            webkitdirectory=''
+            directory=''
             onChange={onSelectFolder}
           />
       </div>
@@ -138,6 +122,7 @@ export function Form2(props) {
   )
 }
 function getFolderTree(data) {
+  // Generate a folder tree
   let result = [];
   let level = {result};
   
@@ -149,7 +134,7 @@ function getFolderTree(data) {
         const isFile = name === data.filenames[index]
         
         if (isFile) {
-          r.result.push({ name, type: 'file', content: data.contents[index] })
+          r.result.push({ name, type: 'file', url: data.url[index] })
         } else {
           r.result.push({ name, type: 'folder', children: r[name].result })
         }

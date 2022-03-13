@@ -28,6 +28,20 @@ const post = async (url, data) => {
   const res = await req.json()
   return res
 }
+const postFiles = async (url, data) => {
+  const req = await fetch(
+    `${backendUrl}${url}`,
+    {
+      method: 'POST',
+      body: data,
+      headers: { 
+        'authorization': `Bearer ${token ? token : ''}`
+      }
+    }
+  )
+  const res = await req.json()
+  return res
+}
 const patch = async (url, data) => {
   const req = await fetch(
     `${backendUrl}${url}`,
@@ -44,4 +58,4 @@ const patch = async (url, data) => {
   return res
 }
 
-export const request = { get, post, patch }
+export const request = { get, post, postFiles, patch }
