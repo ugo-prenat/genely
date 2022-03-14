@@ -38,13 +38,6 @@ export function Form2(props) {
     })
     setFilesLength(newFiles.length)
     setFiles(newFiles)
-    
-    // Add all files to the formData
-    /* const formData = new FormData();
-    newFiles.map(file => formData.append("files", file))
-    
-    const res = await fetch.postFiles('/components/testfiles', formData)
-    console.log(res); */
   }
 
   const onSubmit = async() => {
@@ -134,7 +127,7 @@ function getFolderTree(data) {
         const isFile = name === data.filenames[index]
         
         if (isFile) {
-          r.result.push({ name, type: 'file', url: data.url[index] })
+          r.result.push({ name, type: 'file', url: data.url[index].url })
         } else {
           r.result.push({ name, type: 'folder', children: r[name].result })
         }

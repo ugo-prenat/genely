@@ -1,20 +1,25 @@
 import React, { useState } from 'react'
+
 import BlockCode from '../component/BlockCode';
+import FolderTree from './FolderTree';
 
 export default function ComponentContainer(props) {
   const component = props.component
-  console.log(component);
+  const firstFile = component.tree[0]
   
-  const [fileUrl, setFileUrl] = useState('/uploads/file/1647201750846/Header.jsx')
-  const [fileType, setFileType] = useState('file')
+  const [fileUrl, setFileUrl] = useState(firstFile.url)
+  const [fileType, setFileType] = useState(firstFile.type)
+  
+  const setFileProps = (type, url) => {
+    setFileType(type)
+    setFileUrl(url)
+  }
+  
   
   return (
     <div>
-      <div className='files'>
-        <p onClick={() => {setFileType('file');setFileUrl('/uploads/file/1647201750846/Header.jsx')}}>Header.jsx</p>
-        <p onClick={() => {setFileType('img');setFileUrl('http://localhost:4000/uploads/image/1647203823125/js.png')}}>js.png</p>
-      </div>
-    
+      <FolderTree tree={component.tree} setFileProps={(type, url) => setFileProps(type, url)} />
+      
       <BlockCode type={fileType} url={fileUrl} />
     </div>
   )

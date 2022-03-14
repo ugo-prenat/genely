@@ -44,7 +44,6 @@ async function checkStep1(res, user, data) {
   const userComponents = await Components.find({ 'creator.id': user.id })
   
   const fullnameComponents = userComponents.filter(component =>{
-    console.log(component.fullname);
     return(component.fullname.toLowerCase() === data.fullname.toLowerCase())
   })
   const shortnameComponents = userComponents.filter(component =>

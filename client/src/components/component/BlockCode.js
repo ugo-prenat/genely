@@ -6,6 +6,8 @@ import { vscDarkPlus as theme } from 'react-syntax-highlighter/dist/esm/styles/p
 import { request as fetch } from '../../controller/request';
 
 export default function BlockCode(props) {
+  const backendUrl = process.env.REACT_APP_BACKEND_URL
+  
   const [showErrorMsg, setShowErrorMsg] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   
@@ -13,9 +15,10 @@ export default function BlockCode(props) {
   const [fileType, setFileType] = useState(props.type)
   const [fileUrl, setFileUrl] = useState(props.url)
   
+  
   useEffect(() => {
-    /* if (props.content === 'error') setShowErrorMsg(true)
-    else setShowErrorMsg(false) */
+    if (props.content === 'error') setShowErrorMsg(true)
+    else setShowErrorMsg(false)
     
     
     const getFileContent = async() => {
@@ -40,8 +43,8 @@ export default function BlockCode(props) {
         showErrorMsg ?
           <div className='loading'>Le contenu du fichier ne peut pas être affiché...</div>
         :
-        fileType === 'img' ?
-          <img src={fileUrl} alt={''} style={{width: '100px',height:'100px'}} />
+        fileType === 'image' ?
+          <img src={backendUrl + fileUrl} alt={''} style={{width: '100px',height:'100px'}} />
         :
           <Code
             customStyle={{
