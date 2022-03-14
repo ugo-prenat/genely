@@ -9,7 +9,7 @@ import { request as fetch } from '../../controller/request'
 
 export function BigForm(props) {
   const [componentData, setComponentData] = useState()
-  const [showStep, setShowStep] = useState(1)
+  const [showStep, setShowStep] = useState(2)
   
   const user = props.user
   const filters = props.filters
@@ -26,6 +26,7 @@ export function BigForm(props) {
     else if (step === 3) {
       // Add the data of the step 2 to the global component data
       setComponentData(prevData => ({...prevData, tree: data }))
+      console.log(data);
     }
     else {
       // Send the component's data to backend

@@ -4,6 +4,8 @@ import { useForm } from 'react-hook-form'
 import Files from '../../assets/svg/Files';
 import ErrorMsg from '../forms/ErrorMsg'
 
+import { request as fetch } from '../../controller/request';
+
 export function Form2(props) {
   const { register, handleSubmit } = useForm();
   const [filesLength, setFilesLength] = useState(0)
@@ -36,36 +38,39 @@ export function Form2(props) {
     })
     setFilesLength(newFiles.length)
     setFiles(newFiles)
+    
+    // Add all files to the formData
+    /* const formData = new FormData();
+    newFiles.map(file => formData.append("files", file))
+    
+    const res = await fetch.postFiles('/components/testfiles', formData)
+    console.log(res); */
   }
 
-  const onSubmit = () => {
+  const onSubmit = async() => {
     if (filesLength < 1) setError('Déposez au moins un fichier')
     else {
-      // Create the folder tree
-      let data = { paths: [], filenames: [], contents: [] }
-      let totalFiles = files.length
-      let filesLoaded = 0
+      // Save files in DB
+      const formData = new FormData();
+      files.map(file => formData.append("files", file))
+      const res = await fetch.postFiles('/uploads/', formData)
+      if (res.status !== 200) return setError('Un problème est survenu')
+      let filesUrl = res.data
       
-      Array.from(files).forEach(file => {
+      // Create the folder tree
+      let data = { paths: [], filenames: [], url: [] }
+      
+      Array.from(files).forEach((file, index) => {
         const path = file.webkitRelativePath
-        const filename = file.name
+        const originalName = file.name
+        const url = filesUrl[index]
         
-        const reader = new FileReader();
-        reader.readAsText(file);
-        
-        reader.onload = res => {
-          filesLoaded++
-          if (filesLoaded === totalFiles) {
-            // Send data and display the next step
-            props.nextStep(3, getFolderTree(data))
-          }
-          const content = res.target.result
-          
-          data.paths.push(path)
-          data.filenames.push(filename)
-          data.contents.push(content)
-        }
+        data.paths.push(path)
+        data.filenames.push(originalName)
+        data.url.push(url)
       })
+      // Display the next step
+      props.nextStep(3, getFolderTree(data))
     }
   }
   
@@ -117,6 +122,7 @@ export function Form2(props) {
   )
 }
 function getFolderTree(data) {
+  // Generate a folder tree
   let result = [];
   let level = {result};
   
@@ -128,7 +134,7 @@ function getFolderTree(data) {
         const isFile = name === data.filenames[index]
         
         if (isFile) {
-          r.result.push({ name, type: 'file', content: data.contents[index] })
+          r.result.push({ name, type: 'file', url: data.url[index] })
         } else {
           r.result.push({ name, type: 'folder', children: r[name].result })
         }
