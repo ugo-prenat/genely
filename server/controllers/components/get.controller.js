@@ -4,7 +4,7 @@ const db = require('../../db/export')
 const Components = db.schema.components
 
 
-module.exports = async(req, res) => {
+const getAll = async(req, res) => {
   // Return a list of components
   const filtersQuery = req.query.filters
   const dateQuery = req.query.date
@@ -21,11 +21,19 @@ module.exports = async(req, res) => {
   .find(findParams)
   .sort({ createdAt: date })
   
-  console.log(findParams);
-
   res.status(200).send({ status: 200, components })
 }
+const getSpecific = async(req, res) => {
+  // Return a specific component
+  const creator = req.params.creator
+  const shortname = req.params.name
+  
+  const component = await Components.findOne({ 'creator.username': creator, shortname })
+  res.status(200).send({ status: 200, component })
+}
 
+
+/* FUNCTIONS */
 function checkIsUserAuth(arg, username, authHeader) {
   // Check if the given token match to user's username attached to it
   const token = authHeader && authHeader.split(' ')[1]
@@ -38,3 +46,5 @@ function checkIsUserAuth(arg, username, authHeader) {
   }
   return false
 }
+
+module.exports = { getAll, getSpecific }

@@ -42,10 +42,11 @@ async function getComponentId() {
 async function checkStep1(res, user, data) {
   // Check the first step of the form : component's fullname and shortname
   const userComponents = await Components.find({ 'creator.id': user.id })
-    
-  const fullnameComponents = userComponents.filter(component =>
-    component.fullname.toLowerCase() === data.fullname.toLowerCase()
-  )
+  
+  const fullnameComponents = userComponents.filter(component =>{
+    console.log(component.fullname);
+    return(component.fullname.toLowerCase() === data.fullname.toLowerCase())
+  })
   const shortnameComponents = userComponents.filter(component =>
     component.shortname === data.shortname
   )

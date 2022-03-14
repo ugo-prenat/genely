@@ -11,12 +11,10 @@ export default function Home() {
     // Setup tab title
     document.title = 'Genely'
     
-    
     const loadAllComponents = async() => {
       const res = await fetch.get('/components')
       setComponents(res.components)
       setIsLoading(false)
-      console.log(res.components);
     }
     loadAllComponents()
     
@@ -27,7 +25,7 @@ export default function Home() {
   return <div className='main-component'>
     {
       components.map((component, index) => {
-        return(<ComponentCard name={component.shortname} key={index} />)
+        return(<ComponentCard component={component} key={index} />)
       })
     }
   </div>;
