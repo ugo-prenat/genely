@@ -17,9 +17,9 @@ export default function BlockCode(props) {
   
   
   useEffect(() => {
-    if (props.content === 'error') setShowErrorMsg(true)
-    else setShowErrorMsg(false)
-    
+    /* if (props.content === 'error') setShowErrorMsg(true)
+    else setShowErrorMsg(false) */
+    setIsLoading(true)
     
     const getFileContent = async() => {
       if (props.type === 'file') {
@@ -38,7 +38,7 @@ export default function BlockCode(props) {
   if (isLoading) return (<div className='loading'>Chargement du fichier...</div>)
   
   return (
-    <div>
+    <div className='block-code'>
       { 
         showErrorMsg ?
           <div className='loading'>Le contenu du fichier ne peut pas être affiché...</div>
@@ -47,11 +47,6 @@ export default function BlockCode(props) {
           <img src={backendUrl + fileUrl} alt={''} style={{width: '100px',height:'100px'}} />
         :
           <Code
-            customStyle={{
-              background: '#1B1F2E',
-              border: '1px solid #555C76',
-              borderRadius: '7px'
-            }}
             language='jsx'
             style={theme}
           >

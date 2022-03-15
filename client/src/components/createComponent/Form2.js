@@ -118,7 +118,7 @@ function getFolderTree(data) {
   // Generate a folder tree
   let result = [];
   let level = {result};
-  
+
   data.paths.forEach((path, index) => {
     path.split('/').reduce((r, name) => {
       

@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { request as fetch } from '../../controller/request';
+import Path from '../Path';
 
 import ComponentNotFound from '../component/ComponentNotFound';
 import ComponentContainer from '../component/ComponentContainer';
+
+import '../../styles/component.scss'
 
 export default function Component() {
   // Get username and component name form url
@@ -31,12 +34,13 @@ export default function Component() {
   
   if (isLoading) return(<div className='loading'>Chargement du composant...</div>)
   
-  return <div className='main-component'>
-    <p>/ {username} / {componentShortname}</p>
+  return <div className='main-component component-page-component'>
+    <Path path={[
+      { 'name': username, 'link': `/${username}` },
+      { 'name': componentShortname, 'link': `/${username}/${componentShortname}` }
+    ]} />
     
-    {
-      isComponentFound ? <ComponentContainer component={component} /> : <ComponentNotFound />
-    }
+    { isComponentFound ? <ComponentContainer component={component} /> : <ComponentNotFound /> }
     
   </div>;
 }
