@@ -46,6 +46,7 @@ export function Form2(props) {
       // Save files in DB
       const formData = new FormData();
       files.map(file => formData.append("files", file))
+      
       const res = await fetch.postFiles('/uploads/', formData)
       if (res.status !== 200) return setError('Un problème est survenu')
       let filesUrl = res.data

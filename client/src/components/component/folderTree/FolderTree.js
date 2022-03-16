@@ -5,14 +5,15 @@ import File from './File';
 export default function FolderTree(props) {
   const tree = props.tree
   
-  const displayFile = url => {
+  const displayFile = (url, name) => {
     const type = url.split('/')[2]
-    props.setFileProps(type, url)
+    props.setFileProps(type, url, name)
   }
   
   
   return (
     <div className='folder-tree'>
+      <p className='section-title'>Fichiers</p>
       {
         tree.map((item, index) => {
           const type = item.type
@@ -20,13 +21,13 @@ export default function FolderTree(props) {
             type === 'file' ?
               <File
                 file={item}
-                displayFile={url => displayFile(url)}
+                displayFile={(url, name) => displayFile(url, name)}
                 key={index}
               />
             :
               <Folder
                 folder={item}
-                displayFile={url => displayFile(url)}
+                displayFile={(url, name) => displayFile(url, name)}
                 key={index}
               />
           )

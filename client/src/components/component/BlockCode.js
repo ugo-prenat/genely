@@ -14,6 +14,7 @@ export default function BlockCode(props) {
   const [fileContent, setFileContent] = useState()
   const [fileType, setFileType] = useState(props.type)
   const [fileUrl, setFileUrl] = useState(props.url)
+  const [filename, setFilename] = useState(props.name)
   
   
   useEffect(() => {
@@ -29,6 +30,8 @@ export default function BlockCode(props) {
       }
       setFileType(props.type)
       setFileUrl(props.url)
+      setFilename(props.name)
+      
       setIsLoading(false)
     }
     getFileContent()
@@ -39,6 +42,7 @@ export default function BlockCode(props) {
   
   return (
     <div className='block-code'>
+      <p className='section-title'>{filename}</p>
       { 
         showErrorMsg ?
           <div className='loading'>Le contenu du fichier ne peut pas être affiché...</div>
@@ -49,6 +53,8 @@ export default function BlockCode(props) {
           <Code
             language='jsx'
             style={theme}
+            showLineNumbers={true}
+            lineNumberContainerStyle={{ 'color': 'grey' }}
           >
             {fileContent}
           </Code>

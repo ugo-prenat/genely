@@ -6,7 +6,7 @@ export default function File(props) {
   
   return (
     <div>
-      <div className='file' onClick={() => props.displayFile(file.url)} >
+      <div className='file' onClick={() => props.displayFile(file.url, file.name)} >
         <FileIcon />
         <p>{ file.name }</p>
       </div>

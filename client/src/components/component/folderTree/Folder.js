@@ -20,13 +20,13 @@ export default function Folder(props) {
             type === 'file' ?
               <File
                 file={item}
-                displayFile={url => props.displayFile(url)}
+                displayFile={(url, name) => props.displayFile(url, name)}
                 key={index}
               />
             :
               <Folder
                 folder={item}
-                displayFile={url => props.displayFile(url)}
+                displayFile={(url, name) => props.displayFile(url, name)}
                 key={index}
               />
           )

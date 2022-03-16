@@ -9,18 +9,20 @@ export default function ComponentContainer(props) {
   
   const [fileUrl, setFileUrl] = useState(firstFile.url)
   const [fileType, setFileType] = useState(firstFile.type)
+  const [filename, setfilename] = useState(firstFile.name)
   
-  const setFileProps = (type, url) => {
+  const setFileProps = (type, url, name) => {
     setFileType(type)
     setFileUrl(url)
+    setfilename(name)
   }
   
   
   return (
     <div className='component-container'>
-      <FolderTree tree={component.tree} setFileProps={(type, url) => setFileProps(type, url)} />
+      <FolderTree tree={component.tree} setFileProps={(type, url, name) => setFileProps(type, url, name)} />
       
-      <BlockCode type={fileType} url={fileUrl} />
+      <BlockCode type={fileType} url={fileUrl} name={filename} />
     </div>
   )
 }
