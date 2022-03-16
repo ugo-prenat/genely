@@ -8,7 +8,7 @@ export default function ComponentCard(props) {
   const componentLink = `${component.creator.username}/${component.shortname}`
   
   return (
-    <div onClick={() => navigate(componentLink)}>
+    <div className='component-card' onClick={() => navigate(componentLink)}>
       <p>{component.shortname}</p>
     </div>
   )

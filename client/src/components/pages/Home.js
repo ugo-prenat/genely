@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import ComponentCard from '../home/ComponentCard'
 import { request as fetch } from '../../controller/request';
 
+import '../../styles/home.scss'
+
 export default function Home() {
   const [components, setComponents] = useState()
   const [isLoading, setIsLoading] = useState(true)
@@ -22,7 +24,7 @@ export default function Home() {
   
   if (isLoading) return(<div className='loading'>Chargement des composants...</div>)
   
-  return <div className='main-component'>
+  return <div className='main-component home-component'>
     {
       components.map((component, index) => {
         return(<ComponentCard component={component} key={index} />)

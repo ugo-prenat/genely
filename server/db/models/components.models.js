@@ -5,6 +5,7 @@ const componentSchema = new mongoose.Schema({
   shortname: String,
   fullname: String,
   isPublic: Boolean,
+  description: String,
   creator: {
     id: Number,
     username: String,
