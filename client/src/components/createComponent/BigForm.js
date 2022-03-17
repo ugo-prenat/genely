@@ -6,10 +6,13 @@ import { Form2 as Step2 } from './Form2'
 import { Form3 as Step3 } from './Form3'
 import { Form4 as Step4 } from './Form4'
 
+import Button from '../forms/Button'
+
 import { request as fetch } from '../../controller/request'
 
 export function BigForm(props) {
   const [componentData, setComponentData] = useState()
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [showStep, setShowStep] = useState(1)
   
   const user = props.user
@@ -34,7 +37,10 @@ export function BigForm(props) {
     }
     else {
       // Send the component's data to backend
+      setIsSubmitting(true)
       const res = await fetch.post('/components', {...componentData, filters: data})
+      setIsSubmitting(false)
+      
       if (res.status === 200) {
         // Redirect to the created component page
         navigate(`/${user.username}/${componentData.shortname}`)
@@ -69,6 +75,7 @@ export function BigForm(props) {
         :
           <Step4
             filters={filters}
+            isSubmitting={isSubmitting}
             nextStep={(step, data) => nextStep(step, data)}
           />
       }

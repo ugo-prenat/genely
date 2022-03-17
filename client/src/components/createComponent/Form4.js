@@ -1,16 +1,22 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
 import ErrorMsg from '../forms/ErrorMsg'
 import FilterCard from './FilterCard';
 import FilterSelectCard from './FilterSelectCard';
+import Button from '../forms/Button';
 
 export function Form4(props) {
   const { register, handleSubmit, formState: { errors }, setError } = useForm();
   const [isMouseOnFiltersList, setIsMouseOnFiltersList] = useState(false)
   const [showFiltersList, setShowFiltersList] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [filters, setfilters] = useState([])
   const [value, setValue] = useState('')
+  
+  useEffect(() => {
+    setIsSubmitting(props.isSubmitting)
+  }, [props.isSubmitting])
   
   const allFilters = props.filters
   const [allFiltersList, setAllFiltersList] = useState(allFilters)
@@ -110,8 +116,14 @@ export function Form4(props) {
             </div>
           }
         </div>
-        <button type='submit' className='submit-btn primary-btn'>Créer le composant</button>
         
+        <Button
+          type='submit'
+          isSubmitting={isSubmitting}
+          submittingText='Création du composant...'
+        >
+          Créer le composant
+        </Button>
       </form>
     </div>
   )

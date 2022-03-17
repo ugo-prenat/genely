@@ -24,6 +24,7 @@ const uploadFiles = async (req, res) => {
       url: `/uploads/${isImage ? 'image' : 'file'}/${Date.now()}/${filename}`
     })
   })
+  
   res.status(200).send({ status: 200, data: filesUrl })
 }
 const getImage = async (req, res) => {

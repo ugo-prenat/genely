@@ -41,7 +41,7 @@ export default function BlockCode(props) {
   
   return (
     <div className='block-code'>
-      <p className='section-title'>{filename}</p>
+      <p className='section-title'>{filename} - 1.1kb - 137 lignes</p>
       
       {/* <CopyToClipboard text={fileContent}
         onCopy={() => setContentCopied(true)}>

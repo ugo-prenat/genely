@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 
 import Files from '../../assets/svg/Files';
 import ErrorMsg from '../forms/ErrorMsg'
+import Button from '../forms/Button';
 
 import { request as fetch } from '../../controller/request';
 
@@ -12,6 +13,7 @@ export function Form3(props) {
   const [ignoreNodeModules, setIgnoreNodeModules] = useState(false)
   const [ignoreDsStoreFile, setIgnoreDsStoreFile] = useState(false)
   const [ignoreEnvFile, setIgnoreEnvFile] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [files, setFiles] = useState()
   const [error, setError] = useState()
   const wrapperRef = useRef(null);
@@ -47,7 +49,10 @@ export function Form3(props) {
       const formData = new FormData();
       files.map(file => formData.append("files", file))
       
+      setIsSubmitting(true)
       const res = await fetch.postFiles('/uploads/', formData)
+      setIsSubmitting(false)
+      
       if (res.status !== 200) return setError('Un problème est survenu')
       let filesUrl = res.data
       
@@ -103,7 +108,13 @@ export function Form3(props) {
         { ignoreEnvFile && <p>Le fichier .env n'a pas été ajouté</p> }
       </div>
       
-      <button type='submit' className='submit-btn primary-btn'>Étape suivante</button>
+      <Button
+        type='submit'
+        isSubmitting={isSubmitting}
+        submittingText='Téléchargement des fichiers...'
+      >
+        Étape suivante
+      </Button>
       
       { error &&
         <div className='error-container'>
