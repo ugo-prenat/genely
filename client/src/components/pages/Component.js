@@ -24,15 +24,17 @@ export default function Component() {
     
     const getComponent = async() => {
       const res = await fetch.get(`/components/${username}/${componentShortname}`)
-      if (!res.component) setIsComponentFound(false)
+
+      if (res.status !== 200) setIsComponentFound(false)
       else setComponent(res.component)
-      
       setIsLoading(false)
     }
     getComponent()
   }, [username, componentShortname])
   
+  
   if (isLoading) return(<div className='loading'>Chargement du composant...</div>)
+  else if (!isComponentFound) return(<ComponentNotFound />)
   
   return <div className='main-component component-page-component'>
     <Path path={[
@@ -40,7 +42,27 @@ export default function Component() {
       { 'name': componentShortname, 'link': `/${username}/${componentShortname}` }
     ]} />
     
-    { isComponentFound ? <ComponentContainer component={component} /> : <ComponentNotFound /> }
+    <div className='data'>
+      <p className='fullname'>{ component.fullname }</p>
+      <p className='shortname'>{ component.shortname }</p>
+      <p className='description'>{ component.description }</p>
+      <div className='filters'>
+        { component.filters.map((filter, index) => <p key={index}>{filter.name}</p> )}
+      </div>
+      <p className='created-at'>Publié le { getDate(component.createdAt) }</p>
+      <button className='secondary-btn'>Télécharger le composant</button>
+    </div>
+    
+    <ComponentContainer component={component} />
     
   </div>;
+}
+
+function getDate(d) {
+  // Return a good formated date
+  const months = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
+  const date = new Date(d)
+  const month = months[date.getMonth()]
+  
+  return `${date.getDate()} ${month} ${date.getFullYear()}`
 }

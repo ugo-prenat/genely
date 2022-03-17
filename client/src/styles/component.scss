@@ -5,8 +5,10 @@
   .path {
     display: flex;
     font-size: 14px;
+    margin-bottom: 25px;
     a {
       color: $color-dark-100;
+      transition: color .1s;
       &:hover {
         color: rgba(255, 255, 255, .8);
       }
@@ -15,6 +17,36 @@
       margin: 0 5px;
       color: $color-dark-100;
       user-select: none;
+    }
+  }
+  .data {
+    .fullname {
+      font-size: 25px;
+      font-weight: 700;
+      color: $color-white;
+    }
+    .shortname {
+      font-size: 14px;
+      color: $color-dark-100;
+    }
+    .description, .created-at {
+      color: $color-grey;
+      font-size: 15px;
+      margin: 25px 0;
+    }
+    .filters {
+      display: flex;
+      p {
+        color: $color-dark-100;
+        border: 1px solid $color-dark-100;
+        padding: 0px 7px;
+        font-size: 14px;
+        border-radius: 5px;
+        margin: 0 3px;
+        &:first-of-type {
+          margin-left: 0;
+        }
+      }
     }
   }
   .component-container {

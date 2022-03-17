@@ -43,11 +43,11 @@ export default function BlockCode(props) {
     <div className='block-code'>
       <p className='section-title'>{filename}</p>
       
-      <CopyToClipboard text={fileContent}
+      {/* <CopyToClipboard text={fileContent}
         onCopy={() => setContentCopied(true)}>
         <button>Copy</button>
         { contentCopied && <span>Copié !</span> }
-      </CopyToClipboard>
+      </CopyToClipboard> */}
       
       { 
         fileType === 'image' ?

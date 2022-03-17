@@ -70,7 +70,7 @@ form {
       font-weight: 500;
       user-select: none;
     }
-    input {
+    input, textarea {
       width: calc(100% - 30px - 4px);
       font-family: $poppins;
       padding: 13px 15px;
@@ -80,6 +80,7 @@ form {
       border-radius: 7px;
       border: 2px solid $color-dark-100;
       outline: none;
+      resize: vertical;
       &:focus {
         border: 2px solid $color-blue-200;
         & + label {
@@ -101,6 +102,9 @@ form {
         color: $error-color;
       }
     }
+  }
+  .textarea-group {
+    margin-bottom: 0;
   }
   .signup-fullname-input-group {
     display: flex;

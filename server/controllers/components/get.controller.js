@@ -29,6 +29,7 @@ const getSpecific = async(req, res) => {
   const shortname = req.params.name
   
   const component = await Components.findOne({ 'creator.username': creator, shortname })
+  if (!component) return res.status(400).send({ status: 400, msg: 'component not found' })
   res.status(200).send({ status: 200, component })
 }
 

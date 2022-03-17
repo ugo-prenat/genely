@@ -10,7 +10,7 @@ import { request as fetch } from '../../controller/request'
 
 export function BigForm(props) {
   const [componentData, setComponentData] = useState()
-  const [showStep, setShowStep] = useState(2)
+  const [showStep, setShowStep] = useState(1)
   
   const user = props.user
   const filters = props.filters
@@ -34,15 +34,14 @@ export function BigForm(props) {
     }
     else {
       // Send the component's data to backend
-      console.log(componentData);
-      /* const res = await fetch.post('/components', {...componentData, filters: data})
+      const res = await fetch.post('/components', {...componentData, filters: data})
       if (res.status === 200) {
         // Redirect to the created component page
         navigate(`/${user.username}/${componentData.shortname}`)
         window.location.reload(false)
       } else {
         console.log('error', res);
-      } */
+      }
     }
     
     // Display the next step

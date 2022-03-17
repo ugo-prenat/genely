@@ -13,6 +13,7 @@ module.exports = async(req, res) => {
     id: await getComponentId(),
     shortname: data.shortname,
     fullname: data.fullname,
+    description: data.description,
     creator: {
       id: user.id,
       username: user.username,
