@@ -7,6 +7,7 @@ import EyeOpen from '../../assets/svg/EyeOpen'
 import EyeClose from '../../assets/svg/EyeClose'
 
 import GoogleLoginBtn from './GoogleLoginBtn';
+import Button from '../forms/Button';
 
 import { request as fetch } from '../../controller/request';
 
@@ -14,26 +15,29 @@ export default function LoginForm(props) {
   const { register, handleSubmit, formState, setError } = useForm();
   const { errors } = formState
   const [googleLoginError, setGoogleLoginError] = useState()
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const navigate = useNavigate()
   
-  const onSubmit = data => {
-    fetch.post('/auth/login', data)
-    .then(res => {
-      if (res.status === 200) {
-        // Store token in localstorage
-        localStorage.setItem('token', res.token)
-        // Redirect user to homepage and refresh to apply localstorage
-        navigate('/')
-        window.location.reload(false);
-      } else if (res.status === 400) {
-        // Handle error
-        setError(res.error.input, { type: 'manual', message: res.error.msg })
-      } else if (res.status === 401) {
-        // Display server error
-        setGoogleLoginError(res.error.msg)
-      }
-    })
+  const onSubmit = async data => {
+    // Login
+    setIsSubmitting(true)
+    const res = await fetch.post('/auth/login', data)
+    setIsSubmitting(false)
+    
+    if (res.status === 200) {
+      // Store token in localstorage
+      localStorage.setItem('token', res.token)
+      // Redirect user to homepage and refresh to apply localstorage
+      navigate('/')
+      window.location.reload(false);
+    } else if (res.status === 400) {
+      // Handle error
+      setError(res.error.input, { type: 'manual', message: res.error.msg })
+    } else if (res.status === 401) {
+      // Display server error
+      setGoogleLoginError(res.error.msg)
+    }
   }
   
   return (
@@ -41,7 +45,7 @@ export default function LoginForm(props) {
       <form onSubmit={handleSubmit(onSubmit)}>
         <p className='form-title'>Connexion</p>
         
-        <GoogleLoginBtn loginError={err => setGoogleLoginError(err)} />
+        <GoogleLoginBtn loginError={err => setGoogleLoginError(err)} isSubmitting={status => setIsSubmitting(status)} />
         <div className='separation'><p>ou connectez-vous par email</p></div>
         
         <div className={`${errors.email ? 'input-group-error' : ''} input-group`}>
@@ -73,7 +77,13 @@ export default function LoginForm(props) {
           { errors.password && <ErrorMsg msg={errors.password.message} /> }          
         </div>
         
-        <button type='submit' className='submit-btn primary-btn'>Connexion</button>
+        <Button
+          type='submit'
+          isSubmitting={isSubmitting}
+          submittingText='Connexion...'
+        >
+          Connexion
+        </Button>
         
         <div className='bottom-links'>
           <p>Vous n’avez pas de compte ? <Link to='/signup'>S’inscrire</Link></p>
