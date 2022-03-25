@@ -9,30 +9,35 @@ import EyeOpen from '../../assets/svg/EyeOpen'
 import EyeClose from '../../assets/svg/EyeClose'
 
 import GoogleSignupBtn from './GoogleSignupBtn';
+import Button from '../forms/Button';
+
 
 export default function SignupForm() {
   const { register, handleSubmit, formState: { errors }, setError } = useForm();
   const [googleSignupError, setGoogleSignupError] = useState()
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const navigate = useNavigate()
   
-  const onSubmit = data => {
-    fetch.post('/auth/signup', data)
-    .then(res => {
-      if (res.status === 200) {
-        // Store token in localstorage
-        localStorage.setItem('token', res.token)
-        // Redirect user to homepage and refresh to apply localstorage
-        navigate('/')
-        window.location.reload(false);
-      } else if (res.status === 400) {
-        // Handle error
-        setError(res.error.input, { type: 'manual', message: res.error.msg })
-      } else if (res.status === 401) {
-        // Display server error
-        setGoogleSignupError(res.error.msg)
-      }
-    })
+  const onSubmit = async data => {
+    // Signup
+    setIsSubmitting(true)
+    const res = await fetch.post('/auth/signup', data)
+    setIsSubmitting(false)
+    
+    if (res.status === 200) {
+      // Store token in localstorage
+      localStorage.setItem('token', res.token)
+      // Redirect user to homepage and refresh to apply localstorage
+      navigate('/')
+      window.location.reload(false);
+    } else if (res.status === 400) {
+      // Handle error
+      setError(res.error.input, { type: 'manual', message: res.error.msg })
+    } else if (res.status === 401) {
+      // Display server error
+      setGoogleSignupError(res.error.msg)
+    }
   }
   
   return (
@@ -40,7 +45,7 @@ export default function SignupForm() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <p className='form-title'>Inscription</p>
         
-        <GoogleSignupBtn signupError={err => setGoogleSignupError(err)} />
+        <GoogleSignupBtn signupError={err => setGoogleSignupError(err)} isSubmitting={status => setIsSubmitting(status)} />
         <div className='separation'><p>ou inscrivez-vous par email</p></div>
         
         <div className={`${errors.email ? 'input-group-error' : ''} input-group`}>
@@ -131,7 +136,14 @@ export default function SignupForm() {
           
           { errors.password && <ErrorMsg msg={errors.password.message} /> }          
         </div>
-        <button type='submit' className='submit-btn primary-btn'>Inscription</button>
+
+        <Button
+          type='submit'
+          isSubmitting={isSubmitting}
+          submittingText='Inscription...'
+        >
+          Inscription
+        </Button>
         
         <div className='bottom-links'>
           <p>Vous avez déjà un compte ? <Link to='/login'>Se connecter</Link></p>

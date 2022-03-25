@@ -2,21 +2,24 @@ import React, { useEffect, useState } from 'react'
 
 import { Prism as Code } from 'react-syntax-highlighter';
 import { vscDarkPlus as theme } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import { request as fetch } from '../../controller/request';
 
 export default function BlockCode(props) {
-  const [showErrorMsg, setShowErrorMsg] = useState(false)
+  const backendUrl = process.env.REACT_APP_BACKEND_URL
+  
   const [isLoading, setIsLoading] = useState(true)
+  const [contentCopied, setContentCopied] = useState(false)
   
   const [fileContent, setFileContent] = useState()
   const [fileType, setFileType] = useState(props.type)
   const [fileUrl, setFileUrl] = useState(props.url)
+  const [filename, setFilename] = useState(props.name)
+  
   
   useEffect(() => {
-    /* if (props.content === 'error') setShowErrorMsg(true)
-    else setShowErrorMsg(false) */
-    
+    setIsLoading(true)
     
     const getFileContent = async() => {
       if (props.type === 'file') {
@@ -26,6 +29,8 @@ export default function BlockCode(props) {
       }
       setFileType(props.type)
       setFileUrl(props.url)
+      setFilename(props.name)
+      
       setIsLoading(false)
     }
     getFileContent()
@@ -35,22 +40,25 @@ export default function BlockCode(props) {
   if (isLoading) return (<div className='loading'>Chargement du fichier...</div>)
   
   return (
-    <div>
+    <div className='block-code'>
+      <p className='section-title'>{filename} - 1.1kb - 137 lignes</p>
+      
+      {/* <CopyToClipboard text={fileContent}
+        onCopy={() => setContentCopied(true)}>
+        <button>Copy</button>
+        { contentCopied && <span>Copié !</span> }
+      </CopyToClipboard> */}
+      
       { 
-        showErrorMsg ?
-          <div className='loading'>Le contenu du fichier ne peut pas être affiché...</div>
-        :
-        fileType === 'img' ?
-          <img src={fileUrl} alt={''} style={{width: '100px',height:'100px'}} />
+        fileType === 'image' ?
+          <div className='img-container'>
+            <img src={backendUrl + fileUrl} alt={filename} />
+          </div>
         :
           <Code
-            customStyle={{
-              background: '#1B1F2E',
-              border: '1px solid #555C76',
-              borderRadius: '7px'
-            }}
             language='jsx'
             style={theme}
+            showLineNumbers={true}
           >
             {fileContent}
           </Code>

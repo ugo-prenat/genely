@@ -1,4 +1,6 @@
 const create = require('./create.controller')
-const get = require('./get.controller')
+const getAll = require('./get.controller').getAll
+const getSpecific = require('./get.controller').getSpecific
 
-module.exports = { create, get }
+
+module.exports = { create, getAll, getSpecific }

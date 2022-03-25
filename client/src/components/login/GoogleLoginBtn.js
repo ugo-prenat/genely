@@ -11,7 +11,10 @@ export default function GoogleLoginBtn(props) {
   const handleSuccess = async data => {
     const token = data.tokenId
 
+    props.isSubmitting(true)
     const res = await fetch.post('/auth/login/google', { token })
+    props.isSubmitting(false)
+    
     if (res.status === 200) {
       // Store token in localstorage
       localStorage.setItem('token', res.token)

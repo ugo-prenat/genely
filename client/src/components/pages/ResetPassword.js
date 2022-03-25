@@ -6,19 +6,23 @@ import ErrorMsg from '../forms/ErrorMsg';
 import EyeOpen from '../../assets/svg/EyeOpen'
 import EyeClose from '../../assets/svg/EyeClose'
 
+import Button from '../forms/Button';
 
 import '../../styles/resetPassword.scss'
+
 
 export default function ResetPassword() {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [showPassword, setShowPassword] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [authError, setAuthError] = useState(false)
   const navigate = useNavigate()
   
   const URL = process.env.REACT_APP_BACKEND_URL
   const { token } = useParams()
   
-  const onSubmit = async (password) => {
+  const onSubmit = async password => {
+    setIsSubmitting(true)
     await fetch(
       `${URL}/users`,
       {
@@ -32,6 +36,8 @@ export default function ResetPassword() {
     )
     .then(res => res.json())
     .then(res => {
+      setIsSubmitting(false)
+        
       if (res.status === 200) {
         setAuthError(false)
         
@@ -78,7 +84,13 @@ export default function ResetPassword() {
             { errors.password && <ErrorMsg msg={errors.password.message} /> }          
           </div>
           
-          <button type='submit' className='submit-btn primary-btn'>Réinitialiser</button>
+          <Button
+            type='submit'
+            isSubmitting={isSubmitting}
+            submittingText='Réinitialisation...'
+          >
+            Réinitialiser
+          </Button>
           
           <div className='auth-error'>
             { authError && <ErrorMsg msg={'Une erreur est survenue, merci de recliquer sur le lien du mail'} /> }

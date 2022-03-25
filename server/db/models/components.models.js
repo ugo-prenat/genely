@@ -5,16 +5,15 @@ const componentSchema = new mongoose.Schema({
   shortname: String,
   fullname: String,
   isPublic: Boolean,
+  description: String,
   creator: {
     id: Number,
     username: String,
     avatarUrl: String
   },
   tree: Array,
-  filters: {
-    technologies: Array,
-    categories: Array
-  }
+  filters: Array,
+  illustrations: Array
 }, {timestamps: true})
 
 module.exports = mongoose.model('components', componentSchema)

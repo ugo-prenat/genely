@@ -3,11 +3,13 @@ import { useForm } from 'react-hook-form'
 
 import ErrorMsg from '../forms/ErrorMsg';
 import ComponentVisibility from './ComponentVisibility';
+import Button from '../forms/Button';
 
 import { request as fetch } from '../../controller/request'
 
 export function Form1(props) {
   const { register, handleSubmit, formState: { errors }, setError } = useForm();
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [visibility, setVisibility] = useState('public')
   const [shortname, setShortname] = useState('')
   
@@ -18,7 +20,9 @@ export function Form1(props) {
     
     const checkNames = async() => {
       // Check if given names are alerady taken
+      setIsSubmitting(true)
       const res = await fetch.post('/components?step=1', data)
+      setIsSubmitting(false)
 
       if (res.status === 200) {
         props.nextStep(2, data)
@@ -73,7 +77,13 @@ export function Form1(props) {
         
         <ComponentVisibility register={register} visibility={visibility} setVisibility={visibility => setVisibility(visibility)} />
         
-        <button type='submit' className='submit-btn primary-btn'>Étape suivante</button>
+        <Button
+          type='submit'
+          isSubmitting={isSubmitting}
+          submittingText='Création du composant...'
+        >
+          Étape suivante
+        </Button>
         
       </form>
     </div>

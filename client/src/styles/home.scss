@@ -1,0 +1,12 @@
+@import './variables';
+
+.home-component {
+  display: flex;
+  flex-direction: column;
+  
+  .component-card {
+    width: fit-content;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+}

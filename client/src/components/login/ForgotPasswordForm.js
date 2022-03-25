@@ -6,6 +6,7 @@ import ErrorMsg from '../forms/ErrorMsg';
 import { request as fetch } from '../../controller/request'
 
 import successAnim from '../../assets/animations/success.json'
+import Button from '../forms/Button';
 
 import '../../styles/forgotPassword.scss'
 
@@ -30,17 +31,19 @@ export default function ForgotPasswordForm(props) {
 }
 export function Form(props) {
   const { register, handleSubmit, formState: { errors }, setError } = useForm();
+  const [isSubmitting, setIsSubmitting] = useState(false)
   
-  const onSubmit = data => {
-    fetch.post('/users/reset/password', data)
-    .then(res => {
-      if (res.status === 200) {
-        props.setSuccessReset()
-      } else {
-        // Handle error
-        setError(res.error.input, { type: 'manual', message: res.error.msg })
-      }
-    })
+  const onSubmit = async data => {
+    setIsSubmitting(true)
+    const res = await fetch.post('/users/reset/password', data)
+    setIsSubmitting(false)
+    
+    if (res.status === 200) {
+      props.setSuccessReset()
+    } else {
+      // Handle error
+      setError(res.error.input, { type: 'manual', message: res.error.msg })
+    }
   }
   
   return(
@@ -64,7 +67,13 @@ export function Form(props) {
         { errors.email && <ErrorMsg msg={errors.email.message} /> }          
       </div>
       
-      <button type='submit' className='submit-btn primary-btn'>Réinitialiser</button>
+      <Button
+          type='submit'
+          isSubmitting={isSubmitting}
+          submittingText='Envoi...'
+        >
+          Réinitialiser
+        </Button>
       
       <div className='bottom-links'>
         <p>Vous avez déjà un compte ? <span onClick={() => props.setShowForm('login')}>Connexion</span></p>

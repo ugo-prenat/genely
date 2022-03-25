@@ -7,7 +7,8 @@ const componentController = require('../controllers/components/export.controller
 
 
 router.post('/', authenticateToken, componentController.create)
-router.get('/', componentController.get)
+router.get('/', componentController.getAll)
+router.get('/:creator/:name', componentController.getSpecific)
 
 
 module.exports = router

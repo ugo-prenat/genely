@@ -19,11 +19,12 @@ const uploadFiles = async (req, res) => {
     const isImage = checkIsImage(file.mimetype)
     const filenameRegex = new RegExp(/[\/\\ ]/g)
     const filename = file.originalname.replace(filenameRegex, '-')
-    
+
     filesUrl.push({
       url: `/uploads/${isImage ? 'image' : 'file'}/${Date.now()}/${filename}`
     })
   })
+  
   res.status(200).send({ status: 200, data: filesUrl })
 }
 const getImage = async (req, res) => {

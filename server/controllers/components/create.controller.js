@@ -13,6 +13,7 @@ module.exports = async(req, res) => {
     id: await getComponentId(),
     shortname: data.shortname,
     fullname: data.fullname,
+    description: data.description,
     creator: {
       id: user.id,
       username: user.username,
@@ -20,7 +21,8 @@ module.exports = async(req, res) => {
     },
     isPublic: data.visibility === 'public',
     tree: data.tree,
-    filters: data.filters
+    filters: data.filters,
+    illustrations: data.illustrations
   })
 
   newComponent.save(() => {
@@ -42,10 +44,10 @@ async function getComponentId() {
 async function checkStep1(res, user, data) {
   // Check the first step of the form : component's fullname and shortname
   const userComponents = await Components.find({ 'creator.id': user.id })
-    
-  const fullnameComponents = userComponents.filter(component =>
-    component.fullname.toLowerCase() === data.fullname.toLowerCase()
-  )
+  
+  const fullnameComponents = userComponents.filter(component =>{
+    return(component.fullname.toLowerCase() === data.fullname.toLowerCase())
+  })
   const shortnameComponents = userComponents.filter(component =>
     component.shortname === data.shortname
   )
