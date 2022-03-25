@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 
-import BlockCode from '../component/BlockCode';
+import BlockCode from './BlockCode';
 import FolderTree from './folderTree/FolderTree';
 
-export default function ComponentContainer(props) {
+export default function ComponentCode(props) {
   const component = props.component
   const firstFile = component.tree[0]
   

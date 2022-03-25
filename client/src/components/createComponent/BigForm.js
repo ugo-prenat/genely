@@ -13,7 +13,7 @@ import { request as fetch } from '../../controller/request'
 export function BigForm(props) {
   const [componentData, setComponentData] = useState()
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [showStep, setShowStep] = useState(5)
+  const [showStep, setShowStep] = useState(1)
   
   const user = props.user
   const filters = props.filters
@@ -22,23 +22,22 @@ export function BigForm(props) {
   
   const nextStep = async (step, data) => {
     // Update the component data with the data from the actual step
-    
     if (step === 2) {
-      // Add the data of the step 1 to the global component data
       setComponentData({ fullname: data.fullname, shortname: data.shortname, visibility: data.visibility })
     }
     else if (step === 3) {
-      // Add the data of the step 2 to the global component data
       setComponentData(prevData => ({...prevData, description: data }))
     }
     else if (step === 4) {
-      // Add the data of the step 3 to the global component data
       setComponentData(prevData => ({...prevData, tree: data }))
     }
+    else if (step === 5) {
+      setComponentData(prevData => ({...prevData, filters: data }))
+    }
     else {
-      // Send the component's data to backend
+      // Send the component's data to server side
       setIsSubmitting(true)
-      const res = await fetch.post('/components', {...componentData, filters: data})
+      const res = await fetch.post('/components', {...componentData, illustrations: data})
       setIsSubmitting(false)
       
       if (res.status === 200) {
@@ -76,13 +75,15 @@ export function BigForm(props) {
         showStep === 4 ?
           <Step4
             filters={filters}
-            isSubmitting={isSubmitting}
             nextStep={(step, data) => nextStep(step, data)}
           />
         :
+        showStep === 5 ?
           <Step5
             nextStep={(step, data) => nextStep(step, data)}
-          /> 
+          />
+        :
+          <div className='loading'>Création du composant...</div>
       }
     </div>
   )

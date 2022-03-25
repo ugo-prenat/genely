@@ -10,13 +10,8 @@ export function Form4(props) {
   const { register, handleSubmit, formState: { errors }, setError } = useForm();
   const [isMouseOnFiltersList, setIsMouseOnFiltersList] = useState(false)
   const [showFiltersList, setShowFiltersList] = useState(false)
-  const [isSubmitting, setIsSubmitting] = useState(false)
   const [filters, setfilters] = useState([])
   const [value, setValue] = useState('')
-  
-  useEffect(() => {
-    setIsSubmitting(props.isSubmitting)
-  }, [props.isSubmitting])
   
   const allFilters = props.filters
   const [allFiltersList, setAllFiltersList] = useState(allFilters)
@@ -117,13 +112,8 @@ export function Form4(props) {
           }
         </div>
         
-        <Button
-          type='submit'
-          isSubmitting={isSubmitting}
-          submittingText='Création du composant...'
-        >
-          Créer le composant
-        </Button>
+        <button type='submit' className='submit-btn primary-btn'>Étape suivante</button>
+
       </form>
     </div>
   )

@@ -21,7 +21,8 @@ module.exports = async(req, res) => {
     },
     isPublic: data.visibility === 'public',
     tree: data.tree,
-    filters: data.filters
+    filters: data.filters,
+    illustrations: data.illustrations
   })
 
   newComponent.save(() => {

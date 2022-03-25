@@ -5,6 +5,9 @@ import { Images } from '../../assets/svg/Images';
 import ErrorMsg from '../forms/ErrorMsg'
 import Button from '../forms/Button';
 
+import { request as fetch } from '../../controller/request';
+
+
 export function Form5(props) {
   const { register, handleSubmit } = useForm();
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -14,18 +17,28 @@ export function Form5(props) {
   const wrapperRef = useRef(null);
   
   
-  
   const onSelectFolder = async(e) => {
     const newFiles = e.target.files
     
-    console.log(newFiles);
-    
     setFilesLength(newFiles.length)
     setFiles(newFiles)
-    
   }
   const onSubmit = async() => {
-    console.log('onSubmit');
+    if (filesLength < 1) setError('Déposez au moins une image')
+    else {
+      // Save files in DB
+      const formData = new FormData();
+      Array.from(files).map(file => formData.append("files", file))
+      
+      setIsSubmitting(true)
+      const res = await fetch.postFiles('/uploads/', formData)
+      setIsSubmitting(false)
+      
+      if (res.status !== 200) return setError('Un problème est survenu')
+      
+      // Display the next step
+      props.nextStep(6, res.data)
+    }
   }
   
   return (
@@ -63,7 +76,7 @@ export function Form5(props) {
         <Button
           type='submit'
           isSubmitting={isSubmitting}
-          submittingText='Téléchargement des fichiers...'
+          submittingText='Téléchargement des images...'
         >
           Étape suivante
         </Button>
@@ -77,4 +90,8 @@ export function Form5(props) {
       </form>
     </div>
   )
+}
+
+function getUrls(data) {
+  return data
 }
