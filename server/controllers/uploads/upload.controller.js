@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const fs = require('fs')
 
 // Initiation of gridfs stream
 const connect = mongoose.createConnection(process.env.DB_URI, {
@@ -17,11 +16,9 @@ const uploadFiles = async (req, res) => {
   let filesUrl = []
   req.files.map(file => {
     const isImage = checkIsImage(file.mimetype)
-    const filenameRegex = new RegExp(/[\/\\ ]/g)
-    const filename = file.originalname.replace(filenameRegex, '-')
 
     filesUrl.push({
-      url: `/uploads/${isImage ? 'image' : 'file'}/${Date.now()}/${filename}`
+      url: `/uploads/${isImage ? 'image' : 'file'}/${encodeURI(file.urlName)}`
     })
   })
   

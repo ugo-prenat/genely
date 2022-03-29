@@ -69,6 +69,7 @@ export function Form3(props) {
         data.url.push(url)
       })
       // Display the next step
+      console.log(data);
       props.nextStep(4, getFolderTree(data))
     }
   }
