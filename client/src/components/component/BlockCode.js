@@ -16,6 +16,7 @@ export default function BlockCode(props) {
   const [fileType, setFileType] = useState(props.type)
   const [fileUrl, setFileUrl] = useState(props.url)
   const [filename, setFilename] = useState(props.name)
+  const [lineNumber, setLineNumber] = useState()
   
   
   useEffect(() => {
@@ -25,7 +26,9 @@ export default function BlockCode(props) {
       if (props.type === 'file') {
         // Fetch the file content
         const content = await fetch.getFile(props.url)
+
         setFileContent(content)
+        setLineNumber(content.match(/^/gm).length)
       }
       setFileType(props.type)
       setFileUrl(props.url)
@@ -41,7 +44,11 @@ export default function BlockCode(props) {
   
   return (
     <div className='block-code'>
-      <p className='section-title'>{filename} - 1.1kb - 137 lignes</p>
+      <p className='section-title'>
+        {filename}
+        {fileType === 'file' && <span> - {lineNumber} ligne{lineNumber > 1 ? 's' : ''}</span>}
+        <span> - 1.3kb</span>
+      </p>
       
       {/* <CopyToClipboard text={fileContent}
         onCopy={() => setContentCopied(true)}>

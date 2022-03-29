@@ -8,7 +8,7 @@ export default function ComponentCode(props) {
   const firstFile = component.tree[0]
   
   const [fileUrl, setFileUrl] = useState(firstFile.url)
-  const [fileType, setFileType] = useState(firstFile.type)
+  const [fileType, setFileType] = useState(firstFile.url.split('/')[2])
   const [filename, setfilename] = useState(firstFile.name)
   
   const setFileProps = (type, url, name) => {

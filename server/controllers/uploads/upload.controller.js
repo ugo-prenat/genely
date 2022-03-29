@@ -50,7 +50,7 @@ const getFile = async (req, res) => {
     if (!files[0] || files.length === 0) {
       return res.status(400).send('error')
     }
-    gfs.openDownloadStreamByName(req.params.filename).pipe(res);
+    gfs.openDownloadStreamByName(req.params.filename).pipe(res)
   })
 }
 
