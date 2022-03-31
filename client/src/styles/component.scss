@@ -213,6 +213,27 @@
           max-height: 100%;
         }
       }
+      .code-container {
+        position: relative;
+        .copy-btn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: absolute;
+          top: 15px;
+          right: 15px;
+          background: $color-dark-300;
+          border: 1px solid $color-dark-100;
+          padding: 3px;
+          border-radius: 5px;
+          cursor: pointer;
+          svg {
+            width: 27px;
+            height: 27px;
+            color: $color-dark-100;
+          }
+        }
+      }
     }
     .loading {
       width: calc(100% - 205px);

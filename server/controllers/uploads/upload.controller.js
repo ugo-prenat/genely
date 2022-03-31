@@ -29,7 +29,7 @@ const getImage = async (req, res) => {
   gfs.find({ filename: req.params.filename }).toArray((err, files) => {
     
     if (!files[0] || files.length === 0) {
-      return res.status(400).send({ status: 400, msg: 'No files available' })
+      return res.status(400).send('this file does not exist' )
     }
 
     if (
@@ -48,7 +48,7 @@ const getFile = async (req, res) => {
   // Return a specific file
   gfs.find({ filename: req.params.filename }).toArray((err, files) => {
     if (!files[0] || files.length === 0) {
-      return res.status(400).send({ status: 400, msg: 'File not found' })
+      return res.status(400).send('error')
     }
     gfs.openDownloadStreamByName(req.params.filename).pipe(res)
   })
