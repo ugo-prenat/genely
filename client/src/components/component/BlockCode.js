@@ -16,8 +16,9 @@ export default function BlockCode(props) {
   const [fileType, setFileType] = useState(props.type)
   const [fileUrl, setFileUrl] = useState(props.url)
   const [filename, setFilename] = useState(props.name)
-  const [lineNumber, setLineNumber] = useState()
+  const [fileLanguage, setFileLanguage] = useState(getLanguage(props.name))
   
+  const [lineNumber, setLineNumber] = useState()
   
   useEffect(() => {
     setIsLoading(true)
@@ -25,14 +26,17 @@ export default function BlockCode(props) {
     const getFileContent = async() => {
       if (props.type === 'file') {
         // Fetch the file content
-        const content = await fetch.getFile(props.url)
+        const res = await fetch.getFile(props.url)
 
-        setFileContent(content)
-        setLineNumber(content.match(/^/gm).length)
+        /* if (res.status === 400)  */
+        
+        setFileContent(res)
+        setLineNumber(res.match(/^/gm).length)
       }
       setFileType(props.type)
       setFileUrl(props.url)
       setFilename(props.name)
+      setFileLanguage(getLanguage(props.name))
       
       setIsLoading(false)
     }
@@ -63,7 +67,7 @@ export default function BlockCode(props) {
           </div>
         :
           <Code
-            language='jsx'
+            language={fileLanguage}
             style={theme}
             showLineNumbers={true}
           >
@@ -72,4 +76,10 @@ export default function BlockCode(props) {
       }
     </div>
   )
+}
+
+function getLanguage(filename) {
+  // Return the file's language
+  const elements = filename.split('.')
+  return elements[elements.length - 1]
 }

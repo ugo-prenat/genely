@@ -2,6 +2,7 @@ import React from 'react'
 
 import ComponentDescription from './ComponentDescription'
 import FiltersList from './FiltersList'
+import Download from '../../assets/svg/Download'
 
 
 export default function ComponentData(props) {
@@ -9,18 +10,16 @@ export default function ComponentData(props) {
   
   return (
     <div className='data'>
-      <div className='fullname-and-date'>
-        <p className='fullname'>{ component.fullname }</p>
-        <p className='created-at'>Publié le { getDate(component.createdAt) } - il y a { getDiffTime(component.createdAt) }</p>
+      <p className='fullname'>{ component.fullname }</p>
+      <div className='sub-data'>
+        <p className='shortname'>{ component.shortname }</p>•
+        <p className='created-at'>Publié le { getDate(component.createdAt) }, il y a { getDiffTime(component.createdAt) }</p>•
+        <p className='download-btn'><Download /> Télécharger le composant</p>
       </div>
-      <p className='shortname'>{ component.shortname }</p>
       <FiltersList filters={component.filters} />
-      {/* <p className='description'>{ component.description }</p> */}
       { component.description &&
         <ComponentDescription description={component.description} />
       }
-      
-      <button className='secondary-btn'>Télécharger le composant</button>
     </div>
   )
 }

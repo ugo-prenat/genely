@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import { request as fetch } from '../../controller/request';
 import Path from '../Path';
 
-import ComponentNotFound from '../component/ComponentNotFound';
 import ComponentCode from '../component/ComponentCode';
 import ComponentData from '../component/ComponentData';
 import ComponentIllustrations from '../component/ComponentIllustrations';
@@ -16,10 +15,9 @@ export default function Component() {
   // Get username and component name form url
   const { username, componentShortname } = useParams()
   const [isLoading, setIsLoading] = useState(true)
-  
   const [component, setComponent] = useState()
-  const [isComponentFound, setIsComponentFound] = useState(true)
-  
+
+  const navigate = useNavigate()
   
   useEffect(() => {
     // Setup tab title
@@ -28,7 +26,7 @@ export default function Component() {
     const getComponent = async() => {
       const res = await fetch.get(`/components/${username}/${componentShortname}`)
 
-      if (res.status !== 200) setIsComponentFound(false)
+      if (res.status !== 200) navigate('404')
       else setComponent(res.component)
       setIsLoading(false)
     }
@@ -37,7 +35,6 @@ export default function Component() {
   
   
   if (isLoading) return(<div className='loading'>Chargement du composant...</div>)
-  else if (!isComponentFound) return(<ComponentNotFound />)
   
   return <div className='main-component component-page-component'>
     <Path path={[

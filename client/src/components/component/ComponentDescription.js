@@ -24,7 +24,7 @@ export default function ComponentDescription(props) {
 
   return (
     <div className='description-container'>
-      <div className='description' style={{ height: isDeployed ? 'auto' : '70px' }}>
+      <div className='description' style={{ maxHeight: isDeployed ? 'fit-content' : '70px' }}>
         <p ref={ref}>{description}</p>
       </div>
       

@@ -20,19 +20,37 @@
     }
   }
   .data {
-    .fullname-and-date {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
     .fullname {
       font-size: 35px;
       font-weight: 700;
       color: $color-white;
     }
-    .shortname {
-      font-size: 17px;
+    .sub-data {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
       color: $color-dark-100;
+      p {
+        margin: 0 10px;
+        &:first-of-type {
+          margin-left: 0;
+        }
+      }
+    }
+    .download-btn {
+      display: flex;
+      align-items: center;
+      color: $color-dark-100;
+      cursor: pointer;
+      transition: color .5s;
+      &:hover {
+        color: $color-white;
+      }
+      svg {
+        width: 22px;
+        height: 22px;
+        margin-right: 3px;
+      }
     }
     .description-container {
       display: flex;
@@ -85,14 +103,10 @@
         }
       }
     }
-    .created-at {
-      font-size: 14px;
-      color: $color-dark-100;
-    }
     .filters {
       display: flex;
       flex-flow: wrap;
-      margin-top: 20px;
+      margin: 25px 0;
       a {
         color: $color-dark-100;
         border: 1px solid $color-dark-100;
