@@ -8,7 +8,6 @@ export default function ComponentDescription(props) {
   
   const [isDeployed, setIsDeployed] = useState(false)
   const [isLongDescription, setIsLongDescription] = useState()
-  const [windowWidth, setWindowWidth] = useState()
   
   
   useEffect(() => {
@@ -24,19 +23,16 @@ export default function ComponentDescription(props) {
   }, [])
 
   return (
-    <div className='description'>
-      <p
-        ref={ref}
-        /* style={{
-          height: isDeployed ? 'auto' : '69px'
-        }} */
-      >
-        {description}
-      </p>
+    <div className='description-container'>
+      <div className='description' style={{ height: isDeployed ? 'auto' : '70px' }}>
+        <p ref={ref}>{description}</p>
+      </div>
       
       { isLongDescription &&
-        <div className='show-more'>
-          <span>Afficher plus <BottomArrow /></span>
+        <div className={`show-more ${isDeployed ? 'show-less' : ''}`}>
+          <span onClick={() => setIsDeployed(!isDeployed)}>
+            Afficher { isDeployed ? 'moins' : 'plus' } <BottomArrow />
+          </span>
         </div>
       }
     </div>

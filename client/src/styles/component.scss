@@ -34,12 +34,15 @@
       font-size: 17px;
       color: $color-dark-100;
     }
-    .description {
+    .description-container {
       display: flex;
       flex-direction: column;
       margin: 25px 0;
-      p {
+      .description {
         overflow: hidden;
+        p {
+          font-size: 15px;
+        }
       }
       .show-more {
         display: flex;
@@ -56,8 +59,14 @@
           background: $color-dark-400;
           cursor: pointer;
           z-index: 2;
+          transition: color .2s;
           svg {
-            fill: white
+            fill: white;
+            transform: rotate(0);
+            transition: transform .4s;
+          }
+          &:hover {
+            color: $color-blue-200;
           }
         }
         &::before {
@@ -68,6 +77,11 @@
           position: absolute;
           bottom: 50%;
           background: $color-dark-200;
+        }
+        &.show-less {
+          svg {
+            transform: rotate(180deg);
+          }
         }
       }
     }
