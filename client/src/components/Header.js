@@ -63,7 +63,7 @@ function Dropdown(props) {
   const user = props.user
   
   return <div className='dropdown'>
-    <div className='user-data'>
+    {/* <div className='user-data'>
       <Link to={user.username} onClick={() => props.hideDropdown()}>
         <img src={user.avatarUrl} alt={user.username + '-picture'} />
         <div className='names'>
@@ -71,7 +71,7 @@ function Dropdown(props) {
           <p className='username'>@{ user.username }</p>
         </div>
       </Link>
-    </div>
+    </div> */}
     <div className='links'>
       <Link to={user.username} onClick={() => props.hideDropdown()}>
         <Profil />

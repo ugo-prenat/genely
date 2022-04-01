@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { Images } from '../../assets/svg/Images';
@@ -11,11 +11,20 @@ import { request as fetch } from '../../controller/request';
 export function Form5(props) {
   const { register, handleSubmit } = useForm();
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submittingText, setSubmittingText] = useState('Téléchargement des images...')
+  
   const [filesLength, setFilesLength] = useState(0)
   const [files, setFiles] = useState()
   const [error, setError] = useState()
   const wrapperRef = useRef(null);
   
+  useEffect(() => {
+    // Display loading msg while component is created
+    if (props.isCreatingComponent) {
+      setIsSubmitting(true)
+      setSubmittingText('Création du composant...')
+    }
+  }, [props])
   
   const onSelectFolder = async(e) => {
     const newFiles = e.target.files
@@ -76,7 +85,7 @@ export function Form5(props) {
         <Button
           type='submit'
           isSubmitting={isSubmitting}
-          submittingText='Téléchargement des images...'
+          submittingText={submittingText}
         >
           Étape suivante
         </Button>
@@ -90,8 +99,4 @@ export function Form5(props) {
       </form>
     </div>
   )
-}
-
-function getUrls(data) {
-  return data
 }

@@ -80,6 +80,7 @@ export function BigForm(props) {
         :
         showStep === 5 ?
           <Step5
+            isCreatingComponent={isSubmitting}
             nextStep={(step, data) => nextStep(step, data)}
           />
         :
