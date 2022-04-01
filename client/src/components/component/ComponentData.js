@@ -13,7 +13,7 @@ export default function ComponentData(props) {
       <p className='fullname'>{ component.fullname }</p>
       <div className='sub-data'>
         <p className='shortname'>{ component.shortname }</p>•
-        <p className='created-at'>Publié le { getDate(component.createdAt) }, il y a { getDiffTime(component.createdAt) }</p>•
+        <p className='created-at'>Créé le { getDate(component.createdAt) }, il y a { getDiffTime(component.createdAt) }</p>•
         <p className='download-btn'><Download /> Télécharger le composant</p>
       </div>
       <FiltersList filters={component.filters} />

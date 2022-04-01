@@ -28,7 +28,7 @@
     .sub-data {
       display: flex;
       align-items: center;
-      font-size: 14px;
+      font-size: 15px;
       color: $color-dark-100;
       p {
         margin: 0 10px;
@@ -42,7 +42,7 @@
       align-items: center;
       color: $color-dark-100;
       cursor: pointer;
-      transition: color .5s;
+      transition: color .2s;
       &:hover {
         color: $color-white;
       }
@@ -60,6 +60,7 @@
         overflow: hidden;
         p {
           font-size: 15px;
+          white-space: pre-line;
         }
       }
       .show-more {
@@ -118,8 +119,8 @@
         white-space: nowrap;
         transition: color .1s, border-color .1s;
         &:hover {
-          color: $color-blue-200;
-          border-color: $color-blue-200;
+          color: $color-blue-100;
+          border-color: $color-blue-100;
         }
       }
     }
@@ -214,7 +215,9 @@
         }
       }
       .code-container {
+        height: calc(100%);
         position: relative;
+        overflow: hidden;
         .copy-btn {
           display: flex;
           align-items: center;
