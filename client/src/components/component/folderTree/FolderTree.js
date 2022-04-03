@@ -2,8 +2,6 @@ import React from 'react'
 import Folder from './Folder';
 import File from './File';
 
-import FolderIcon from '../../../assets/svg/Folder';
-import FileIcon from '../../../assets/svg/File';
 
 export default function FolderTree(props) {
   const tree = props.tree
@@ -13,10 +11,9 @@ export default function FolderTree(props) {
     props.setFileProps(type, url, name)
   }
   
-  
   return (
     <div className='folder-tree'>
-      <p className='section-title'>Fichiers - <FolderIcon />4 - <FileIcon/>13</p>
+      <p className='section-title'>Fichiers</p>
       {
         tree.map((item, index) => {
           const type = item.type

@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import { request as fetch } from '../../controller/request';
 import Path from '../Path';
 
-import ComponentNotFound from '../component/ComponentNotFound';
-import ComponentCode from '../component/ComponentCode';
 import ComponentData from '../component/ComponentData';
-import ComponentIllustrations from '../component/ComponentIllustrations';
+import ComponentTabs from '../component/tabs/ComponentTabs';
+import ComponentOverview from '../component/tabs/ComponentOverview';
+import ComponentCode from '../component/tabs/ComponentCode';
+import ComponentIllustrations from '../component/tabs/ComponentIllustrations';
 
 import '../../styles/component.scss'
 
@@ -15,11 +16,12 @@ import '../../styles/component.scss'
 export default function Component() {
   // Get username and component name form url
   const { username, componentShortname } = useParams()
+  
   const [isLoading, setIsLoading] = useState(true)
-  
   const [component, setComponent] = useState()
-  const [isComponentFound, setIsComponentFound] = useState(true)
-  
+  const [activeTab, setActiveTab] = useState('overview')
+
+  const navigate = useNavigate()
   
   useEffect(() => {
     // Setup tab title
@@ -28,7 +30,7 @@ export default function Component() {
     const getComponent = async() => {
       const res = await fetch.get(`/components/${username}/${componentShortname}`)
 
-      if (res.status !== 200) setIsComponentFound(false)
+      if (res.status !== 200) navigate('404')
       else setComponent(res.component)
       setIsLoading(false)
     }
@@ -37,16 +39,20 @@ export default function Component() {
   
   
   if (isLoading) return(<div className='loading'>Chargement du composant...</div>)
-  else if (!isComponentFound) return(<ComponentNotFound />)
   
   return <div className='main-component component-page-component'>
     <Path path={[
       { 'name': username, 'link': `/${username}` },
       { 'name': componentShortname, 'link': `/${username}/${componentShortname}` }
     ]} />
-    
     <ComponentData component={component} />
-    <ComponentCode component={component} />
-    <ComponentIllustrations urls={component.illustrations} />
+    
+    
+    <ComponentTabs activeTab={activeTab} setActiveTab={tab => setActiveTab(tab)} />
+    {
+      activeTab === 'overview' ? <ComponentOverview component={component} /> :
+      activeTab === 'code' ? <ComponentCode component={component} /> :
+      <ComponentIllustrations urls={component.illustrations} />
+    }
   </div>;
 }

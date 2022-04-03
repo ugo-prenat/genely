@@ -41,7 +41,7 @@ export default function Header(props) {
           </Link>
           { showDropdown &&
             <Dropdown
-              username={user.username}
+              user={user}
               hideDropdown={() => setShowDropdown(false)}
               disconnection={() => disconnection()}
             />
@@ -60,22 +60,35 @@ export default function Header(props) {
 }
 
 function Dropdown(props) {
+  const user = props.user
+  
   return <div className='dropdown'>
-    <Link to={props.username} onClick={() => props.hideDropdown()}>
-      <Profil />
-      Profil
-    </Link>
-    <Link to='/settings' onClick={() => props.hideDropdown()}>
-      <Settings />
-      Paramètres
-    </Link>
-    <Link to='/about' onClick={() => props.hideDropdown()}>
-      <Question />
-      A propos
-    </Link>
-    <Link to='/' onClick={() => props.disconnection()}>
-      <Logout />
-      Déconnexion
-    </Link>
+    {/* <div className='user-data'>
+      <Link to={user.username} onClick={() => props.hideDropdown()}>
+        <img src={user.avatarUrl} alt={user.username + '-picture'} />
+        <div className='names'>
+          <p className='fullname'>{ user.fullName }</p>
+          <p className='username'>@{ user.username }</p>
+        </div>
+      </Link>
+    </div> */}
+    <div className='links'>
+      <Link to={user.username} onClick={() => props.hideDropdown()}>
+        <Profil />
+        Profil
+      </Link>
+      <Link to='/settings' onClick={() => props.hideDropdown()}>
+        <Settings />
+        Paramètres
+      </Link>
+      <Link to='/about' onClick={() => props.hideDropdown()}>
+        <Question />
+        A propos
+      </Link>
+      <Link to='/' onClick={() => props.disconnection()}>
+        <Logout />
+        Déconnexion
+      </Link>
+    </div>
   </div>
 }

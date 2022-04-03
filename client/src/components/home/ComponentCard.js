@@ -9,7 +9,7 @@ export default function ComponentCard(props) {
   
   return (
     <div className='component-card' onClick={() => navigate(componentLink)}>
-      <p>{component.shortname}</p>
+      <p>{component.fullname}</p>
     </div>
   )
 }

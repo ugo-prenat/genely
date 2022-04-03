@@ -21,48 +21,170 @@
   }
   .data {
     .fullname {
-      font-size: 25px;
+      font-size: 35px;
       font-weight: 700;
       color: $color-white;
     }
-    .shortname {
-      font-size: 14px;
-      color: $color-dark-100;
-    }
-    .description, .created-at {
-      color: $color-grey;
-      font-size: 15px;
-      margin: 25px 0;
-    }
-    .filters {
+    .sub-data {
       display: flex;
+      align-items: center;
+      font-size: 15px;
+      color: $color-dark-100;
       p {
-        color: $color-dark-100;
-        border: 1px solid $color-dark-100;
-        padding: 0px 7px;
-        font-size: 14px;
-        border-radius: 5px;
-        margin: 0 3px;
+        margin: 0 10px;
         &:first-of-type {
           margin-left: 0;
         }
       }
     }
+    .download-btn {
+      display: flex;
+      align-items: center;
+      color: $color-dark-100;
+      cursor: pointer;
+      transition: color .2s;
+      &:hover {
+        color: $color-white;
+      }
+      svg {
+        width: 22px;
+        height: 22px;
+        margin-right: 3px;
+      }
+    }
+    .description-container {
+      display: flex;
+      flex-direction: column;
+      margin: 25px 0;
+      .description {
+        overflow: hidden;
+        p {
+          font-size: 15px;
+          white-space: pre-line;
+        }
+      }
+      .show-more {
+        display: flex;
+        justify-content: center;
+        position: relative;
+        span {
+          display: flex;
+          align-items: center;
+          width: fit-content;
+          padding-left: 10px;
+          padding-right: 5px;
+          color: $color-dark-100;
+          font-size: 14px;
+          background: $color-dark-400;
+          cursor: pointer;
+          z-index: 2;
+          transition: color .2s;
+          svg {
+            fill: white;
+            transform: rotate(0);
+            transition: transform .4s;
+          }
+          &:hover {
+            color: $color-white;
+          }
+        }
+        &::before {
+          content: '';
+          display: block;
+          width: 100%;
+          height: 1px;
+          position: absolute;
+          bottom: 50%;
+          background: $color-dark-200;
+        }
+        &.show-less {
+          svg {
+            transform: rotate(180deg);
+          }
+        }
+      }
+    }
+    .filters {
+      display: flex;
+      flex-flow: wrap;
+      margin: 25px 0;
+      a {
+        color: $color-dark-100;
+        border: 1px solid $color-dark-100;
+        padding: 3px 7px;
+        font-size: 14px;
+        border-radius: 5px;
+        margin-right: 6px;
+        margin-top: 5px;
+        white-space: nowrap;
+        transition: color .1s, border-color .1s;
+        &:hover {
+          color: $color-blue-200;
+          border-color: $color-blue-200;
+        }
+      }
+    }
   }
-  .component-container {
+  .tabs-container {
+    display: flex;
+    font-weight: 500;
+    border-bottom: 1px solid $color-dark-100;
+    margin-bottom: 25px;
+    p {
+      padding: 0 5px;
+      margin: 0px 10px;
+      cursor: pointer;
+      &.active::after {
+        content: '';
+        width: calc(100% + 20px);
+        height: 3px;
+        position: relative;
+        left: -10px;
+        bottom: -1px;
+        display: block;
+        margin-top: 5px;
+        background: $color-blue-200;
+        border-radius: 15px 15px 0 0;
+      }
+    }
+  }
+  .tab {
+    /* background: green; */
+  }
+  .component-overview {
+    .component-code {
+      height: 40vh;
+    }
+  }
+  .component-code {
     display: flex;
     height: 80vh;
     margin-top: 25px;
+    background: $color-dark-400;
     border: 1px solid $color-dark-100;
     border-radius: 7px;
     .section-title {
       display: flex;
       align-items: center;
+      justify-content: space-between;
       height: 35px;
       background: $color-dark-200;
       font-size: 14px;
       font-weight: 500;
-      padding-left: 20px;
+      padding: 0 20px;
+      span {
+        display: flex;
+        align-items: center;
+        margin-left: 5px;
+        font-weight: 400;
+        opacity: .4;
+        font-size: 13px;
+        svg {
+          width: 18px;
+          height: 18px;
+          margin-left: 3px;
+        }
+      }
     }
     .folder-tree {
       width: 200px;
@@ -70,6 +192,8 @@
       overflow-x: hidden;
       border-right: 1px solid $color-dark-100;
       .section-title {
+        position: sticky;
+        top: 0;
         border-radius: 7px 0 0 0;
       }
       .file, .folder .data {
@@ -88,7 +212,7 @@
       .file:hover, .folder .data:hover {
         background: rgba(119, 119, 119, 0.1);
       }
-      .folder .file svg {
+      .folder .children {
         margin-left: 15px;
       }
       svg {
@@ -125,12 +249,35 @@
           max-height: 100%;
         }
       }
+      .code-container {
+        height: calc(100%);
+        position: relative;
+        overflow: hidden;
+        .copy-btn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: absolute;
+          top: 15px;
+          right: 15px;
+          background: $color-dark-300;
+          border: 1px solid $color-dark-100;
+          padding: 3px;
+          border-radius: 5px;
+          cursor: pointer;
+          svg {
+            width: 27px;
+            height: 27px;
+            color: $color-dark-100;
+          }
+        }
+      }
     }
     .loading {
       width: calc(100% - 205px);
     }
   }
-  .illustrations {
+  .component-illustrations {
     img {
       max-width: 300px;
     }
