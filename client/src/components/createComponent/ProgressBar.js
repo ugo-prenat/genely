@@ -1,4 +1,4 @@
-import React, { createRef, useEffect, useRef, useState } from 'react'
+import React, { createRef, useEffect } from 'react'
 
 
 export default function ProgressBar(props) {
@@ -10,7 +10,7 @@ export default function ProgressBar(props) {
   const refList = steps.map(() => createRef())
   
   useEffect(() => {
-    console.log(refList[actualStep - 1]);
+    refList[actualStep - 1].current.className = 'step active'
   }, [actualStep, refList])
   
   
@@ -18,12 +18,12 @@ export default function ProgressBar(props) {
     <div className='progress-bar'>
       { steps.map((_, index) => {
         return (
-          <div className='step' key={index}>
+          <div className='step' key={index} ref={refList[index]}>
               { index !== 0 && <span className='bar'></span> }
               <span className='ball'></span>
           </div>
         )
-      }) }
+      })}
     </div>
   )
 }
