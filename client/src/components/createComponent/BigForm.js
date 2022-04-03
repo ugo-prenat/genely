@@ -51,6 +51,8 @@ export function BigForm(props) {
     
     // Display the next step
     setShowStep(step)
+    // Update progress bar with the actual step
+    props.setActualStep(step)
   }
   
   return (

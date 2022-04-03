@@ -12,6 +12,7 @@ import '../../styles/createComponent.scss'
 export default function CreateComponent(props) {
   const [isLoading, setIsLoading] = useState(true) 
   const [filters, setFilters] = useState() 
+  const [actualStep, setActualStep] = useState(1)
   
   const isAuth = props.isAuth
   const user = props.user
@@ -36,9 +37,9 @@ export default function CreateComponent(props) {
         <>
           <div className='header'>
             <h2>Nouveau composant</h2>
-            <ProgressBar />
+            <ProgressBar actualStep={actualStep} />
           </div>
-          <CreateComponentForm user={user} filters={filters} />
+          <CreateComponentForm user={user} filters={filters} setActualStep={step => setActualStep(step) }  />
         </>
         :
         <div className='not-connected'>
