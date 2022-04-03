@@ -4,10 +4,10 @@ import { Prism as Code } from 'react-syntax-highlighter';
 import { vscDarkPlus as theme } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-import Clipboard from '../../assets/svg/Clipboard'
-import Check from '../../assets/svg/Check'
+import Clipboard from '../../../assets/svg/Clipboard'
+import Check from '../../../assets/svg/Check'
 
-import { request as fetch } from '../../controller/request';
+import { request as fetch } from '../../../controller/request';
 
 
 export default function BlockCode(props) {
@@ -65,8 +65,7 @@ export default function BlockCode(props) {
     <div className='block-code'>
       <p className='section-title'>
         {filename}
-        {fileType === 'file' && <span> - {lineNumber} ligne{lineNumber > 1 ? 's' : ''}</span>}
-        <span> - 1.3kb</span>
+        {fileType === 'file' && <span>{lineNumber} ligne{lineNumber > 1 ? 's' : ''}</span>}
       </p>
       
       { 

@@ -4,9 +4,11 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { request as fetch } from '../../controller/request';
 import Path from '../Path';
 
-import ComponentCode from '../component/ComponentCode';
 import ComponentData from '../component/ComponentData';
-import ComponentIllustrations from '../component/ComponentIllustrations';
+import ComponentTabs from '../component/tabs/ComponentTabs';
+import ComponentOverview from '../component/tabs/ComponentOverview';
+import ComponentCode from '../component/tabs/ComponentCode';
+import ComponentIllustrations from '../component/tabs/ComponentIllustrations';
 
 import '../../styles/component.scss'
 
@@ -14,8 +16,10 @@ import '../../styles/component.scss'
 export default function Component() {
   // Get username and component name form url
   const { username, componentShortname } = useParams()
+  
   const [isLoading, setIsLoading] = useState(true)
   const [component, setComponent] = useState()
+  const [activeTab, setActiveTab] = useState('overview')
 
   const navigate = useNavigate()
   
@@ -41,9 +45,14 @@ export default function Component() {
       { 'name': username, 'link': `/${username}` },
       { 'name': componentShortname, 'link': `/${username}/${componentShortname}` }
     ]} />
-    
     <ComponentData component={component} />
-    <ComponentCode component={component} />
-    <ComponentIllustrations urls={component.illustrations} />
+    
+    
+    <ComponentTabs activeTab={activeTab} setActiveTab={tab => setActiveTab(tab)} />
+    {
+      activeTab === 'overview' ? <ComponentOverview component={component} /> :
+      activeTab === 'code' ? <ComponentCode component={component} /> :
+      <ComponentIllustrations urls={component.illustrations} />
+    }
   </div>;
 }

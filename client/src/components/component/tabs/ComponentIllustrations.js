@@ -5,9 +5,9 @@ export default function ComponentIllustrations(props) {
   const illustrations = props.urls
   
   return (
-    <div className='illustrations'>
+    <div className='component-illustrations tab'>
       { illustrations.map((img, index) => {
-        return(<img src={backendUrl + img.url} alt={img.url} key={index} />)
+        return(<img src={backendUrl + img.url} alt={`component illustration ${index+1}`} key={index} />)
       }) }
     </div>
   )

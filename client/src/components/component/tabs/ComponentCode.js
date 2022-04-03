@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 import BlockCode from './BlockCode';
-import FolderTree from './folderTree/FolderTree';
+import FolderTree from '../folderTree/FolderTree';
 
 export default function ComponentCode(props) {
   const component = props.component
@@ -19,7 +19,7 @@ export default function ComponentCode(props) {
   
   
   return (
-    <div className='component-container'>
+    <div className='component-code tab'>
       <FolderTree tree={component.tree} setFileProps={(type, url, name) => setFileProps(type, url, name)} />
       
       <BlockCode type={fileType} url={fileUrl} name={filename} />

@@ -85,7 +85,7 @@
             transition: transform .4s;
           }
           &:hover {
-            color: $color-blue-200;
+            color: $color-white;
           }
         }
         &::before {
@@ -119,26 +119,59 @@
         white-space: nowrap;
         transition: color .1s, border-color .1s;
         &:hover {
-          color: $color-blue-100;
-          border-color: $color-blue-100;
+          color: $color-blue-200;
+          border-color: $color-blue-200;
         }
       }
     }
   }
-  .component-container {
+  .tabs-container {
+    display: flex;
+    font-weight: 500;
+    border-bottom: 1px solid $color-dark-100;
+    margin-bottom: 25px;
+    p {
+      padding: 0 5px;
+      margin: 0px 10px;
+      cursor: pointer;
+      &.active::after {
+        content: '';
+        width: calc(100% + 20px);
+        height: 3px;
+        position: relative;
+        left: -10px;
+        bottom: -1px;
+        display: block;
+        margin-top: 5px;
+        background: $color-blue-200;
+        border-radius: 15px 15px 0 0;
+      }
+    }
+  }
+  .tab {
+    /* background: green; */
+  }
+  .component-overview {
+    .component-code {
+      height: 40vh;
+    }
+  }
+  .component-code {
     display: flex;
     height: 80vh;
     margin-top: 25px;
+    background: $color-dark-400;
     border: 1px solid $color-dark-100;
     border-radius: 7px;
     .section-title {
       display: flex;
       align-items: center;
+      justify-content: space-between;
       height: 35px;
       background: $color-dark-200;
       font-size: 14px;
       font-weight: 500;
-      padding-left: 20px;
+      padding: 0 20px;
       span {
         display: flex;
         align-items: center;
@@ -159,6 +192,8 @@
       overflow-x: hidden;
       border-right: 1px solid $color-dark-100;
       .section-title {
+        position: sticky;
+        top: 0;
         border-radius: 7px 0 0 0;
       }
       .file, .folder .data {
@@ -177,7 +212,7 @@
       .file:hover, .folder .data:hover {
         background: rgba(119, 119, 119, 0.1);
       }
-      .folder .file svg {
+      .folder .children {
         margin-left: 15px;
       }
       svg {
@@ -242,7 +277,7 @@
       width: calc(100% - 205px);
     }
   }
-  .illustrations {
+  .component-illustrations {
     img {
       max-width: 300px;
     }
