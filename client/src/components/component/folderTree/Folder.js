@@ -28,8 +28,8 @@ export default function Folder(props) {
                   key={index}
                 />
             )
-          }) }
-        </ul>
-      </li>
+        }) }
+      </ul>
+    </li>
   )
 }

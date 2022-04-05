@@ -67,7 +67,7 @@ function Dropdown(props) {
       <Link to={user.username} onClick={() => props.hideDropdown()}>
         <img src={user.avatarUrl} alt={user.username + '-picture'} />
         <div className='names'>
-          <p className='fullname'>{ user.fullName }</p>
+          <p className='fullname'>{ user.fullname }</p>
           <p className='username'>@{ user.username }</p>
         </div>
       </Link>
