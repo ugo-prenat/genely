@@ -148,12 +148,15 @@
       }
     }
   }
-  .tab {
-    /* background: green; */
-  }
   .component-overview {
     .component-code {
       height: 40vh;
+      .folder-tree {
+        width: 200px;
+      }
+      .block-code {
+        width: calc(100% - 200px);
+      }
     }
   }
   .component-code {
@@ -187,7 +190,8 @@
       }
     }
     .folder-tree {
-      width: 200px;
+      position: relative;
+      width: 300px;
       overflow-y: auto;
       overflow-x: hidden;
       border-right: 1px solid $color-dark-100;
@@ -195,34 +199,65 @@
         position: sticky;
         top: 0;
         border-radius: 7px 0 0 0;
+        z-index: 1;
       }
-      .file, .folder .data {
-        display: flex;
-        align-items: center;
-        padding: 7px 10px !important;
-        white-space: nowrap;
-        color: $color-light-grey;
-        font-size: 14px;
+      
+      ul {
+        padding-left: 5px;
+        list-style: none;
         cursor: pointer;
-        p {
-          overflow: hidden;
-          text-overflow: ellipsis;
+        li {
+          position: relative;
+          padding: 0 15px;
+          -webkit-box-sizing: border-box;
+          -moz-box-sizing: border-box;
+          box-sizing: border-box;
+          white-space: nowrap;
+          color: $color-light-grey;
+          font-size: 14px;
+          p {
+            display: flex;
+            align-items: center;
+            width: fit-content;
+            padding: 5px 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            svg {
+              width: 15px;
+              height: 15px;
+              margin: 0 5px;
+            }
+          }
+          &:before {
+            position: absolute;
+            top: 15px;
+            left: 6px;
+            width: 10px;
+            height: 1px;
+            margin: auto;
+            content: '';
+            background-color: $color-dark-200;
+          }
+          
+          &:after {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 6px;
+            width: 1px;
+            height: 100%;
+            content: '';
+            background-color: $color-dark-200;
+          }
+          
+          &:last-child:after {
+            height: 15px;
+          }
         }
-      }
-      .file:hover, .folder .data:hover {
-        background: rgba(119, 119, 119, 0.1);
-      }
-      .folder .children {
-        margin-left: 15px;
-      }
-      svg {
-        width: 20px;
-        height: 20px;
-        margin-right: 3px;
       }
     }
     .block-code {
-      width: calc(100% - 200px);
+      width: calc(100% - 300px);
       .section-title {
         border-radius: 0 7px 0 0;
       }

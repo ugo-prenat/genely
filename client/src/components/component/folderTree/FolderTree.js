@@ -13,26 +13,29 @@ export default function FolderTree(props) {
   
   return (
     <div className='folder-tree'>
-      <p className='section-title'>Fichiers</p>
-      {
-        tree.map((item, index) => {
-          const type = item.type
-          return(
-            type === 'file' ?
-              <File
-                file={item}
-                displayFile={(url, name) => displayFile(url, name)}
-                key={index}
-              />
-            :
-              <Folder
-                folder={item}
-                displayFile={(url, name) => displayFile(url, name)}
-                key={index}
-              />
-          )
-        })
-      }
+      {<p className='section-title'>Fichiers</p>}
+      
+      <ul>
+        {
+          tree.map((item, index) => {
+            const type = item.type
+            return(
+              type === 'file' ?
+                <File
+                  file={item}
+                  displayFile={(url, name) => displayFile(url, name)}
+                  key={index}
+                />
+              :
+                <Folder
+                  folder={item}
+                  displayFile={(url, name) => displayFile(url, name)}
+                  key={index}
+                />
+            )
+          })
+        }
+      </ul>
     </div>
   )
 }

@@ -20,9 +20,16 @@ export default function ComponentCode(props) {
   
   return (
     <div className='component-code tab'>
-      <FolderTree tree={component.tree} setFileProps={(type, url, name) => setFileProps(type, url, name)} />
+      <FolderTree
+        tree={component.tree}
+        setFileProps={(type, url, name) => setFileProps(type, url, name)}
+      />
       
-      <BlockCode type={fileType} url={fileUrl} name={filename} />
+      <BlockCode
+        type={fileType}
+        url={fileUrl}
+        name={filename}
+      />
     </div>
   )
 }
