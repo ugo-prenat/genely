@@ -22,13 +22,15 @@ export default function ComponentCard(props) {
         <div className='names'>
           <p className='fullname'>{component.fullname}</p>
           <p className='shortname'>{component.shortname}</p>
+          { component.description && <p className='description'>{component.description}</p> }
         </div>
+        
       </a>
 
       <div className='creator'>
         <a href={creator.username}>
           <img src={/* backendUrl + */ creator.avatarUrl} alt={`${creator.username}-avatar`} />
-          <div>
+          <div className='creator-names'>
             <p className='fullname'>{creator.fullname}</p>
             <p className='shortname'>{creator.username}</p>
           </div>
