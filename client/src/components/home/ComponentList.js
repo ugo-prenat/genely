@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import ComponentCard from './ComponentCard'
 
 import { request as fetch } from '../../controller/request';
+import SkeletonCard from './SkeletonCard';
 
 
 export default function ComponentList() {
@@ -17,7 +18,7 @@ export default function ComponentList() {
     loadAllComponents()
   }, [])
   
-  if (isLoading) return(<div className='loading'>Chargement des composants...</div>)
+  if (isLoading) return(<SkeletonCard count={5} />)
   
   return (
     <div className='component-list'>
