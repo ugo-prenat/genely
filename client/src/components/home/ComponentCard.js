@@ -8,8 +8,6 @@ export default function ComponentCard(props) {
   const creator = component.creator
   const illustration = component.illustrations[0].url  
   
-  console.log(component);
-
   
   return (
     <div className='component-card'>
@@ -22,7 +20,6 @@ export default function ComponentCard(props) {
         <div className='names'>
           <p className='fullname'>{component.fullname}</p>
           <p className='shortname'>{component.shortname}</p>
-          { component.description && <p className='description'>{component.description}</p> }
         </div>
         
       </a>
@@ -32,7 +29,6 @@ export default function ComponentCard(props) {
           <img src={/* backendUrl + */ creator.avatarUrl} alt={`${creator.username}-avatar`} />
           <div className='creator-names'>
             <p className='fullname'>{creator.fullname}</p>
-            <p className='shortname'>{creator.username}</p>
           </div>
         </a>
       </div>
