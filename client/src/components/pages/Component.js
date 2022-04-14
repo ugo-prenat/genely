@@ -50,8 +50,8 @@ export default function Component() {
     
     <ComponentTabs activeTab={activeTab} setActiveTab={tab => setActiveTab(tab)} />
     {
-      activeTab === 'overview' ? <ComponentOverview component={component} /> :
-      activeTab === 'code' ? <ComponentCode component={component} /> :
+      activeTab === 'overview' ? <ComponentOverview component={component} activeTab={activeTab} /> :
+      activeTab === 'code' ? <ComponentCode component={component} activeTab={activeTab} /> :
       <ComponentIllustrations urls={component.illustrations} />
     }
   </div>;

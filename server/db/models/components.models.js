@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 
 const componentSchema = new mongoose.Schema({
   id: Number,
+  url: String,
   shortname: String,
   fullname: String,
   isPublic: Boolean,
@@ -9,6 +10,7 @@ const componentSchema = new mongoose.Schema({
   creator: {
     id: Number,
     username: String,
+    fullname: String,
     avatarUrl: String
   },
   tree: Array,

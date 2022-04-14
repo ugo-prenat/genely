@@ -5,11 +5,11 @@ export default function File(props) {
   const file = props.file
   
   return (
-    <div>
-      <div className='file' onClick={() => props.displayFile(file.url, file.name)} >
-        <FileIcon />
-        <p>{ file.name }</p>
-      </div>
-    </div>
+    <li onClick={() => props.displayFile(file.url, file.name)}>
+      <p>
+        <FileIcon />     
+        {file.name}
+      </p>
+    </li>
   )
 }

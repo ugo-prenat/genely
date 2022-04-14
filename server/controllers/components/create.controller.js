@@ -11,12 +11,14 @@ module.exports = async(req, res) => {
   
   const newComponent = new Components({
     id: await getComponentId(),
+    url: `/${user.username}/${data.shortname}`,
     shortname: data.shortname,
     fullname: data.fullname,
     description: data.description,
     creator: {
       id: user.id,
       username: user.username,
+      fullname: user.fullname,
       avatarUrl: user.avatarUrl
     },
     isPublic: data.visibility === 'public',

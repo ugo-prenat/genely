@@ -8,13 +8,17 @@ import Download from '../../assets/svg/Download'
 export default function ComponentData(props) {
   const component = props.component
   
+  const downloadComponent = () => {
+    console.log('download');
+  }
+  
   return (
     <div className='data'>
       <p className='fullname'>{ component.fullname }</p>
       <div className='sub-data'>
         <p className='shortname'>{ component.shortname }</p>•
         <p className='created-at'>Créé le { getDate(component.createdAt) }, il y a { getDiffTime(component.createdAt) }</p>•
-        <p className='download-btn'><Download /> Télécharger le composant</p>
+        <p className='download-btn' onClick={downloadComponent}><Download />Télécharger le composant</p>
       </div>
       <FiltersList filters={component.filters} />
       { component.description &&

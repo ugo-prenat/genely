@@ -24,12 +24,12 @@ const manuallySignup = async (req, res) => {
     return res.status(400).send({ status: 400, error: { input: 'username', msg: 'Nom d\'utilisateur déjà pris' }})
   }
   
-  const fullName = data.firstname + ' ' + data.lastname
+  const fullname = data.firstname + ' ' + data.lastname
   const password = await bcrypt.hash(data.password, saltRounds)
   const user = new Users({
     id: await getNewId(),
     username,
-    fullName,
+    fullname,
     email,
     password,
     isAuthWithGoogle: false,
@@ -72,7 +72,7 @@ const googleSignup = async(req, res) => {
   const user = new Users({
     id: userId,
     username,
-    fullName: name,
+    fullname: name,
     email,
     password: null,
     isAuthWithGoogle: true,
