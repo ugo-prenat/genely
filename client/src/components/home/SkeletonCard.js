@@ -4,7 +4,7 @@ export default function SkeletonCard(props) {
   const count = new Array(props.count).fill()
   
   return (
-    <div className='skeleton-list'>
+    <div className='skeleton-component-list'>
       { count.map((_, index) => <Card key={index} /> ) }
     </div>
   )
@@ -12,7 +12,7 @@ export default function SkeletonCard(props) {
 
 export function Card() {
   return (
-    <div className='card'>
+    <div className='component'>
       <div>
         <div className='illustration-container skeleton-box'></div>
         

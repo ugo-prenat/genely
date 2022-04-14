@@ -7,7 +7,13 @@ export default function FiltersList(props) {
   
   return (
     <div className='filters-list'>
-      { filters.map((filter, index) => <FilterCard filter={filter} key={index} />) }
+      { filters.map((filter, index) => 
+        <FilterCard
+          filter={filter}
+          reloadList={filter => props.reloadList(filter)}
+          key={index}
+        />)
+      }
     </div>
   )
 }
