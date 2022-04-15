@@ -23,7 +23,11 @@ export default function Filters(props) {
   
   return (
     <div>
-      <FiltersList filters={filters} reloadList={filter => props.reloadList(filter)} />
+      <FiltersList
+        filters={filters}
+        reloadList={filter => props.reloadList(filter)}
+        clearFilters={() => props.clearFilters()}
+      />
     </div>
   )
 }

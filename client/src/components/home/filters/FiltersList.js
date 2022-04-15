@@ -14,6 +14,9 @@ export default function FiltersList(props) {
           key={index}
         />)
       }
+      <span className='filter' onClick={() => props.clearFilters()}>
+        Clear filters
+      </span>
     </div>
   )
 }
