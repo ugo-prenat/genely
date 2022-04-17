@@ -50,6 +50,7 @@ export default function Filters(props) {
             filters={techFilters}
             reloadList={filter => props.reloadList(filter)}
             clearFilters={() => props.clearFilters()}
+            hideFilterList={() => setDisplayFilterList('')}
           />
         }
       </div>
@@ -67,6 +68,7 @@ export default function Filters(props) {
             filters={categoryFilters}
             reloadList={filter => props.reloadList(filter)}
             clearFilters={() => props.clearFilters()}
+            hideFilterList={() => setDisplayFilterList('')}
           />
         }
       </div>
