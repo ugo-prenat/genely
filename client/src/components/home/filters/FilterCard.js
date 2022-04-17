@@ -5,7 +5,7 @@ export default function FilterCard(props) {
   
   return (
     <span
-      onClick={() => props.reloadList(filter.name.toLowerCase())}
+      onClick={() => props.reloadList(filter.name)}
       className='filter'
     >
       { filter.name }

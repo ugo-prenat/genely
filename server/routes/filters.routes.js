@@ -8,8 +8,13 @@ const authenticateToken = require('../middlewares/token/authenticateToken')
 
 router.get('/', async(req, res) => {
   // Return all filters
-  const filters = (await Filters.find()).map(filter => ({ name: filter.name, type: filter.type }))
-  res.status(200).send({ status: 200, filters })
+  const techFilters = (await Filters.find({ type: 'technology' }))
+  .map(filter => ({ name: filter.name, type: filter.type }))
+  
+  const categoryFilters = (await Filters.find({ type: 'category' }))
+  .map(filter => ({ name: filter.name, type: filter.type }))
+  
+  res.status(200).send({ status: 200, techFilters, categoryFilters })
 })
 router.post('/', authenticateToken, async(req, res) => {
   // Create a filter

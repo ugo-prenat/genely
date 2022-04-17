@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 
 import ComponentList from '../home/ComponentList';
-import Filters from '../home/filters/Filters';
+import Filters from '../home/filters/FiltersContainer';
 
 import '../../styles/home.scss'
 
@@ -14,8 +14,6 @@ export default function Home() {
   
   const reloadList = useRef(null)
   
-  
-  
   useEffect(() => {
     // Setup tab title
     document.title = 'Genely'
@@ -23,14 +21,12 @@ export default function Home() {
   
   useEffect(() => newfilters(), [filters])
   
-  
   const newfilters = () => {
     // Reload the components list after selected filters
     
     // Update url
-    if (filters.length !== 0) navigate(`?filters=${ filters.map(filter => `${filter}`) }`)
+    if (filters.length !== 0) navigate(`?filters=${ filters.map(filter => `${filter.toLowerCase()}`) }`)
     else navigate('')
-    
     
     reloadList.current(filters)
   }
@@ -38,7 +34,6 @@ export default function Home() {
   return (
     <div className='main-component home-component'>
       <Filters
-        /* reloadList={filter => newfilters(filter)} */
         reloadList={filter => setFilters(filters => [...filters, filter])}
         clearFilters={() => setFilters([])}
       />

@@ -10,5 +10,4 @@ router.post('/', authenticateToken, componentController.create)
 router.get('/', componentController.getAll)
 router.get('/:creator/:name', componentController.getSpecific)
 
-
 module.exports = router

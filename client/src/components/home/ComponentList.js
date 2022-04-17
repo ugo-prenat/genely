@@ -28,9 +28,12 @@ export default function ComponentList(props) {
   return (
     <div className='component-list'>
       {
-        components.map((component, index) => {
-          return(<ComponentCard component={component} key={index} />)
-        })
+        components.length > 0 ?
+          components.map((component, index) => {
+            return(<ComponentCard component={component} key={index} />)
+          })
+        :
+          <p className='loading'>Aucun comp</p>
       }
     </div>
   )

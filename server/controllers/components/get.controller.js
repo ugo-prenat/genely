@@ -13,7 +13,9 @@ const getAll = async(req, res) => {
   const isUserAuth = checkIsUserAuth(req.query.visibility, usernameQuery, req.headers.authorization)
   
   const findParams = {}
-  if (filtersQuery) findParams.filters = { $in: filtersQuery.toLowerCase().split(',') }
+  const filters = filtersQuery.split(',')
+  
+  if (filtersQuery) findParams.$and = filters.map(filter => { return({ filters: { $elemMatch: { name: filter }}})})
   if (usernameQuery) findParams['creator.username'] = usernameQuery
   if (!isUserAuth) findParams.isPublic = true
   
