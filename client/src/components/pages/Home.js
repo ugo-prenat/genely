@@ -9,9 +9,13 @@ import '../../styles/home.scss'
 
 
 export default function Home() {
-  const [filters, setFilters] = useState([])
-  const navigate = useNavigate()
+  // At load of the page, check if url contains filters
+  const queryParams = new URLSearchParams(window.location.search)
+  const urlFilters = queryParams.get('filters')
   
+  const [filters, setFilters] = useState(urlFilters ? urlFilters.split(',') : [])
+  
+  const navigate = useNavigate()
   const reloadList = useRef(null)
   
   useEffect(() => {
@@ -20,12 +24,11 @@ export default function Home() {
   }, [])
   
   useEffect(() => newfilters(), [filters])
-  
+
   const newfilters = () => {
     // Reload the components list after selected filters
-    
     // Update url
-    if (filters.length !== 0) navigate(`?filters=${ filters.map(filter => `${filter.toLowerCase()}`) }`)
+    if (filters.length !== 0) navigate(`?filters=${ filters.map(filter => `${filter}`) }`)
     else navigate('')
     
     reloadList.current(filters)

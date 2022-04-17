@@ -33,11 +33,11 @@ export default function ComponentCard(props) {
         </a>
       </div>
       
-      {/* <div>
+      <div>
         { component.filters.map((filter, index) =>
           <p key={index}>{filter.name}</p>
         )}
-      </div> */}
+      </div>
     </div>
   )
 }

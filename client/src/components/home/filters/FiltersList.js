@@ -7,7 +7,7 @@ export default function FiltersList(props) {
   
   return (
     <div className='filter-list'>
-      <input placeholder='Rechercher...' />
+      <input placeholder='Rechercher...' autoFocus />
       
       <div className='filter-option'>
         { filters.map((filter, index) => 
@@ -20,8 +20,8 @@ export default function FiltersList(props) {
       </div>
       
       <div className='bottom-btns'>
-        <span onClick={() => props.clearFilters()}>Clear filters</span>
-        <span>Done</span>
+        <span onClick={() => props.clearFilters()} className='clear-btn'>Réinitialiser</span>
+        <span>Confirmer</span>
       </div>
     </div>
   )

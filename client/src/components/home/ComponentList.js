@@ -12,8 +12,10 @@ export default function ComponentList(props) {
   useEffect(() => loadAllComponents(null), [])
   
   const loadAllComponents = async filters => {
+    console.log(`${filters ? filters.map(filter => `${filter}`) : ''}`);
+    
     setIsLoading(true)
-    const res = await fetch.get(`/components?filters=${filters}`)
+    const res = await fetch.get(`/components?filters=${filters ? filters.map(filter => `${filter}`) : ''}`)
     setComponents(res.components)
     setIsLoading(false)
   }
