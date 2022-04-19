@@ -15,7 +15,7 @@ export default function FiltersList(props) {
     )
   }, [searchValue])
   
-  
+
   return (
     <div className='filter-list'>
       <input

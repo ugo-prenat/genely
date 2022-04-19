@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 
 export default function SearchInput(props) {
   const [searchValue, setSearchValue] = useState('')
+  
 
   return (
     <div>
@@ -10,6 +11,7 @@ export default function SearchInput(props) {
         placeholder='Rechercher un composant...'
         value={searchValue}
         onChange={e => setSearchValue(e.target.value)}
+        readOnly={props.isLoading}
       />
     </div>
   )

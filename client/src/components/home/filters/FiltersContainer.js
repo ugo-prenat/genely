@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 
 import FiltersList from './FiltersList'
 import SearchInput from './SearchInput'
-import SkeletonCard from './SkeletonCard'
 
 import Triangle from '../../../assets/svg/Triangle'
 
@@ -31,19 +30,24 @@ export default function Filters(props) {
     getFilters()
   }, [])
   
-  if (isLoading) return (<SkeletonCard count={10} />)
   
   return (
     <div className='filters-container'>
-      <SearchInput />
+      <SearchInput
+        isLoading={isLoading}
+      />
       
       <div className='filter-select'>
-        <p 
-          onClick={() => setDisplayFilterList(displayFilterList === 'tech' ? '' : 'tech')}
-          className={`select-title ${displayFilterList === 'tech' ? 'opened' : ''}`}
-        >
-          Technologies <Triangle />
-        </p>
+        { isLoading ?
+            <p className='select-title is-loading'>Technologies <Triangle /></p>
+          :
+            <p 
+              onClick={() => setDisplayFilterList(displayFilterList === 'tech' ? '' : 'tech')}
+              className={`select-title ${displayFilterList === 'tech' ? 'opened' : ''}`}
+            >
+              Technologies <Triangle />
+            </p>
+        }
         { displayFilterList === 'tech' &&
         
           <FiltersList
@@ -56,12 +60,16 @@ export default function Filters(props) {
       </div>
       
       <div className='filter-select'>
-        <p 
-          onClick={() => setDisplayFilterList(displayFilterList === 'category' ? '' : 'category')}
-          className={`select-title ${displayFilterList === 'category' ? 'opened' : ''}`}
-        >
-          Catégories <Triangle />
-        </p>
+        { isLoading ?
+            <p className='select-title is-loading'>Catégories <Triangle /></p>
+          :
+            <p 
+              onClick={() => setDisplayFilterList(displayFilterList === 'category' ? '' : 'category')}
+              className={`select-title ${displayFilterList === 'category' ? 'opened' : ''}`}
+            >
+              Catégories <Triangle />
+            </p>
+        }
         { displayFilterList === 'category' &&
         
           <FiltersList
