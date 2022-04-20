@@ -10,12 +10,15 @@ import { request as fetch } from '../../../controller/request'
 
 export default function Filters(props) {
   const [isLoading, setIsLoading] = useState(true)
+  const [displayFilterList, setDisplayFilterList] = useState('')
   
   const [filters, setFilters] = useState()
-  const [techFilters, setTechFilters] = useState()
-  const [categoryFilters, setCategoryFilters] = useState()
   
-  const [displayFilterList, setDisplayFilterList] = useState('')
+  const [techFilters, setTechFilters] = useState()
+  const [selectedTechFilters, setSelectedTechFilters] = useState([])
+  const [categoryFilters, setCategoryFilters] = useState()
+  const [selectedCategoryFilters, setSelectedCategoryFilters] = useState([])
+  
   
   useEffect(() => {
     const getFilters = async() => {
@@ -29,6 +32,18 @@ export default function Filters(props) {
     }
     getFilters()
   }, [])
+  
+  const addToTechFilters = filter => {
+    // Add the filter to the selected filters list
+    setSelectedTechFilters(selectedTechFilters => [...selectedTechFilters, filter])
+    props.reloadList(selectedTechFilters)
+  }
+  const removeFromTechFilters = filter => {
+    // Remove the filter from the selected filters list
+    setSelectedTechFilters(selectedTechFilters => selectedTechFilters.filter(item => item !== filter))
+    props.reloadList(selectedTechFilters)
+  }
+  
   
   
   return (
@@ -53,7 +68,13 @@ export default function Filters(props) {
           <FiltersList
             filters={techFilters}
             reloadList={filter => props.reloadList(filter)}
-            clearFilters={() => props.clearFilters()}
+            //clearFilters={() => props.clearFilters('tech')}
+            
+            addToFilters={filter => addToTechFilters(filter)}
+            removeFromFilters={filter => removeFromTechFilters(filter) }
+            selectedFilters={selectedTechFilters}
+            
+            clearFilters={() => setTechFilters([])}
             hideFilterList={() => setDisplayFilterList('')}
           />
         }
@@ -75,7 +96,8 @@ export default function Filters(props) {
           <FiltersList
             filters={categoryFilters}
             reloadList={filter => props.reloadList(filter)}
-            clearFilters={() => props.clearFilters()}
+            //clearFilters={() => props.clearFilters('category')}
+            clearFilters={() => setCategoryFilters([])}
             hideFilterList={() => setDisplayFilterList('')}
           />
         }
