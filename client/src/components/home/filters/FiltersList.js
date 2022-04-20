@@ -18,14 +18,6 @@ export default function FiltersList(props) {
     )
   }, [searchValue])
   
-  const isFilterSelected = (filter, selectedFilters) => {
-    // Check if the filter given is selected
-    if (selectedFilters.filter(item => item === filter.name).length > 0) {
-      return true
-    }
-    return false
-  }
-  
   
   return (
     <div>
@@ -50,8 +42,7 @@ export default function FiltersList(props) {
                   filter={filter}
                   addToFilters={filter => props.addToFilters(filter)}
                   removeFromFilters={filter => props.removeFromFilters(filter)}
-                  isSelected={isFilterSelected(filter, selectedFilters)}
-                  
+                  selectedFilters={selectedFilters}
                   key={index}
                 />
               )

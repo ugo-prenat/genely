@@ -14,6 +14,7 @@ export default function Home() {
   const urlFilters = queryParams.get('filters')
   
   const [filters, setFilters] = useState(urlFilters ? urlFilters.split(',') : [])
+  const [searchInput, setSearchInput] = useState('')
   
   const navigate = useNavigate()
   const reloadList = useRef(null)
@@ -23,22 +24,44 @@ export default function Home() {
     document.title = 'Genely'
   }, [])
   
-  useEffect(() => newfilters(), [filters])
-
-  const newfilters = () => {
+  useEffect(() => reloadList.current(filters, searchInput), [filters, searchInput])
+  
+  const addFilter = filter => {
+    // Add the filter to the filters list and reload the components list
+    setFilters(filters => [...filters, filter])
+    // Trigger the reload of the components list with the useEffect
+  }
+  const removeFilter = filter => {
+    // Remove the filter from the filters list and reload the components list
+    setFilters(filters => filters.filter(item => item !== filter))
+    // Trigger the reload of the components list with the useEffect
+  }
+  const clearFilters = toDeleteFilters => {
+    // Clear the selected filters list and reload the components list
+    setFilters(filters => filters.filter(filter => !toDeleteFilters.includes(filter)))
+  }
+  
+  const searchFilter = searchInput => {
+    setSearchInput(searchInput)
+  }
+  
+  /* const newfilters = () => {
     // Reload the components list after selected filters
     // Update url
     if (filters.length !== 0) navigate(`?filters=${ filters.map(filter => `${filter}`) }`)
     else navigate('')
     
     reloadList.current(filters)
-  }
+  } */
   
   return (
     <div className='main-component home-component'>
       <Filters
-        reloadList={filter => setFilters(filters => [...filters, filter])}
-        clearFilters={() => setFilters([])}
+        addFilter={filter => addFilter(filter)}
+        removeFilter={filter => removeFilter(filter)}
+        clearFilters={filters => clearFilters(filters)}
+        
+        searchFilter={searchInput => searchFilter(searchInput)}
       />
       <ComponentList reloadList={reloadList} />
     </div>

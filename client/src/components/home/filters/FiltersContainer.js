@@ -36,12 +36,33 @@ export default function Filters(props) {
   const addToTechFilters = filter => {
     // Add the filter to the selected filters list
     setSelectedTechFilters(selectedTechFilters => [...selectedTechFilters, filter])
-    props.reloadList(selectedTechFilters)
+    props.addFilter(filter)
   }
   const removeFromTechFilters = filter => {
     // Remove the filter from the selected filters list
     setSelectedTechFilters(selectedTechFilters => selectedTechFilters.filter(item => item !== filter))
-    props.reloadList(selectedTechFilters)
+    props.removeFilter(filter)
+  }
+  const clearTechFilters = () => {
+    // Clear the selected filters list
+    props.clearFilters(selectedTechFilters)
+    setSelectedTechFilters([])
+  }
+    
+  const addToCategoryFilters = filter => {
+    // Add the filter to the selected filters list
+    setSelectedCategoryFilters(selectedTechFilters => [...selectedTechFilters, filter])
+    props.addFilter(filter)
+  }
+  const removeFromCategoryFilters = filter => {
+    // Remove the filter from the selected filters list
+    setSelectedCategoryFilters(selectedTechFilters => selectedTechFilters.filter(item => item !== filter))
+    props.removeFilter(filter)
+  }
+  const clearCategoryFilters = () => {
+    // Clear the selected filters list
+    props.clearFilters(selectedCategoryFilters)
+    setSelectedCategoryFilters([])
   }
   
   
@@ -50,6 +71,7 @@ export default function Filters(props) {
     <div className='filters-container'>
       <SearchInput
         isLoading={isLoading}
+        applySearch={searchInput => props.searchFilter(searchInput)}
       />
       
       <div className='filter-select'>
@@ -67,14 +89,12 @@ export default function Filters(props) {
         
           <FiltersList
             filters={techFilters}
-            reloadList={filter => props.reloadList(filter)}
-            //clearFilters={() => props.clearFilters('tech')}
             
             addToFilters={filter => addToTechFilters(filter)}
             removeFromFilters={filter => removeFromTechFilters(filter) }
             selectedFilters={selectedTechFilters}
             
-            clearFilters={() => setTechFilters([])}
+            clearFilters={clearTechFilters}
             hideFilterList={() => setDisplayFilterList('')}
           />
         }
@@ -95,9 +115,12 @@ export default function Filters(props) {
         
           <FiltersList
             filters={categoryFilters}
-            reloadList={filter => props.reloadList(filter)}
-            //clearFilters={() => props.clearFilters('category')}
-            clearFilters={() => setCategoryFilters([])}
+            
+            addToFilters={filter => addToCategoryFilters(filter)}
+            removeFromFilters={filter => removeFromCategoryFilters(filter) }
+            selectedFilters={selectedCategoryFilters}
+            
+            clearFilters={clearCategoryFilters}
             hideFilterList={() => setDisplayFilterList('')}
           />
         }

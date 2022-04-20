@@ -6,16 +6,31 @@ const Components = db.schema.components
 
 const getAll = async(req, res) => {
   // Return a list of components
+  
+  // Query params gestion
+  const findParams = {}
+  
   const filtersQuery = req.query.filters
+  if (filtersQuery) {
+    findParams.$and = filtersQuery
+      .split(',')
+      .map(filter => { return({ filters: { $elemMatch: { name: filter }}})})
+  }
+  
+  
+  const searchQuery = req.query.search
+  if (searchQuery) {
+    findParams.title = searchQuery
+  }
+  
+
   const dateQuery = req.query.date
   const date = dateQuery && dateQuery === 'asc' ? 1 : -1
+
   const usernameQuery = req.query.username
   const isUserAuth = checkIsUserAuth(req.query.visibility, usernameQuery, req.headers.authorization)
   
-  const findParams = {}
-  const filters = filtersQuery.split(',')
   
-  if (filtersQuery) findParams.$and = filters.map(filter => { return({ filters: { $elemMatch: { name: filter }}})})
   if (usernameQuery) findParams['creator.username'] = usernameQuery
   if (!isUserAuth) findParams.isPublic = true
   
