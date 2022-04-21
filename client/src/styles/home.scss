@@ -4,12 +4,16 @@
   display: flex;
   flex-direction: column;
   .filters-container {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 302px);
+    grid-template-rows: repeat(1, auto);
+    grid-gap: 20px;
+    justify-content: center;
     margin-bottom: 25px;
     .search-input {
       position: relative;
       input {
-        width: 250px;
+        width: calc(100% - 20px);
         padding: 4px 10px;
         outline: none;
         border: none;
@@ -35,9 +39,13 @@
       }
     }
     .filter-select {
-      margin-left: 30px;
       position: relative;
+      width: fit-content;
+      &:last-of-type {
+        right: 55%;
+      }
       .select-title {
+        width: fit-content;
         display: flex;
         align-items: center;
         border: 1px solid $color-dark-100;

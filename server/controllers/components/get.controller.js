@@ -17,13 +17,14 @@ const getAll = async(req, res) => {
       .map(filter => { return({ filters: { $elemMatch: { name: filter }}})})
   }
   
-  
   const searchQuery = req.query.search
   if (searchQuery) {
-    findParams.title = searchQuery
+    findParams.$or = [
+      { fullname: { $regex: searchQuery, $options: "i" } },
+      { shortname: { $regex: searchQuery, $options: "i" } }
+    ]
   }
   
-
   const dateQuery = req.query.date
   const date = dateQuery && dateQuery === 'asc' ? 1 : -1
 

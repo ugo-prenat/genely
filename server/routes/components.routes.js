@@ -11,12 +11,6 @@ const db = require('../db/export')
 const Components = db.schema.components
 
 router.post('/', authenticateToken, componentController.create)
-router.get('/', async(req, res) => {
-
-  const components = await Components.find({fullname: { $regex: "Le Jeu" }, })
-  res.status(200).send({ status: 200, components })
-
-})
 router.get('/', componentController.getAll)
 router.get('/:creator/:name', componentController.getSpecific)
 
