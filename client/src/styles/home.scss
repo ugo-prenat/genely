@@ -42,7 +42,7 @@
       position: relative;
       width: fit-content;
       &:last-of-type {
-        right: 55%;
+        right: 162px;
       }
       .select-title {
         width: fit-content;
@@ -65,7 +65,9 @@
         &:hover {
           background: $color-dark-300;
         }
-        svg {
+        .triangle {
+          display: flex;
+          align-items: center;
           margin-left: 5px;
           transition: transform .2s ease-out;
         }
@@ -73,8 +75,33 @@
           background: $color-blue-200;
           border-color: $color-blue-200;
           color: $color-white;
-          svg {
+          .triangle {
             transform: rotate(180deg);
+          }
+          span {
+            color: $color-white;
+            opacity: 1;
+          }
+        }
+        .filters-length {
+          display: flex;
+          align-items: center;
+          color: $color-light-grey;
+          opacity: .5;
+          &::before {
+            content: '';
+            display: flex;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: $color-light-grey;
+            margin: 0 5px;
+          }
+          .cross {
+            display: flex;
+            align-items: center;
+            width: 20px;
+            height: 20px;
           }
         }
       }

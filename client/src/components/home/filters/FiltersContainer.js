@@ -4,6 +4,7 @@ import FiltersList from './FiltersList'
 import SearchInput from './SearchInput'
 
 import Triangle from '../../../assets/svg/Triangle'
+import Cross from '../../../assets/svg/Cross'
 
 import { request as fetch } from '../../../controller/request'
 
@@ -82,7 +83,15 @@ export default function Filters(props) {
               onClick={() => setDisplayFilterList(displayFilterList === 'tech' ? '' : 'tech')}
               className={`select-title ${displayFilterList === 'tech' ? 'opened' : ''}`}
             >
-              Technologies <Triangle />
+              Technologies
+              { selectedTechFilters.length > 0 ?
+                  <div className='filters-length'>
+                    <span>{ selectedTechFilters.length }</span>
+                    <span onClick={clearTechFilters} className='cross'><Cross /></span>
+                  </div>
+                :
+                <span className='triangle'><Triangle /></span>
+              }
             </p>
         }
         { displayFilterList === 'tech' &&
@@ -108,7 +117,15 @@ export default function Filters(props) {
               onClick={() => setDisplayFilterList(displayFilterList === 'category' ? '' : 'category')}
               className={`select-title ${displayFilterList === 'category' ? 'opened' : ''}`}
             >
-              Catégories <Triangle />
+              Catégories
+              { selectedCategoryFilters.length > 0 ?
+                  <div className='filters-length'>
+                    <span>{ selectedCategoryFilters.length }</span>
+                    <span onClick={clearCategoryFilters} className='cross'><Cross /></span>
+                  </div>
+                :
+                  <span className='triangle'><Triangle /></span>
+              }
             </p>
         }
         { displayFilterList === 'category' &&
