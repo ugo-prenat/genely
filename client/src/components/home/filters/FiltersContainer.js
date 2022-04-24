@@ -4,7 +4,6 @@ import FiltersList from './FiltersList'
 import SearchInput from './SearchInput'
 
 import Triangle from '../../../assets/svg/Triangle'
-import Cross from '../../../assets/svg/Cross'
 
 import { request as fetch } from '../../../controller/request'
 
@@ -20,19 +19,39 @@ export default function Filters(props) {
   const [categoryFilters, setCategoryFilters] = useState()
   const [selectedCategoryFilters, setSelectedCategoryFilters] = useState([])
   
+  const [urlSearchInput, setUrlSearchInput] = useState('')
   
   useEffect(() => {
     const getFilters = async() => {
       const res = await fetch.get('/filters')
       
-      setFilters(res.techFilters.concat(res.categoryFilters))
+      const tempFilters = res.techFilters.concat(res.categoryFilters)
+      
+      setFilters(tempFilters)
       setTechFilters(res.techFilters)
       setCategoryFilters(res.categoryFilters)
+      
+      //get the filters from the url
+      await getUrlFilters(tempFilters)
       
       setIsLoading(false)
     }
     getFilters()
   }, [])
+  
+  const getUrlFilters = async(filters) => {
+    // At the load of the page, get the filters from the url
+    const queryParams = new URLSearchParams(window.location.search)
+    const urlFilters = queryParams.get('filters')
+    const urlSearch = queryParams.get('search')
+    
+    if (urlFilters) {
+      const filtersType = getFiltersType(urlFilters.split(','), filters)
+      setSelectedTechFilters(filtersType.techFilters)
+      setSelectedCategoryFilters(filtersType.categoryFilters)
+    }
+    if (urlSearch) setUrlSearchInput(urlSearch)
+  }
   
   const addToTechFilters = filter => {
     // Add the filter to the selected filters list
@@ -49,7 +68,6 @@ export default function Filters(props) {
     props.clearFilters(selectedTechFilters)
     setSelectedTechFilters([])
   }
-    
   const addToCategoryFilters = filter => {
     // Add the filter to the selected filters list
     setSelectedCategoryFilters(selectedTechFilters => [...selectedTechFilters, filter])
@@ -66,13 +84,12 @@ export default function Filters(props) {
     setSelectedCategoryFilters([])
   }
   
-  
-  
   return (
     <div className='filters-container'>
       <SearchInput
         isLoading={isLoading}
         applySearch={searchInput => props.searchFilter(searchInput)}
+        value={urlSearchInput}
       />
       
       <div className='filter-select'>
@@ -138,4 +155,24 @@ export default function Filters(props) {
       </div>
     </div>
   )
+}
+
+function getFiltersType(urlFilters, filters) {
+  // Set the filters from url to the correct category of filters
+  let techFilters = []
+  let categoryFilters = []
+  
+  urlFilters.forEach(filter => {
+    const searchedFilter = filters.filter(item => item.name.toLowerCase() === filter.toLowerCase())[0]
+    
+    if (searchedFilter) {
+      
+      searchedFilter.type === 'technology' ?
+        techFilters.push(searchedFilter?.name)
+      :
+        categoryFilters.push(searchedFilter?.name)
+    }
+  })
+  
+  return { techFilters, categoryFilters }
 }

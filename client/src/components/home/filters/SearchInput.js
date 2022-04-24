@@ -4,11 +4,13 @@ import Cross from '../../../assets/svg/Cross'
 
 
 export default function SearchInput(props) {
-  const [searchValue, setSearchValue] = useState('')
+  const [searchValue, setSearchValue] = useState(props.value)
   
   useEffect(() => {
     props.applySearch(searchValue.toLowerCase())
   }, [searchValue])
+  
+  useEffect(() => setSearchValue(props.value), [props.value])
   
 
   return (

@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import { useNavigate, createSearchParams } from 'react-router-dom';
+
 import ComponentCard from './ComponentCard'
 
 import { request as fetch } from '../../controller/request';
@@ -8,12 +10,14 @@ import SkeletonCard from './SkeletonCard';
 export default function ComponentList(props) {
   const [components, setComponents] = useState()
   const [isLoading, setIsLoading] = useState(true)
+  const navigate = useNavigate()
   
   useEffect(() => loadAllComponents(null), [])
   
   const loadAllComponents = async(filters, searchInput) => {
     setIsLoading(true)
-    const res = await fetch.get(getFetchUrl(filters, searchInput))
+    const params = getParams(filters, searchInput)
+    const res = await fetch.get(`/components?${params}`)
     setComponents(res.components)
     setIsLoading(false)
   }
@@ -39,21 +43,19 @@ export default function ComponentList(props) {
   )
 }
 
-function getFetchUrl(filters, searchInput) {
+function getParams(filters, searchInput) {
   // Generate the fetch url with params
-  let url = '/components'
+  let base = ''
   let params = []
   
   if (filters?.length > 0) params.push(`filters=${filters.map(filter => `${filter}`)}`)
   if (searchInput) params.push(`search=${searchInput}`)
   
   params.forEach((param, i) => {
-    if (i === 0) url += '?'
-    if (i !== 0) url += '&'
+    if (i !== 0) base += '&'
     
-    url += param
+    base += param
   })
   
-  //console.log(url);
-  return url
+  return base
 }

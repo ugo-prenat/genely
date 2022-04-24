@@ -9,11 +9,7 @@ import '../../styles/home.scss'
 
 
 export default function Home() {
-  // At load of the page, check if url contains filters
-  const queryParams = new URLSearchParams(window.location.search)
-  const urlFilters = queryParams.get('filters')
-  
-  const [filters, setFilters] = useState(urlFilters ? urlFilters.split(',') : [])
+  const [filters, setFilters] = useState([])
   const [searchInput, setSearchInput] = useState('')
   
   const navigate = useNavigate()
@@ -24,6 +20,7 @@ export default function Home() {
     document.title = 'Genely'
   }, [])
   
+  // Reload the components list each time the 'filters' or 'searchInput' variables changes
   useEffect(() => reloadList.current(filters, searchInput), [filters, searchInput])
   
   const addFilter = filter => {

@@ -7,6 +7,7 @@
     display: flex;
     margin-bottom: 25px;
     .search-input {
+      position: relative;
       input {
         width: 250px;
         padding: 4px 10px;
