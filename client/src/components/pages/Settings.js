@@ -7,6 +7,6 @@ export default function Settings() {
   }, [])
   
   return <div className='main-component'>
-    Paramètre du profil
+    <p className='loading'>WIP</p>
   </div>;
 }

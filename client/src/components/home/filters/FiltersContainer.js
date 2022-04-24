@@ -25,7 +25,7 @@ export default function Filters(props) {
     const getFilters = async() => {
       const res = await fetch.get('/filters')
       
-      setFilters(res.techFilters.concat(res.categotyFilters))
+      setFilters(res.techFilters.concat(res.categoryFilters))
       setTechFilters(res.techFilters)
       setCategoryFilters(res.categoryFilters)
       
@@ -77,22 +77,19 @@ export default function Filters(props) {
       
       <div className='filter-select'>
         { isLoading ?
-            <p className='select-title is-loading'>Technologies <Triangle /></p>
+            <div className='select-title is-loading'>Technologies <Triangle /></div>
           :
-            <p 
+            <div 
               onClick={() => setDisplayFilterList(displayFilterList === 'tech' ? '' : 'tech')}
               className={`select-title ${displayFilterList === 'tech' ? 'opened' : ''}`}
             >
               Technologies
               { selectedTechFilters.length > 0 ?
-                  <div className='filters-length'>
-                    <span>{ selectedTechFilters.length }</span>
-                    <span onClick={clearTechFilters} className='cross'><Cross /></span>
-                  </div>
+                  <span className='filter-length'>{ selectedTechFilters.length }</span>
                 :
                 <span className='triangle'><Triangle /></span>
               }
-            </p>
+            </div>
         }
         { displayFilterList === 'tech' &&
         
@@ -111,22 +108,19 @@ export default function Filters(props) {
       
       <div className='filter-select'>
         { isLoading ?
-            <p className='select-title is-loading'>Catégories <Triangle /></p>
+            <div className='select-title is-loading'>Catégories <Triangle /></div>
           :
-            <p 
+            <div 
               onClick={() => setDisplayFilterList(displayFilterList === 'category' ? '' : 'category')}
               className={`select-title ${displayFilterList === 'category' ? 'opened' : ''}`}
             >
               Catégories
               { selectedCategoryFilters.length > 0 ?
-                  <div className='filters-length'>
-                    <span>{ selectedCategoryFilters.length }</span>
-                    <span onClick={clearCategoryFilters} className='cross'><Cross /></span>
-                  </div>
+                  <span className='filter-length'>{ selectedCategoryFilters.length }</span>
                 :
                   <span className='triangle'><Triangle /></span>
               }
-            </p>
+            </div>
         }
         { displayFilterList === 'category' &&
         

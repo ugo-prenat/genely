@@ -54,6 +54,6 @@ function getFetchUrl(filters, searchInput) {
     url += param
   })
   
-  console.log(url);
+  //console.log(url);
   return url
 }
