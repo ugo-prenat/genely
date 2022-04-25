@@ -14,7 +14,7 @@ const getAll = async(req, res) => {
   if (filtersQuery) {
     findParams.$and = filtersQuery
       .split(',')
-      .map(filter => { return({ filters: { $elemMatch: { name: filter }}})})
+      .map(filter => {return({ filters: { $elemMatch: { lowercase: filter.toLowerCase() }}})})
   }
   
   const searchQuery = req.query.search

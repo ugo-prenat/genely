@@ -12,12 +12,19 @@ export default function ComponentList(props) {
   const [isLoading, setIsLoading] = useState(true)
   const navigate = useNavigate()
   
-  useEffect(() => loadAllComponents(null), [])
+  // At the load of the page, load components list with filters in url
+  const queryParams = new URLSearchParams(window.location.search)
+  const urlFilters = queryParams.get('filters')
+  const urlSearch = queryParams.get('search')
+  
+  useEffect(() => loadAllComponents(urlFilters?.split(','), urlSearch), [urlSearch, urlFilters])
+  
   
   const loadAllComponents = async(filters, searchInput) => {
     setIsLoading(true)
     const params = getParams(filters, searchInput)
-    const res = await fetch.get(`/components?${params}`)
+    
+    const res = await fetch.get(`/components${params}`)
     setComponents(res.components)
     setIsLoading(false)
   }
@@ -52,6 +59,7 @@ function getParams(filters, searchInput) {
   if (searchInput) params.push(`search=${searchInput}`)
   
   params.forEach((param, i) => {
+    if (i === 0) base += '?'
     if (i !== 0) base += '&'
     
     base += param

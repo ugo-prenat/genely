@@ -3,16 +3,17 @@ const router = express.Router()
 
 const db = require('../db/export')
 const Filters = db.schema.filters
+const Comp = db.schema.components
 
 const authenticateToken = require('../middlewares/token/authenticateToken')
 
 router.get('/', async(req, res) => {
   // Return all filters
   const techFilters = (await Filters.find({ type: 'technology' }))
-  .map(filter => ({ name: filter.name, type: filter.type }))
+  .map(filter => ({ name: filter.name, type: filter.type, lowercase: filter.lowercase }))
   
   const categoryFilters = (await Filters.find({ type: 'category' }))
-  .map(filter => ({ name: filter.name, type: filter.type }))
+  .map(filter => ({ name: filter.name, type: filter.type, lowercase: filter.lowercase }))
   
   res.status(200).send({ status: 200, techFilters, categoryFilters })
 })

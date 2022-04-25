@@ -1,6 +1,4 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom'
-
 
 import ComponentList from '../home/ComponentList';
 import Filters from '../home/filters/FiltersContainer';
@@ -9,10 +7,10 @@ import '../../styles/home.scss'
 
 
 export default function Home() {
+  const [isFirstRender, setIsFirstRender] = useState(true)
   const [filters, setFilters] = useState([])
   const [searchInput, setSearchInput] = useState('')
   
-  const navigate = useNavigate()
   const reloadList = useRef(null)
   
   useEffect(() => {
@@ -20,8 +18,12 @@ export default function Home() {
     document.title = 'Genely'
   }, [])
   
+  
   // Reload the components list each time the 'filters' or 'searchInput' variables changes
-  useEffect(() => reloadList.current(filters, searchInput), [filters, searchInput])
+  useEffect(() => {
+    if (!isFirstRender) reloadList.current(filters, searchInput)
+    setIsFirstRender(false)
+  }, [filters, searchInput])
   
   const addFilter = filter => {
     // Add the filter to the filters list and reload the components list
@@ -42,14 +44,6 @@ export default function Home() {
     setSearchInput(searchInput)
   }
   
-  /* const newfilters = () => {
-    // Reload the components list after selected filters
-    // Update url
-    if (filters.length !== 0) navigate(`?filters=${ filters.map(filter => `${filter}`) }`)
-    else navigate('')
-    
-    reloadList.current(filters)
-  } */
   
   return (
     <div className='main-component home-component'>
