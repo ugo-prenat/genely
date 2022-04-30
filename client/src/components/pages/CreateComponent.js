@@ -23,7 +23,7 @@ export default function CreateComponent(props) {
     // Get all filters
     const getFilters = async() => {
       const res = await fetch.get('/filters')
-      setFilters(res.filters)
+      setFilters(res.techFilters.concat(res.categoryFilters))
       setIsLoading(false)
     }
     getFilters()

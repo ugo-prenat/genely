@@ -10,9 +10,12 @@ import { request as fetch } from '../../controller/request';
 export function Form3(props) {
   const { register, handleSubmit } = useForm();
   const [filesLength, setFilesLength] = useState(0)
+  
   const [ignoreNodeModules, setIgnoreNodeModules] = useState(false)
   const [ignoreDsStoreFile, setIgnoreDsStoreFile] = useState(false)
   const [ignoreEnvFile, setIgnoreEnvFile] = useState(false)
+  const [ignoreGitFolder, setIgnoreGitFolder] = useState(false)
+  
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [files, setFiles] = useState()
   const [error, setError] = useState()
@@ -31,11 +34,13 @@ export function Form3(props) {
       if (file.webkitRelativePath.includes('node_modules')) setIgnoreNodeModules(true)
       else if (file.webkitRelativePath.includes('.env')) setIgnoreEnvFile(true)
       else if (file.webkitRelativePath.includes('.DS_Store')) setIgnoreDsStoreFile(true)
+      else if (file.webkitRelativePath.includes('.git')) setIgnoreGitFolder(true)
       
       return (
         !file.webkitRelativePath.includes('node_modules') &&
         !file.webkitRelativePath.includes('.env') &&
-        !file.webkitRelativePath.includes('.DS_Store')
+        !file.webkitRelativePath.includes('.DS_Store') &&
+        !file.webkitRelativePath.includes('.git')
       )
     })
     setFilesLength(newFiles.length)
@@ -106,6 +111,7 @@ export function Form3(props) {
         { ignoreNodeModules && <p>Le dossier node_modules n'a pas été ajouté</p> }
         { ignoreDsStoreFile && <p>Le fichier .DS_Store n'a pas été ajouté</p> }
         { ignoreEnvFile && <p>Le fichier .env n'a pas été ajouté</p> }
+        { ignoreGitFolder && <p>Le dosier .git n'a pas été ajouté</p> }
       </div>
       
       <Button
