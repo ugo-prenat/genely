@@ -194,7 +194,6 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      /* width: 300px; */
       width: 100%;
       height: 240px;
       background: $color-dark-400;
@@ -234,7 +233,6 @@
       }
       .names {
         color: white;
-        /* border-top:  1px solid $color-dark-200; */
         padding: 10px 12px;
         white-space: nowrap;
         .description {
@@ -275,6 +273,11 @@
           color: $color-white;
         }
       }
+    }
+    .loading {
+      position: absolute;
+      width: calc(100% - 100px);
+      height: calc(100% - 160px);
     }
   }
 }

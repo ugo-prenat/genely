@@ -42,7 +42,7 @@ export default function ComponentList(props) {
             return(<ComponentCard component={component} key={index} />)
           })
         :
-          <p className='loading'>Aucun composant trouvé</p>
+          <p className='loading'>Aucun composant trouvé pour votre recherche</p>
       }
     </div>
   )
