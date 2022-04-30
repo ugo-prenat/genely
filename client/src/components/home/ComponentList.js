@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate, createSearchParams } from 'react-router-dom';
 
 import ComponentCard from './ComponentCard'
 
@@ -10,15 +9,14 @@ import SkeletonCard from './SkeletonCard';
 export default function ComponentList(props) {
   const [components, setComponents] = useState()
   const [isLoading, setIsLoading] = useState(true)
-  const navigate = useNavigate()
   
   // At the load of the page, load components list with filters in url
   const queryParams = new URLSearchParams(window.location.search)
   const urlFilters = queryParams.get('filters')
   const urlSearch = queryParams.get('search')
   
-  useEffect(() => loadAllComponents(urlFilters?.split(','), urlSearch), [urlSearch, urlFilters])
-  
+  //useEffect(() => loadAllComponents(urlFilters?.split(','), urlSearch), [urlSearch, urlFilters])
+  useEffect(() => loadAllComponents([], null), [urlSearch, urlFilters])
   
   const loadAllComponents = async(filters, searchInput) => {
     setIsLoading(true)

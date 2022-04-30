@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+
 
 export default function FilterCard(props) {
   const [isSelected, setIsSelected] = useState()
   const filter = props.filter
   const selectedFilters = props.selectedFilters
+  const navigate = useNavigate()
   
   useEffect(() => setIsSelected(isFilterSelected()), [selectedFilters])
   
@@ -21,12 +24,33 @@ export default function FilterCard(props) {
     setIsSelected(!isSelected)
     
     // Relaod the components list with the new filter
-    isSelected ?
-      // Delete from filter list
+    if (isSelected) {
+      // Delete from filter list and url params
       props.removeFromFilters(filter.name)
-    :
+      //removeUrlParam()
+    }
+    else {
       // Add to the filter list
       props.addToFilters(filter.name)
+      //addUrlParam()
+    }
+  }
+  
+  const removeUrlParam = () => {
+    const urlParams = new URLSearchParams(window.location.search)
+    let filters = urlParams.get('filters').split(',')
+    let search = urlParams.get('search')
+    
+    filters = filters.filter(item => item !== filter.lowercase)
+    navigate(`?filters=${filters}${search ? `&search=${search}` : ''}`)
+  }
+  const addUrlParam = () => {
+    const urlParams = new URLSearchParams(window.location.search)
+    let filters = urlParams.get('filters')
+    let search = urlParams.get('search')
+    
+    filters = filters ? filters += `,${filter.lowercase}` : filter.lowercase
+    navigate(`?filters=${filters}${search ? `&search=${search}` : ''}`)
   }
   
   
