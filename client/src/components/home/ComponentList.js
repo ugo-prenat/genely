@@ -15,8 +15,8 @@ export default function ComponentList(props) {
   const urlFilters = queryParams.get('filters')
   const urlSearch = queryParams.get('search')
   
-  //useEffect(() => loadAllComponents(urlFilters?.split(','), urlSearch), [urlSearch, urlFilters])
-  useEffect(() => loadAllComponents([], null), [urlSearch, urlFilters])
+  useEffect(() => loadAllComponents(urlFilters?.split(','), urlSearch), [urlSearch, urlFilters])
+  //useEffect(() => loadAllComponents([], null), [urlSearch, urlFilters])
   
   const loadAllComponents = async(filters, searchInput) => {
     setIsLoading(true)
@@ -35,16 +35,20 @@ export default function ComponentList(props) {
   if (isLoading) return(<SkeletonCard count={5} />)
   
   return (
-    <div className='component-list'>
+    <>
       {
         components.length > 0 ?
-          components.map((component, index) => {
-            return(<ComponentCard component={component} key={index} />)
-          })
+          <div className='component-list'>
+            { 
+              components.map((component, index) => {
+                return(<ComponentCard component={component} key={index} />)
+              })
+            }
+          </div>
         :
-          <p className='loading'>Aucun composant trouvé pour votre recherche</p>
+        <p className='loading'>Aucun composant trouvé pour votre recherche</p>
       }
-    </div>
+    </>
   )
 }
 
@@ -53,8 +57,8 @@ function getParams(filters, searchInput) {
   let base = ''
   let params = []
   
-  if (filters?.length > 0) params.push(`filters=${filters.map(filter => `${filter}`)}`)
-  if (searchInput) params.push(`search=${searchInput}`)
+  if (filters?.length > 0) params.push(`filters=${filters.map(filter => `${filter.toLowerCase()}`)}`)
+  if (searchInput) params.push(`search=${searchInput.toLowerCase()}`)
   
   params.forEach((param, i) => {
     if (i === 0) base += '?'

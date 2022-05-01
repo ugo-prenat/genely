@@ -32,7 +32,7 @@ export default function Filters(props) {
       setCategoryFilters(res.categoryFilters)
       
       //get the filters from the url
-      //await getUrlFilters(tempFilters)
+      await getUrlFilters(tempFilters)
       
       setIsLoading(false)
     }
