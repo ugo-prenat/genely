@@ -313,8 +313,33 @@
     }
   }
   .component-illustrations {
-    img {
-      max-width: 300px;
+    display: flex;
+  }
+  .img-list {
+    display: inline-flex;
+    flex-direction: column;
+    background: $color-dark-300;
+    border-radius: 7px;
+    .img-container {
+      width: 200px;
+      height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 10px;
+      border: 3px solid $color-blue-100;
+      border-radius: 7px;
+      overflow: hidden;
+      cursor: pointer;
+      img {
+        width: 100%;
+      }
     }
+  }
+  .main-img-container {
+    
+    width: min-content;
+    overflow: hidden;
+    cursor: pointer;
   }
 }

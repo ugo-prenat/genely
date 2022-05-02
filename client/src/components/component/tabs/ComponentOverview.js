@@ -10,7 +10,7 @@ export default function ComponentOverview(props) {
   return (
     <div className='component-overview tab'>
       <ComponentCode component={component} activeTab={props.activeTab} />
-      <ComponentIllustrations urls={component.illustrations} />
+      <ComponentIllustrations illustrations={component.illustrations} />
     </div>
   )
 }

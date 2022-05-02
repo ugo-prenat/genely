@@ -1,14 +1,16 @@
 import React from 'react'
 
+import ImagesList from '../ImagesList'
+import MainImage from '../MainImage'
+
+
 export default function ComponentIllustrations(props) {
-  const backendUrl = process.env.REACT_APP_BACKEND_URL
-  const illustrations = props.urls
+  const illustrations = props.illustrations
   
   return (
     <div className='component-illustrations tab'>
-      { illustrations.map((img, index) => {
-        return(<img src={backendUrl + img.url} alt={`component illustration ${index+1}`} key={index} />)
-      }) }
+      <ImagesList illustrations={illustrations} />
+      <MainImage src={illustrations[0]} />
     </div>
   )
 }
