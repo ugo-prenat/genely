@@ -314,11 +314,12 @@
   }
   .component-illustrations {
     display: flex;
+    padding-bottom: 25px;
   }
   .img-list {
     display: inline-flex;
     flex-direction: column;
-    background: $color-dark-300;
+    background: $color-dark-500;
     border-radius: 7px;
     .img-container {
       width: 200px;
@@ -337,9 +338,13 @@
     }
   }
   .main-img-container {
-    
-    width: min-content;
+    margin-left: 20px;
+    border-radius: 5px;
     overflow: hidden;
     cursor: pointer;
+    img {
+      width: 100%;
+      border-radius: 5px;
+    }
   }
 }
