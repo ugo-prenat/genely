@@ -8,11 +8,14 @@ export default function ImagesList(props) {
     <div className='img-list'>
       { illustrations.map((img, index) => {
         return(
-          <div className='img-container' key={index}>
+          <div
+            className='img-container'
+            onClick={() => props.displayImg(img.url)}
+            key={index}
+          >
             <img
               src={backendUrl + img.url} 
               alt={`illustration ${index+1}`}
-              onClick={() => props.displayImg(img.url)}
               />
           </div>
         )

@@ -137,7 +137,7 @@
       &.active::after {
         content: '';
         width: calc(100% + 20px);
-        height: 3px;
+        height: 4px;
         position: relative;
         left: -10px;
         bottom: -1px;
@@ -149,13 +149,51 @@
     }
   }
   .component-overview {
-    .component-code {
-      height: 40vh;
-      .folder-tree {
-        width: 200px;
+    padding-bottom: 25px;
+    .top-part {
+      display: flex;
+      height: 50vh;
+      min-height: 400px;
+      margin-bottom: 10px;
+      .component-code {
+        width: -webkit-fill-available;
+        max-width: 60%;
+        height: 100%;
+        margin-top: 0;
+        .folder-tree {
+          width: 200px;
+        }
+        .block-code {
+          width: calc(100% - 200px);
+        }
       }
-      .block-code {
-        width: calc(100% - 200px);
+      .main-img-wrapper {
+        max-width: 40%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid $color-dark-100;
+        border-radius: 7px;
+        margin-left: 10px;
+        overflow: hidden;
+        .main-img-container {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-left: 0;
+          border-radius: 0;
+          img {
+            border-radius: 0;
+          }
+        }
+      }
+    }
+    .img-list {
+      flex-direction: row;
+      .img-container {
+        height: 100px;
+        margin-bottom: 0;
+        margin-right: 10px;
       }
     }
   }
@@ -313,37 +351,53 @@
     }
   }
   .component-illustrations {
-    display: flex;
+    display: grid;
+    grid-template-columns: 224px 1fr;
     padding-bottom: 25px;
   }
   .img-list {
-    display: inline-flex;
+    /* max-height: 600px; */
+    height: fit-content;
+    display: flex;
     flex-direction: column;
+    align-items: center;
     background: $color-dark-500;
     border-radius: 7px;
+    padding: 10px;
+    overflow: scroll;
     .img-container {
       width: 200px;
       height: 150px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 10px;
-      border: 3px solid $color-blue-100;
+      margin-bottom: 10px;
+      border: 2px solid $color-dark-200;
       border-radius: 7px;
       overflow: hidden;
       cursor: pointer;
+      transition: border .1s;
+      &:hover {
+        border: 2px solid $color-blue-200;
+      }
+      &:last-of-type {
+        margin-bottom: 0;
+      }
       img {
-        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
       }
     }
   }
   .main-img-container {
+    height: 100%;
     margin-left: 20px;
     border-radius: 5px;
     overflow: hidden;
     cursor: pointer;
     img {
-      width: 100%;
+      max-width: 100%;
+      max-height: 100%;
       border-radius: 5px;
     }
   }

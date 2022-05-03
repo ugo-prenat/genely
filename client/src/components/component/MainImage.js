@@ -1,13 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 export default function MainImage(props) {
   const backendUrl = process.env.REACT_APP_BACKEND_URL
-  const src = backendUrl + props.displayImg
+  const [src, setSrc] = useState(props.firstImg)
+  
+  props.displayImg.current = url => setSrc(url)
+  
   
   return (
     <div className='main-img-container'>
-      <a href={src} target='_blank' rel="noreferrer">
-        <img src={src} alt='component illustration' />
+      <a href={backendUrl + src} target='_blank' rel="noreferrer">
+        <img src={backendUrl + src} alt='component illustration' />
       </a>
     </div>
   )

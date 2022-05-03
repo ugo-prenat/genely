@@ -8,14 +8,11 @@ export default function ComponentIllustrations(props) {
   const illustrations = props.illustrations
   const displayImg = useRef(null)
 
-  const x = url => {
-    console.log(url);
-  }
   
   return (
     <div className='component-illustrations tab'>
-      <ImagesList illustrations={illustrations} displayImg={url => /* displayImg.current(url) */x(url)} />
-      <MainImage displayImg={displayImg} />
+      <ImagesList illustrations={illustrations} displayImg={url => displayImg.current(url)} />
+      <MainImage displayImg={displayImg} firstImg={illustrations[0].url} />
     </div>
   )
 }
