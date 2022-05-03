@@ -21,7 +21,9 @@ export default function ComponentOverview(props) {
           <MainImage displayImg={displayImg} firstImg={illustrations[0].url} />
         </div>
       </div>
-      <ImagesList illustrations={illustrations} displayImg={url => displayImg.current(url)} />
+      <div className='img-list-container'>
+        <ImagesList illustrations={illustrations} displayImg={url => displayImg.current(url)} />
+      </div>
     </div>
   )
 }
