@@ -5,7 +5,7 @@ import Home from "./components/pages/Home";
 import Login from "./components/pages/Login";
 import About from './components/pages/About';
 import Signup from "./components/pages/Signup";
-import Profil from "./components/pages/Profil";
+import Profile from "./components/pages/Profile";
 import Settings from "./components/pages/Settings";
 import Component from "./components/pages/Component";
 import PageNotFound from "./components/pages/PageNotFound";
@@ -52,10 +52,10 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
-        <Route path='/settings' element={<Settings />} />
+        <Route path='/settings' element={<Settings user={user} />} />
         <Route path='/new-component' element={<CreateComponent isAuth={isAuth} user={user} />} />
         <Route path='/about' element={<About />} />
-        <Route path='/:username' element={<Profil />} />
+        <Route path='/:username' element={<Profile user={user} />} />
         <Route path='/:username/:componentShortname' element={<Component />} />
         <Route path='/reset/password/:token' element={<ResetPassword />} />
         <Route path='*' element={<PageNotFound />} />

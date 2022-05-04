@@ -1,7 +1,12 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-export default function Profil() {
+import ProfileData from '../profil/ProfileData';
+
+import '../../styles/profile.scss'
+
+
+export default function Profile(props) {
   // Get username from url
   const { username } = useParams()
   
@@ -10,8 +15,7 @@ export default function Profil() {
     document.title = `Profil de ${username}`
   }, [username])
   
-  return <div className='main-component'>
-    <p>Page profil</p>
-    <p>Profil de {username}</p>
-  </div>;
+  return <div className='main-component profile-component'>
+    <ProfileData user={props.user} />
+  </div>
 }
