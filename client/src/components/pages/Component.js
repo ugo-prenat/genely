@@ -52,7 +52,7 @@ export default function Component() {
     {
       activeTab === 'overview' ? <ComponentOverview component={component} activeTab={activeTab} /> :
       activeTab === 'code' ? <ComponentCode component={component} activeTab={activeTab} /> :
-      <ComponentIllustrations urls={component.illustrations} />
+      <ComponentIllustrations illustrations={component.illustrations} />
     }
   </div>;
 }

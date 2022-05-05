@@ -9,6 +9,7 @@ import './styles/reset.scss'
 import './styles/buttons.scss'
 import './styles/loading.scss'
 import './styles/skeleton.scss'
+import './styles/path.scss'
 
 ReactDOM.render(
   <BrowserRouter>

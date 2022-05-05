@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import BlockCode from './BlockCode';
+import BlockCode from '../BlockCode';
 import FolderTree from '../folderTree/FolderTree';
 
 export default function ComponentCode(props) {
