@@ -36,7 +36,9 @@ const manuallySignup = async (req, res) => {
     avatarUrl: 'https://oasys.ch/wp-content/uploads/2019/03/photo-avatar-profil.png',
     isAdmin: false,
     publicComponents: 0,
-    privateComponents: 0
+    privateComponents: 0,
+    likedComponents: []
+    
   })
   
   const jwtToken = generateAccessToken(user)
@@ -79,7 +81,8 @@ const googleSignup = async(req, res) => {
     avatarUrl: picture,
     isAdmin: false,
     publicComponents: 0,
-    privateComponents: 0
+    privateComponents: 0,
+    likedComponents: []
   })
   
   const jwtToken = generateAccessToken(user)
@@ -108,7 +111,7 @@ async function getUsername(data, userId) {
     // If a user is find, regenerate a username
     username = `${firstName}-${userId}`
   }
-  return username
+  return username.toLowerCase()
 }
 async function getNewId() {
   // Return the highest id in users list, more 1

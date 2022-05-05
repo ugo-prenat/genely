@@ -55,7 +55,7 @@ function App() {
         <Route path='/settings' element={<Settings user={user} />} />
         <Route path='/new-component' element={<CreateComponent isAuth={isAuth} user={user} />} />
         <Route path='/about' element={<About />} />
-        <Route path='/:username' element={<Profile user={user} />} />
+        <Route path='/:username' element={<Profile />} />
         <Route path='/:username/:componentShortname' element={<Component />} />
         <Route path='/reset/password/:token' element={<ResetPassword />} />
         <Route path='*' element={<PageNotFound />} />

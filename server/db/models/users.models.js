@@ -11,6 +11,7 @@ const userSchema = new mongoose.Schema({
   isAdmin: Boolean,
   publicComponents: Number,
   privateComponents: Number,
+  likedComponents: Array,
 }, {timestamps: true})
 
 module.exports = mongoose.model('users', userSchema)

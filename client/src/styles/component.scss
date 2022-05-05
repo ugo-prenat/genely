@@ -107,29 +107,6 @@
       }
     }
   }
-  .tabs-container {
-    display: flex;
-    font-weight: 500;
-    border-bottom: 1px solid $color-dark-100;
-    margin-bottom: 25px;
-    p {
-      padding: 0 5px;
-      margin: 0px 10px;
-      cursor: pointer;
-      &.active::after {
-        content: '';
-        width: calc(100% + 20px);
-        height: 4px;
-        position: relative;
-        left: -10px;
-        bottom: -1px;
-        display: block;
-        margin-top: 5px;
-        background: $color-blue-200;
-        border-radius: 15px 15px 0 0;
-      }
-    }
-  }
   .component-overview {
     padding-bottom: 25px;
     .top-part {

@@ -1,11 +1,11 @@
 @import './variables';
 
 .profile-component {
-  .profile-wrapper {
+  .profile-data {
     display: flex;
     justify-content: space-between;
-    padding: 50px 10%;
-    .profile-data {
+    padding: 75px 10% 100px 10%;
+    .profile-wrapper {
       display: flex;
       align-items: center;
       .profile-picture {
@@ -22,12 +22,128 @@
     }
     .btns {
       display: flex;
-      flex-direction: column;
       span {
+        height: fit-content;
         display: flex;
         align-items: center;
+        font-size: 13px;
+        border-radius: 5px;
         color: $color-dark-100;
-        border: 1px solid $color-white;
+        border: 1px solid $color-dark-100;
+        padding: 1px 6px 1px 3px;
+        margin-left: 10px;
+        cursor: pointer;
+        a {
+          display: flex;
+          align-items: center;
+          color: $color-dark-100;
+
+        }
+        svg {
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+  .component-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
+    grid-gap: 25px;
+    justify-content: center;
+    .component-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 100%;
+      height: 240px;
+      background: $color-dark-400;
+      border: 1px solid $color-dark-200;
+      border-radius: 7px;
+      cursor: pointer;
+      .illustration-container {
+        height: 130px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: $color-dark-400;
+        border-radius: 7px 7px 0 0;
+        overflow: hidden;
+        img {
+          width: 100%;
+          transition: width .5s ease-out;
+        }
+      }
+      &:hover .illustration-container img {
+        width: 103%;
+      }
+      .fullname {
+        font-weight: 500;
+        font-size: 18px;
+      }
+      .shortname {
+        font-weight: 400;
+        font-size: 14px;
+        color: $color-dark-100;
+      }
+      p {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        line-height: 1.2em;
+      }
+      .names {
+        color: white;
+        padding: 10px 12px;
+        white-space: nowrap;
+        .description {
+          height: 3em;
+          color: $color-dark-100;
+          margin-top: 20px;
+          font-size: 13px;
+          white-space: pre;
+          line-height: normal;
+        }
+      }
+      .creator a {
+        display: flex;
+        align-items: center;
+        margin: 0 7px;
+        padding: 0 5px 10px;
+        border-radius: 0 0 7px 7px;
+        img {
+          width: 33px;
+          height: 33px;
+          border-radius: 50%;
+          margin-right: 10px;
+        }
+        .creator-names {
+          overflow: hidden;
+          p {
+            font-size: 14px;
+            color: $color-dark-100;
+            font-weight: normal;
+            transition: color .1s;
+          }
+          .shortname {
+            font-size: 12px;
+            opacity: .6;
+          }
+        }
+        &:hover p {
+          color: $color-white;
+        }
+      }
+      .visibility {
+        padding: 14px 10px;
+        span {
+          display: flex;
+          align-items: center;
+          font-size: 15px;
+          color: $color-dark-100;
+          svg {
+            margin-right: 2px;
+          }
+        }
       }
     }
   }
