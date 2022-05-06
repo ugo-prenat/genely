@@ -38,5 +38,14 @@ const resetPassword = async(req, res) => {
   mailer.send.resetPassword(email, generateAccessToken(user))
   return res.status(200).send({ status: 200, msg: 'Email sent to ' + email })
 }
+const get = async(req, res) => {
+  // Return a specific usern 
+  const username = req.params.username
+  const user = await Users.findOne({ username })
+  
+  if (!user) return res.status(404).send({ status: 404, error: 'User not found'})
+  
+  return res.status(200).send({ status: 200, user })
+}
 
-module.exports = { update, resetPassword }
+module.exports = { update, resetPassword, get }

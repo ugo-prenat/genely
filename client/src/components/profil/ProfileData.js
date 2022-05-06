@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import Settings from '../../assets/svg/Settings'
 import Edit from '../../assets/svg/Edit'
@@ -10,11 +11,14 @@ export default function ProfileData(props) {
   const backendUrl = process.env.REACT_APP_BACKEND_URL
   const [user, setUser] = useState()
   const [isLoading, setIsLoading] = useState(true)
+  const navigate = useNavigate()
   
   useEffect(() => getUser(), [])
   
   const getUser = async() => {
     const res = await request.get(`/users/${props.username}`)
+  
+    if (res.status === 404) navigate(`/${props.username}/404`)
     
     setUser(res.user)
     setIsLoading(false)

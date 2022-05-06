@@ -8,6 +8,7 @@ import Signup from "./components/pages/Signup";
 import Profile from "./components/pages/Profile";
 import Settings from "./components/pages/Settings";
 import Component from "./components/pages/Component";
+import UserNotFound from "./components/pages/UserNotFound";
 import PageNotFound from "./components/pages/PageNotFound";
 import ResetPassword from "./components/pages/ResetPassword";
 import CreateComponent from "./components/pages/CreateComponent";
@@ -57,6 +58,7 @@ function App() {
         <Route path='/about' element={<About />} />
         <Route path='/:username' element={<Profile />} />
         <Route path='/:username/:componentShortname' element={<Component />} />
+        <Route path='/:username/404' element={<UserNotFound />} />
         <Route path='/reset/password/:token' element={<ResetPassword />} />
         <Route path='*' element={<PageNotFound />} />
       </Routes>
