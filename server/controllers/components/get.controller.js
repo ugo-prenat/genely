@@ -62,7 +62,6 @@ const getLiked = async(req, res) => {
 
 
 
-
 /* FUNCTIONS */
 function checkIsUserAuth(arg, username, authHeader) {
   // Check if the given token match to user's username attached to it
