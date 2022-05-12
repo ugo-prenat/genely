@@ -8,9 +8,10 @@ import ComponentsList from '../profil/ComponentsList';
 import '../../styles/profile.scss'
 
 
-export default function Profile() {
+export default function Profile(props) {
   // Get username from url
   const { username } = useParams()
+  const isUserProfile = props.isAuth && props.myUsername === username
   
   const [activeTab, setActiveTab] = useState('personal')
   const reloadList = useRef(null)

@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import Path from '../Path';
 
 
-export default function Settings(props) {
+export default function EditProfile(props) {
   const username = props.user.username
   
   useEffect(() => {
@@ -14,7 +14,7 @@ export default function Settings(props) {
   return <div className='main-component'>
     <Path path={[
       { 'name': username, 'link': `/${username}` },
-      { 'name': 'settings', 'link': `/settings` }
+      { 'name': 'paramètres', 'link': `/edit` }
     ]} />
     
     <p className='loading'>WIP</p>

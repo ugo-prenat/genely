@@ -34,24 +34,27 @@ export default function ProfileData(props) {
   
   return (
     <div className='profile-data'>
-      <div className='profile-wrapper'>
+      <div className='left-part'>
         <div className='profile-picture'>
           <img src={/* backendUrl + */ user.avatarUrl} alt='profile picture' />
         </div>
+        
         <div className='data'>
-          <p>{ user.fullname }</p>
+          <p className='fullname'>{ user.fullname }</p>
           <p>{ user.username }</p>
           <p>{ user.email }</p>
         </div>
+      </div>
+      
+      <div className='right-part'>
+        <div className='btns'>
+          <span><a href={`${props.username}/settings`}><Settings /></a></span>
+        </div>
+        
         <div>
           <p>Membre depuis le { getDate(user.createdAt) }</p>
           <p>{ getCreatedComponentsNb() } composant{ getCreatedComponentsNb() > 1 ? 's' : '' } créés</p>
         </div>
-      </div>
-      
-      <div className='btns'>
-        <span><Edit /> Modifier</span>
-        <span><a href='/settings'><Settings /> Paramètres</a></span>
       </div>
     </div>
   )

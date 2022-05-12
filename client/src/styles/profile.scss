@@ -5,12 +5,23 @@
     display: flex;
     justify-content: space-between;
     padding: 75px 10% 100px 10%;
-    .profile-wrapper {
+    .left-part {
       display: flex;
       align-items: center;
+      .data {
+        p {
+          font-size: 14px;
+          color: $color-dark-100;
+          &.fullname {
+            font-size: 30px;
+            font-weight: 600;
+            color: $color-white;
+          }
+        }
+      }
       .profile-picture {
-        width: 100px;
-        height: 100px;
+        width: 80px;
+        height: 80px;
         border-radius: 50%;
         margin-right: 20px;
         overflow: hidden;
@@ -20,27 +31,24 @@
         }
       }
     }
-    .btns {
+    .right-part {
       display: flex;
-      span {
-        height: fit-content;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: right;
+      font-size: 14px;
+      color: $color-dark-100;
+      .btns {
         display: flex;
-        align-items: center;
-        font-size: 13px;
-        border-radius: 5px;
-        color: $color-dark-100;
-        border: 1px solid $color-dark-100;
-        padding: 1px 6px 1px 3px;
-        margin-left: 10px;
-        cursor: pointer;
-        a {
-          display: flex;
-          align-items: center;
-          color: $color-dark-100;
-
-        }
-        svg {
-          margin-right: 5px;
+        justify-content: end;
+        span {
+          cursor: pointer;
+          margin-left: 7px;
+          a {
+            display: flex;
+            align-items: center;
+            color: $color-dark-100;
+          }
         }
       }
     }

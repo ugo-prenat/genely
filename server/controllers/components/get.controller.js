@@ -69,9 +69,10 @@ function checkIsUserAuth(arg, username, authHeader) {
   let toReturn = false
   const token = authHeader && authHeader.split(' ')[1]
   
+  
   if (arg === 'all' && token) {
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-      if (user.username === username) toReturn = true
+      if (user?.username === username) toReturn = true
     })
   }
   return toReturn
