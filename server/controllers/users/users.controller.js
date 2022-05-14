@@ -47,5 +47,18 @@ const get = async(req, res) => {
   
   return res.status(200).send({ status: 200, user })
 }
+const isLiked = async(req, res) => {
+  // Check if user liked a component
+  const username = req.params.username
+  const id = req.params.id
+  
+  const user = await Users.findOne({ username })
+  if (!user) return res.status(404).send({ status: 404, error: 'User not found'})
+  
+  return res.status(200).send({ status: 200, isLiked: user.likedComponents.includes(id) })
+}
+const like = async(req, res) => {
+  // Like a component
+}
 
-module.exports = { update, resetPassword, get }
+module.exports = { update, resetPassword, get, isLiked, like }

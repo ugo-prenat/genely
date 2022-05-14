@@ -18,7 +18,7 @@ export default function ProfileTabs(props) {
         className={activeTab === 'liked' ? 'active' : ''}
         onClick={() => props.setActiveTab('liked')}
       >
-        Aimés
+        Favoris
       </p>
     </div>
   )

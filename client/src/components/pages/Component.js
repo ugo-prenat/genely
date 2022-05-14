@@ -13,7 +13,7 @@ import ComponentIllustrations from '../component/tabs/ComponentIllustrations';
 import '../../styles/component.scss'
 
 
-export default function Component() {
+export default function Component(props) {
   // Get username and component name form url
   const { username, componentShortname } = useParams()
   
@@ -45,7 +45,7 @@ export default function Component() {
       { 'name': username, 'link': `/${username}` },
       { 'name': componentShortname, 'link': `/${username}/${componentShortname}` }
     ]} />
-    <ComponentData component={component} />
+    <ComponentData component={component} myUsername={props.myUsername} isAuth={props.isAuth} />
     
     
     <ComponentTabs activeTab={activeTab} setActiveTab={tab => setActiveTab(tab)} />

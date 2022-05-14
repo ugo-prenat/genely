@@ -1,24 +1,52 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 import ComponentDescription from './ComponentDescription'
 import FiltersList from './FiltersList'
 import Download from '../../assets/svg/Download'
+import { request } from '../../controller/request'
+
+import Heart from '../../assets/svg/Heart'
 
 
 export default function ComponentData(props) {
   const component = props.component
+  const myUsername = props.myUsername
+  const isAuth = props.isAuth
+  
+  const [isLiked, setIsLiked] = useState()
+  const [isLoading, setIsLoading] = useState(true)
+  
+  useEffect(() => {
+    // Check if user liked the component
+    if (isAuth) getIsLiked()
+  }, [])
+  
+  const getIsLiked = async _ => {
+    // Check if user liked the component
+    const res = await request.get(`/users/${myUsername}/like/${component.id}`)
+    setIsLiked(res.isLiked)
+    setIsLoading(false)
+  }
   
   const downloadComponent = () => {
-    console.log('download');
+    console.log('download')
   }
   
   return (
     <div className='data'>
       <p className='fullname'>{ component.fullname }</p>
       <div className='sub-data'>
-        <p className='shortname'>{ component.shortname }</p>•
-        <p className='created-at'>Créé le { getDate(component.createdAt) }, il y a { getDiffTime(component.createdAt) }</p>•
-        <p className='download-btn' onClick={downloadComponent}><Download />Télécharger le composant</p>
+        <div>
+          <p className='shortname'>{ component.shortname }</p>•
+          <p className='created-at'>Créé le { getDate(component.createdAt) }, il y a { getDiffTime(component.createdAt) }</p>•
+          <p className='download-btn' onClick={downloadComponent}><Download />Télécharger le composant</p>
+        </div>
+        { isAuth && !isLoading && 
+          <span className={`like-btn ${isLiked ? 'liked' : ''}`}>
+            <Heart />
+            Ajout{ isLiked ? 'é' : 'er' } aux favoris
+          </span>
+        }
       </div>
       <FiltersList filters={component.filters} />
       { component.description &&
