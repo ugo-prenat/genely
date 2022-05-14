@@ -1,6 +1,6 @@
 @import './variables';
 
-.profile-component {
+.profile-component {  
   .profile-data {
     display: flex;
     justify-content: space-between;
@@ -34,20 +34,29 @@
     .right-part {
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: center;
       text-align: right;
       font-size: 14px;
       color: $color-dark-100;
       .btns {
         display: flex;
         justify-content: end;
+        margin-bottom: 20px;
         span {
+          border: 1px solid $color-dark-100;
+          border-radius: 5px;
+          padding: 2px 5px;
           cursor: pointer;
           margin-left: 7px;
           a {
             display: flex;
             align-items: center;
             color: $color-dark-100;
+            svg {
+              width: 20px;
+              height: 20px;
+              margin-right: 2px;
+            }
           }
         }
       }
@@ -153,6 +162,12 @@
           }
         }
       }
+    }
+  }
+  .loading {
+    flex-direction: column;
+    p {
+      margin: 10vh 0 15px 0;
     }
   }
 }

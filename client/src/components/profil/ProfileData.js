@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import Settings from '../../assets/svg/Settings'
-import Edit from '../../assets/svg/Edit'
 
 import { request } from '../../controller/request'
 
@@ -11,6 +10,8 @@ export default function ProfileData(props) {
   const backendUrl = process.env.REACT_APP_BACKEND_URL
   const [user, setUser] = useState()
   const [isLoading, setIsLoading] = useState(true)
+  const isUserProfile = props.isUserProfile
+  
   const navigate = useNavigate()
   
   useEffect(() => getUser(), [])
@@ -25,7 +26,8 @@ export default function ProfileData(props) {
   }
   
   const getCreatedComponentsNb = () => {
-    return user.publicComponents + user.privateComponents
+    if (isUserProfile) return user.publicComponents + user.privateComponents
+    return user.publicComponents
   }
   
   
@@ -42,15 +44,16 @@ export default function ProfileData(props) {
         <div className='data'>
           <p className='fullname'>{ user.fullname }</p>
           <p>{ user.username }</p>
-          <p>{ user.email }</p>
+          { isUserProfile && <p>{ user.email }</p> }
         </div>
       </div>
       
       <div className='right-part'>
-        <div className='btns'>
-          <span><a href={`${props.username}/settings`}><Settings /></a></span>
-        </div>
-        
+        { isUserProfile &&
+          <div className='btns'>
+            <span><a href={`${props.username}/settings`}><Settings /> modifier</a></span>
+          </div>
+        }
         <div>
           <p>Membre depuis le { getDate(user.createdAt) }</p>
           <p>{ getCreatedComponentsNb() } composant{ getCreatedComponentsNb() > 1 ? 's' : '' } créés</p>

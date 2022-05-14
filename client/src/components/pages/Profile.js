@@ -19,7 +19,7 @@ export default function Profile(props) {
   
   useEffect(() => {
     // Setup tab title
-    document.title = `Profil de ${username}`
+    document.title = `Profil de ${username} - Genely`
   }, [username])
   
   
@@ -32,11 +32,18 @@ export default function Profile(props) {
   }
   
   return <div className='main-component profile-component'>
-    <ProfileData username={username} />
+    <ProfileData username={username} isUserProfile={isUserProfile} />
     
     <div className='profile-bottom-part'>
-      <ProfileTabs activeTab={activeTab} setActiveTab={tab => loadTab(tab)} />
-      <ComponentsList username={username} reloadList={reloadList} />
+      <ProfileTabs
+        activeTab={activeTab}
+        setActiveTab={tab => loadTab(tab)}
+      />
+      <ComponentsList
+        username={username}
+        isUserProfile={isUserProfile}
+        reloadList={reloadList}
+      />
     </div>
   </div>
 }
