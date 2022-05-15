@@ -58,15 +58,13 @@ const getLiked = async(req, res) => {
   if (!usernameQuery) return res.status(400).send({ status: 400, error: 'username not provided in query' })
   
   const user = await Users.findOne({ username: usernameQuery })
-  
   // Get all liked components
   let components = []
-  user.likedComponents.map(async component => {
-    const comp = await Components.findOne({ id: component.id })
-    components.push(comp)
+  const x = user.likedComponents.map(async componentId => {
+    const comp = await Components.findOne({ id: componentId })
+    if (comp) components.push(comp)
   })
-  
-  console.log(components);
+  await Promise.all(x)
   
   res.status(200).send({ status: 200, components })
 }
