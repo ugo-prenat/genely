@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken')
 
 const db = require('../../db/export')
 const Components = db.schema.components
+const Users = db.schema.users
 
 
 const getAll = async(req, res) => {
@@ -56,7 +57,17 @@ const getLiked = async(req, res) => {
   
   if (!usernameQuery) return res.status(400).send({ status: 400, error: 'username not provided in query' })
   
-  const components = await Components.find({ 'creator.username': usernameQuery })
+  const user = await Users.findOne({ username: usernameQuery })
+  
+  // Get all liked components
+  let components = []
+  user.likedComponents.map(async component => {
+    const comp = await Components.findOne({ id: component.id })
+    components.push(comp)
+  })
+  
+  console.log(components);
+  
   res.status(200).send({ status: 200, components })
 }
 

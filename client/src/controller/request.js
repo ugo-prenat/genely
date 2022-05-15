@@ -69,5 +69,20 @@ const patch = async (url, data) => {
   const res = await req.json()
   return res
 }
+const remove = async (url, data) => {
+  const req = await fetch(
+    `${backendUrl}${url}`,
+    {
+      method: 'DELETE',
+      body: JSON.stringify(data),
+      headers: { 
+        'Content-Type': 'Application/json',
+        'authorization': `Bearer ${token ? token : ''}`
+      }
+    }
+  )
+  const res = await req.json()
+  return res
+}
 
-export const request = { get, getFile, post, postFiles, patch }
+export const request = { get, getFile, post, postFiles, patch, remove }

@@ -28,8 +28,12 @@
         font-size: 15px;
         color: $color-dark-100;
         cursor: pointer;
+        user-select: none;
         &.liked {
           color: $color-blue-200;
+          svg {
+            fill: $color-blue-200;
+          }
         }
         svg {
           margin-right: 2px;

@@ -27,6 +27,16 @@ export default function ComponentData(props) {
     setIsLiked(res.isLiked)
     setIsLoading(false)
   }
+  const toggleLike = async _ => {
+    // Toggle the like component status
+    const url = `/users/${myUsername}/like/${component.id}`
+    let res
+    
+    if (isLiked) res = await request.remove(url)
+    else res = await request.post(url)
+    
+    if (res.status === 200) setIsLiked(!isLiked)
+  }
   
   const downloadComponent = () => {
     console.log('download')
@@ -42,7 +52,7 @@ export default function ComponentData(props) {
           <p className='download-btn' onClick={downloadComponent}><Download />Télécharger le composant</p>
         </div>
         { isAuth && !isLoading && 
-          <span className={`like-btn ${isLiked ? 'liked' : ''}`}>
+          <span className={`like-btn ${isLiked ? 'liked' : ''}`} onClick={() => toggleLike()}>
             <Heart />
             Ajout{ isLiked ? 'é' : 'er' } aux favoris
           </span>

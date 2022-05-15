@@ -57,8 +57,25 @@ const isLiked = async(req, res) => {
   
   return res.status(200).send({ status: 200, isLiked: user.likedComponents.includes(id) })
 }
-const like = async(req, res) => {
+const addLike = async(req, res) => {
   // Like a component
+  const user = await Users.findOne({ id: req.user.id })
+  const id = parseInt(req.params.id)
+  
+  user.likedComponents.push(id)
+  await user.save()
+  
+  return res.status(200).send({ status: 200, msg: `Component ${id} added to liked components` })
+}
+const removeLike = async(req, res) => {
+  // Remove a liked component
+  const user = await Users.findOne({ id: req.user.id })
+  const id = parseInt(req.params.id)
+  
+  user.likedComponents.splice(user.likedComponents.indexOf(id), 1)
+  await user.save()
+  
+  return res.status(200).send({ status: 200, msg: `Remove component ${id} from liked components` })
 }
 
-module.exports = { update, resetPassword, get, isLiked, like }
+module.exports = { update, resetPassword, get, isLiked, addLike, removeLike }
