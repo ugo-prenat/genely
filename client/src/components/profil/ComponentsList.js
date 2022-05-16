@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 
 import ComponentCard from './ComponentCard'
 import SkeletonCard from '../home/SkeletonCard'
@@ -7,14 +8,14 @@ import { request } from '../../controller/request'
 
 
 export default function ComponentsList(props) {
-  const username = props.username
+  const { username } = useParams()
   const isUserProfile = props.isUserProfile
   
   const [isLoading, setIsLoading] = useState(true)
   const [components, setComponents] = useState()
   const [listType, setListType] = useState('personal') // personal or liked
 
-  useEffect(() => getProfileComponents('personal'), [])
+  useEffect(() => getProfileComponents('personal'), [username])
   
   
   const getProfileComponents = async tab => {

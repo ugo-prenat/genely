@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import Settings from '../../assets/svg/Settings'
 
@@ -7,6 +7,7 @@ import { request } from '../../controller/request'
 
 
 export default function ProfileData(props) {
+  const { username } = useParams()
   const backendUrl = process.env.REACT_APP_BACKEND_URL
   const [user, setUser] = useState()
   const [isLoading, setIsLoading] = useState(true)
@@ -14,9 +15,11 @@ export default function ProfileData(props) {
   
   const navigate = useNavigate()
   
-  useEffect(() => getUser(), [])
+  useEffect(() => getUser(), [username])
   
   const getUser = async() => {
+    console.log('get user called');
+    setIsLoading(true)
     const res = await request.get(`/users/${props.username}`)
   
     if (res.status === 404) navigate(`/${props.username}/404`)
@@ -29,7 +32,6 @@ export default function ProfileData(props) {
     if (isUserProfile) return user.publicComponents + user.privateComponents
     return user.publicComponents
   }
-  
   
   if (isLoading) return <p>Skeleton</p>
   
