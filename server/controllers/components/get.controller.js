@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken')
 
 const db = require('../../db/export')
 const Components = db.schema.components
+const Users = db.schema.users
 
 
 const getAll = async(req, res) => {
@@ -32,7 +33,7 @@ const getAll = async(req, res) => {
   const isUserAuth = checkIsUserAuth(req.query.visibility, usernameQuery, req.headers.authorization)
   
   
-  if (usernameQuery) findParams['creator.username'] = usernameQuery
+  if (usernameQuery) findParams['creator.username'] = usernameQuery.toLowerCase()
   if (!isUserAuth) findParams.isPublic = true
   
   const components = await Components
@@ -50,20 +51,39 @@ const getSpecific = async(req, res) => {
   if (!component) return res.status(400).send({ status: 400, msg: 'component not found' })
   res.status(200).send({ status: 200, component })
 }
+const getLiked = async(req, res) => {
+  // Return the list of the liked user's components
+  const usernameQuery = req.query.username
+  
+  if (!usernameQuery) return res.status(400).send({ status: 400, error: 'username not provided in query' })
+  
+  const user = await Users.findOne({ username: usernameQuery })
+  // Get all liked components
+  let components = []
+  const x = user.likedComponents.map(async componentId => {
+    const comp = await Components.findOne({ id: componentId })
+    if (comp) components.push(comp)
+  })
+  await Promise.all(x)
+  
+  res.status(200).send({ status: 200, components })
+}
+
 
 
 /* FUNCTIONS */
 function checkIsUserAuth(arg, username, authHeader) {
   // Check if the given token match to user's username attached to it
+  let toReturn = false
   const token = authHeader && authHeader.split(' ')[1]
+  
   
   if (arg === 'all' && token) {
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-      if (user.username === username) return true
-      else return
+      if (user?.username === username) toReturn = true
     })
   }
-  return false
+  return toReturn
 }
 
-module.exports = { getAll, getSpecific }
+module.exports = { getAll, getSpecific, getLiked }

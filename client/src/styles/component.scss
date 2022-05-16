@@ -9,13 +9,34 @@
     }
     .sub-data {
       display: flex;
-      align-items: center;
-      font-size: 15px;
-      color: $color-dark-100;
-      p {
-        margin: 0 10px;
-        &:first-of-type {
-          margin-left: 0;
+      justify-content: space-between;
+      div {
+        display: flex;
+        align-items: center;
+        font-size: 15px;
+        color: $color-dark-100;
+        p {
+          margin: 0 10px;
+          &:first-of-type {
+            margin-left: 0;
+          }
+        }
+      }
+      .like-btn {
+        display: flex;
+        align-items: center;
+        font-size: 15px;
+        color: $color-dark-100;
+        cursor: pointer;
+        user-select: none;
+        &.liked {
+          color: $color-blue-200;
+          svg {
+            fill: $color-blue-200;
+          }
+        }
+        svg {
+          margin-right: 2px;
         }
       }
     }
@@ -104,29 +125,6 @@
           color: $color-blue-200;
           border-color: $color-blue-200;
         }
-      }
-    }
-  }
-  .tabs-container {
-    display: flex;
-    font-weight: 500;
-    border-bottom: 1px solid $color-dark-100;
-    margin-bottom: 25px;
-    p {
-      padding: 0 5px;
-      margin: 0px 10px;
-      cursor: pointer;
-      &.active::after {
-        content: '';
-        width: calc(100% + 20px);
-        height: 4px;
-        position: relative;
-        left: -10px;
-        bottom: -1px;
-        display: block;
-        margin-top: 5px;
-        background: $color-blue-200;
-        border-radius: 15px 15px 0 0;
       }
     }
   }

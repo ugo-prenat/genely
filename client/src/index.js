@@ -10,6 +10,7 @@ import './styles/buttons.scss'
 import './styles/loading.scss'
 import './styles/skeleton.scss'
 import './styles/path.scss'
+import './styles/tabs.scss'
 
 ReactDOM.render(
   <BrowserRouter>

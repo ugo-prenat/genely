@@ -1,16 +1,20 @@
 const db = require('../../db/export')
 const Components = db.schema.components
+const Users = db.schema.users
 
 module.exports = async(req, res) => {
   // Create a component
-  const user = req.user
+  
+  const user = await Users.findOne({ username: req.user.username })
   const step = parseInt(req.query.step)
   const data = req.body
   
   if (step === 1) return await checkStep1(res, user, data)
   
+  const componentId = await getComponentId()
+  
   const newComponent = new Components({
-    id: await getComponentId(),
+    id: componentId,
     url: `/${user.username}/${data.shortname}`,
     shortname: data.shortname,
     fullname: data.fullname,
@@ -26,9 +30,14 @@ module.exports = async(req, res) => {
     filters: data.filters,
     illustrations: data.illustrations
   })
-
+  
+  // Update the user's profile
+  if (data.visibility === 'public') user.publicComponents++
+  else user.privateComponents++
+  
+  await user.save()
   newComponent.save(() => {
-    res.status(200).send({ status: 200, msg: `Component ${newComponent.id} created` })
+    res.status(200).send({ status: 200, msg: `Component ${componentId} created` })
   })
 }
 

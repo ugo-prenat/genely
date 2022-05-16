@@ -38,5 +38,44 @@ const resetPassword = async(req, res) => {
   mailer.send.resetPassword(email, generateAccessToken(user))
   return res.status(200).send({ status: 200, msg: 'Email sent to ' + email })
 }
+const get = async(req, res) => {
+  // Return a specific usern 
+  const username = req.params.username
+  const user = await Users.findOne({ username })
+  
+  if (!user) return res.status(404).send({ status: 404, error: 'User not found'})
+  
+  return res.status(200).send({ status: 200, user })
+}
+const isLiked = async(req, res) => {
+  // Check if user liked a component
+  const username = req.params.username
+  const id = req.params.id
+  
+  const user = await Users.findOne({ username })
+  if (!user) return res.status(404).send({ status: 404, error: 'User not found'})
+  
+  return res.status(200).send({ status: 200, isLiked: user.likedComponents.includes(id) })
+}
+const addLike = async(req, res) => {
+  // Like a component
+  const user = await Users.findOne({ id: req.user.id })
+  const id = parseInt(req.params.id)
+  
+  user.likedComponents.push(id)
+  await user.save()
+  
+  return res.status(200).send({ status: 200, msg: `Component ${id} added to liked components` })
+}
+const removeLike = async(req, res) => {
+  // Remove a liked component
+  const user = await Users.findOne({ id: req.user.id })
+  const id = parseInt(req.params.id)
+  
+  user.likedComponents.splice(user.likedComponents.indexOf(id), 1)
+  await user.save()
+  
+  return res.status(200).send({ status: 200, msg: `Remove component ${id} from liked components` })
+}
 
-module.exports = { update, resetPassword }
+module.exports = { update, resetPassword, get, isLiked, addLike, removeLike }

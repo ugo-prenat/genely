@@ -77,7 +77,7 @@ function Dropdown(props) {
         <Profil />
         Profil
       </Link>
-      <Link to='/settings' onClick={() => props.hideDropdown()}>
+      <Link to={`${user.username}/settings`} onClick={() => props.hideDropdown()}>
         <Settings />
         Paramètres
       </Link>

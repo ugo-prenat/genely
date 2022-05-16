@@ -24,67 +24,65 @@
   }
 }
 
-.home-component {
-  .skeleton-filter-list {
-    display: flex;
-    margin-bottom: 25px;
-    .filter {
-      width: 40px;
-      height: 23px;
-      background: $color-dark-200;
-      margin: 0 3px;
-      border-radius: 5px;
-      padding: 1px 6px;
-    }
+.skeleton-filter-list {
+  display: flex;
+  margin-bottom: 25px;
+  .filter {
+    width: 40px;
+    height: 23px;
+    background: $color-dark-200;
+    margin: 0 3px;
+    border-radius: 5px;
+    padding: 1px 6px;
   }
-  .skeleton-component-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
-    grid-gap: 25px;
-    justify-content: center;
-    .component {
-      width: 100%;
-      height: 240px;
+}
+.skeleton-component-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
+  grid-gap: 25px;
+  justify-content: center;
+  .component {
+    width: 100%;
+    height: 240px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: $color-dark-300;
+    border-radius: 7px;
+    .illustration-container {
+      height: 130px;
+      border-radius: 7px 7px 0 0;
+    }
+    .names {
+      padding: 10px;
+      p {
+        background: $color-dark-200;
+      }
+      .fullname {
+        width: 200px;
+        height: 20px;
+        margin-bottom: 5px;
+      }
+      .shortname {
+        width: 100px;
+        height: 13px;
+      }
+    }
+    .creator {
       display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      background: $color-dark-300;
-      border-radius: 7px;
-      .illustration-container {
-        height: 130px;
-        border-radius: 7px 7px 0 0;
+      align-items: center;
+      padding: 10px;
+      .img {
+        width: 33px;
+        height: 33px;
+        border-radius: 50%;
+        background: $color-dark-200;
       }
-      .names {
-        padding: 10px;
-        p {
-          background: $color-dark-200;
-        }
-        .fullname {
-          width: 200px;
-          height: 20px;
-          margin-bottom: 5px;
-        }
-        .shortname {
-          width: 100px;
-          height: 13px;
-        }
-      }
-      .creator {
-        display: flex;
-        align-items: center;
-        padding: 10px;
-        .img {
-          width: 33px;
-          height: 33px;
-          border-radius: 50%;
-          background: $color-dark-200;
-        }
-        .fullname {
-          width: 100px;
-          height: 13px;
-          background: $color-dark-200;
-          margin-left: 10px;
-        }
+      .fullname {
+        width: 100px;
+        height: 13px;
+        background: $color-dark-200;
+        margin-left: 10px;
       }
     }
   }
