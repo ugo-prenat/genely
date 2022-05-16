@@ -22,11 +22,8 @@ export default function Profile(props) {
     document.title = `Profil de ${username} - Genely`
   }, [username])
   
-  
-  
   const loadTab = async tab => {
     // Load new components list
-    
     setActiveTab(tab)
     reloadList.current(tab)
   }

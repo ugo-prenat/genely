@@ -8,7 +8,6 @@ import Signup from "./components/pages/Signup";
 import Profile from "./components/pages/Profile";
 import EditProfile from "./components/pages/EditProfile";
 import Component from "./components/pages/Component";
-import UserNotFound from "./components/pages/UserNotFound";
 import PageNotFound from "./components/pages/PageNotFound";
 import ResetPassword from "./components/pages/ResetPassword";
 import CreateComponent from "./components/pages/CreateComponent";
@@ -55,7 +54,7 @@ function App() {
         <Route path='/about' element={<About />} />
         <Route path='/:username' element={<Profile isAuth={isAuth} myUsername={user?.username} />} />
         <Route path='/:username/settings' element={<EditProfile isAuth={isAuth} user={user} />} />
-        <Route path='/:username/404' element={<UserNotFound />} />
+        <Route path='/:username/404' element={<PageNotFound />} />
         <Route path='/:username/:componentShortname' element={<Component isAuth={isAuth} myUsername={user?.username} />} />
         <Route path='/reset/password/:token' element={<ResetPassword />} />
         <Route path='*' element={<PageNotFound />} />
