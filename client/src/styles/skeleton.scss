@@ -87,6 +87,44 @@
     }
   }
 }
+.skeleton-profile-data {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 75px 10% 100px 10%;
+  .left-part {
+    display: flex;
+    align-items: center;
+    .profile-picture {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin-right: 15px;
+    }
+    .fullname {
+      width: 200px;
+      height: 20px;
+      margin-bottom: 7px;
+    }
+    .username {
+      width: 100px;
+      height: 13px;
+    }
+  }
+  .right-part {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    .username {
+      width: 100px;
+      height: 13px;
+      &:first-of-type {
+        width: 150px;
+        margin-bottom: 7px;
+      }
+    }
+  }
+}
 
 @keyframes loading {
   100% {

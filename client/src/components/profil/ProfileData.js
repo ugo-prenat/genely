@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import Settings from '../../assets/svg/Settings'
+import { ProfileDataSkeleton as Skeleton } from './ProfileDataSkeleton'
 
 import { request } from '../../controller/request'
 
@@ -18,7 +19,6 @@ export default function ProfileData(props) {
   useEffect(() => getUser(), [username])
   
   const getUser = async() => {
-    console.log('get user called');
     setIsLoading(true)
     const res = await request.get(`/users/${props.username}`)
   
@@ -33,7 +33,7 @@ export default function ProfileData(props) {
     return user.publicComponents
   }
   
-  if (isLoading) return <p>Skeleton</p>
+  if (isLoading) return <Skeleton />
   
   
   return (
