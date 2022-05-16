@@ -25,7 +25,7 @@ export default function Header(props) {
   
   return <div className='header-component'>
     <Link to='/'>
-      <h1>Genely</h1>  
+      <h1>Genely</h1>
     </Link>
     
     {
@@ -63,15 +63,6 @@ function Dropdown(props) {
   const user = props.user
   
   return <div className='dropdown'>
-    {/* <div className='user-data'>
-      <Link to={user.username} onClick={() => props.hideDropdown()}>
-        <img src={user.avatarUrl} alt={user.username + '-picture'} />
-        <div className='names'>
-          <p className='fullname'>{ user.fullname }</p>
-          <p className='username'>@{ user.username }</p>
-        </div>
-      </Link>
-    </div> */}
     <div className='links'>
       <Link to={user.username} onClick={() => props.hideDropdown()}>
         <Profil />

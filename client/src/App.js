@@ -13,8 +13,8 @@ import ResetPassword from "./components/pages/ResetPassword";
 import CreateComponent from "./components/pages/CreateComponent";
 
 import Header from "./components/Header";
-
 import { request as fetch } from './controller/request'
+
 
 function App() {
   const token = localStorage.getItem('token')

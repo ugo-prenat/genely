@@ -8,7 +8,9 @@
     .left-part {
       display: flex;
       align-items: center;
+      max-width: 60%;
       .data {
+        overflow: hidden;
         p {
           font-size: 14px;
           color: $color-dark-100;
