@@ -42,7 +42,7 @@
       color: $color-dark-100;
       .btns {
         display: flex;
-        justify-content: end;
+        justify-content: flex-end;
         margin-bottom: 20px;
         span {
           border: 1px solid $color-dark-100;

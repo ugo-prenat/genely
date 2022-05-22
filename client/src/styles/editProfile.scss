@@ -25,11 +25,65 @@
         color: $color-white;
       }
       input {
+        width: 40%;
+        min-width: 200px;
         display: block;
-        
+        font-family: $poppins;
+        padding: 5px 10px;
+        margin: 10px 0;
+        background: transparent;
+        color: $color-white;
+        border-radius: 7px;
+        border: 1px solid $color-dark-100;
+        outline: none;
       }
       input:read-only {
-        background: green;
+        background: rgba(128, 128, 128, .2);
+        background: $color-dark-300;
+        color: $color-dark-100;
+        cursor: not-allowed;
+      }
+      ::placeholder {
+        color: $color-dark-100;
+      }
+      .submit-btns {
+        position: relative;
+        margin: 30px 0;
+        span {
+          border-radius: 5px;
+          font-size: 13px;
+          color: $color-dark-100;
+          cursor: pointer;
+        }
+        .save-btn {
+          padding: 5px 10px;
+          color: $color-white;
+          font-size: 14px;
+          background: $color-dark-200;
+          color: $color-dark-100;
+          margin-right: 10px;
+          cursor: not-allowed;
+          &.active {
+            background: $color-blue-200;
+            color: $color-white;
+            cursor: pointer;
+          }
+        }
+        .success-modification {
+          position: absolute;
+          display: flex;
+          align-items: center;
+          left: 0;
+          color: $success-color;
+          visibility: hidden;
+          transition: visibility .1s ease-in-out;
+          cursor: default;
+          svg {
+            width: 20px;
+            height: 20px;
+            margin-right: 3px;
+          }
+        }
       }
     }
   }
