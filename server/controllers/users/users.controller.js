@@ -11,7 +11,6 @@ const update = async(req, res) => {
   // Update a user's profil
   let user
   const data = req.body
-  console.log(data);
   
   if (data.password) {
     // If it's a password update, hash the new password before update

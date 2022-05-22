@@ -26,9 +26,7 @@ export default function EditProfile(props) {
   useEffect(() => {
     // Setup tab title
     document.title = 'Genely - modifié votre profil'
-    
     if (!isUserProfile) navigate(`/${username}`)
-    
   }, [])
   
   const patchUser = async _ => {
@@ -39,6 +37,9 @@ export default function EditProfile(props) {
     if (res.status === 200) {
       setSuccessFullnameModif(true)
       setTimeout(() => setSuccessFullnameModif(false), 3000);
+
+      user.fullname = fullname
+      props.updateUser(user)
     }
     
   }
@@ -86,7 +87,7 @@ export default function EditProfile(props) {
             <motion.span
               animate={
                 {
-                  y: successFullnameModif ? 10 : -10,
+                  y: successFullnameModif ? 10 : 0,
                   visibility: successFullnameModif ? 'visible' : 'hidden'
                 }
               }
