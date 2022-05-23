@@ -6,6 +6,7 @@ import Path from '../Path';
 import { request } from '../../controller/request'
 
 import Check from '../../assets/svg/Check'
+import Upload from '../../assets/svg/Upload'
 
 import '../../styles/editProfile.scss'
 
@@ -57,8 +58,8 @@ export default function EditProfile(props) {
       <div className='profile-picture-container'>
         <img src={/* backendUrl + */ user.avatarUrl} alt='profile picture' />
         <span>
-          Changer image profiil
-          <svg height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M8 1c.306 0 .579.137.762.352L12.21 4.8a.999.999 0 01-1.413 1.413L9 4.415v7.586a.999.999 0 11-1.998 0V4.413l-1.8 1.8A.999.999 0 113.79 4.8l3.46-3.46A.997.997 0 018 1zm3 13H5a1 1 0 100 2h6a1 1 0 100-2z"></path></svg>  
+          Importer une image
+          <Upload />
         </span>
       </div>
   

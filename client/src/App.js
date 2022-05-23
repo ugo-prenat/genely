@@ -40,6 +40,11 @@ function App() {
     
   }, [token])
   
+  const temp = user => {
+    console.log(user);
+    setUser(user)
+  }
+  
   console.log(user);
   if (isLoading) return( <div className="App loading">Genely se réveille...</div> )
   
@@ -54,7 +59,7 @@ function App() {
         <Route path='/new-component' element={<CreateComponent isAuth={isAuth} user={user} />} />
         <Route path='/about' element={<About />} />
         <Route path='/:username' element={<Profile isAuth={isAuth} myUsername={user?.username} />} />
-        <Route path='/:username/settings' element={<EditProfile isAuth={isAuth} user={user} updateUser={user => setUser(user)} />} />
+        <Route path='/:username/settings' element={<EditProfile isAuth={isAuth} user={user} updateUser={user => temp(user)} />} />
         <Route path='/:username/404' element={<PageNotFound />} />
         <Route path='/:username/:componentShortname' element={<Component isAuth={isAuth} myUsername={user?.username} />} />
         <Route path='/reset/password/:token' element={<ResetPassword />} />
