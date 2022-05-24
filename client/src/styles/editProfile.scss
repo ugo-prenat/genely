@@ -15,19 +15,29 @@
         object-fit: cover;
         border-radius: 50%;
       }
-      span {
+      input {
+        visibility: hidden;
+      }
+      label {
+        width: calc(100% - 20px);
         display: flex;
-        align-items: center;
+        justify-content: center;
         background: $color-blue-200;
         padding: 5px 10px;
         border-radius: 5px;
-        margin-top: 15px;
-        font-size: 14px;
-        cursor: pointer;
-        svg {
-          width: 20px;
-          height: 20px;
-          margin-left: 5px;
+        p {
+          display: flex;
+          align-items: center;
+          font-size: 14px;
+          cursor: pointer;
+          svg {
+            width: 18px;
+            height: 18px;
+            margin-left: 5px;
+          }
+        }
+        .importing {
+          opacity: .4;
         }
       }
     }

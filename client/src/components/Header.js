@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 
 import Logout from '../assets/svg/Logout';
@@ -11,9 +11,14 @@ import '../styles/header.scss'
 export default function Header(props) {
   const navigate = useNavigate()
   const isAuth = props.isAuth
-  const user = props.user
   
+  const [user, setUser] = useState(props.user)
   const [showDropdown, setShowDropdown] = useState(false);
+  
+  
+  useEffect(() => console.log(props.user), [props.user])
+  console.log(user);
+  
   
   const disconnection = () => {
     setShowDropdown(false)
@@ -37,7 +42,7 @@ export default function Header(props) {
         
         <div className='pp-container' onMouseEnter={() => setShowDropdown(true)} onMouseLeave={() => setShowDropdown(false)}>
           <Link to={user.username}>
-            <img src={user.avatarUrl} alt='Profil' />
+            <img src={getImgUrl(user.avatarUrl)} alt='Profil' />
           </Link>
           { showDropdown &&
             <Dropdown
@@ -82,4 +87,11 @@ function Dropdown(props) {
       </Link>
     </div>
   </div>
+}
+function getImgUrl(url) {
+  // Check if the given image's url is hosted by Genely or not
+  const backendUrl = process.env.REACT_APP_BACKEND_URL
+  
+  if (url.startsWith('http://') || url.startsWith('https://')) return url
+  return backendUrl + url
 }

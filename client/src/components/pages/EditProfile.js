@@ -11,16 +11,18 @@ import Upload from '../../assets/svg/Upload'
 import '../../styles/editProfile.scss'
 
 
-export default function EditProfile(props) {
+export default function EditProfile(props) {  
   const { username } = useParams()
   const user = props.user
   const isUserProfile = props.isAuth && user.username === username
   const originalFullname = user.fullname
   
   const [fullname, setFullname] = useState(originalFullname)
+  const [profilePicture, setProfilePicture] = useState(user.avatarUrl)
   const [actualPassword, setActualPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
   const [successFullnameModif, setSuccessFullnameModif] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   
   const navigate = useNavigate()
   
@@ -30,8 +32,7 @@ export default function EditProfile(props) {
     if (!isUserProfile) navigate(`/${username}`)
   }, [])
   
-  const patchUser = async _ => {
-    // Apply user's modifications in DB
+  const patchUsername = async _ => {
     if (originalFullname === fullname || fullname === '') return
     
     const res = await request.patch('/users', { fullname })
@@ -42,11 +43,30 @@ export default function EditProfile(props) {
       user.fullname = fullname
       props.updateUser(user)
     }
+  }
+  const patchPictureProfile = async e => {
+    const images = e.target.files
     
+    const formData = new FormData();
+    Array.from(images).map(img => formData.append("files", img))
+
+    setIsSubmitting(true)
+    const res = await request.postFiles('/uploads', formData)
+    
+    if (res.status === 200) {
+      // Update the user profile
+      const response = await request.patch('/users', { avatarUrl: res.data[0].url })
+      setIsSubmitting(false)
+      
+      if (response.status === 200) {
+        // Update the golbal user state and the profile picture preview
+        user.avatarUrl = res.data[0].url
+        props.updateUser(user)
+        setProfilePicture(getImgUrl(res.data[0].url))
+      }
+    }
   }
   
-  
-
   return <div className='main-component edit-profile-component'>
     <Path path={[
       { 'name': username, 'link': `/${username}` },
@@ -56,11 +76,17 @@ export default function EditProfile(props) {
     <div className='wrapper'>
       
       <div className='profile-picture-container'>
-        <img src={/* backendUrl + */ user.avatarUrl} alt='profile picture' />
-        <span>
-          Importer une image
-          <Upload />
-        </span>
+        <img src={getImgUrl(profilePicture)} alt='profile avatar' />
+        <input
+          type='file'
+          accept="image/png, image/jpeg, image/jpg"
+          onChange={patchPictureProfile}
+          id='avatar-upload'
+        />
+        <label htmlFor='avatar-upload'>
+          { isSubmitting && <p className='importing'>Importation...</p> }
+          { !isSubmitting && <p>Importer une image <Upload /></p> }
+        </label>
       </div>
   
       <div className='data-container'>
@@ -83,7 +109,7 @@ export default function EditProfile(props) {
             readOnly='readonly'
           />
           <div className='submit-btns'>
-            <span className={`save-btn ${fullname === '' ? '' : originalFullname !== fullname ? 'active' : ''}`} onClick={() => patchUser()}>Sauvegarder</span>
+            <span className={`save-btn ${fullname === '' ? '' : originalFullname !== fullname ? 'active' : ''}`} onClick={() => patchUsername()}>Sauvegarder</span>
             <span className='cancel-btn' onClick={() => setFullname(originalFullname)}>Annuler</span>
             <motion.span
               animate={
@@ -115,4 +141,11 @@ export default function EditProfile(props) {
       </div>
     </div>
   </div>;
+}
+function getImgUrl(url) {
+  // Check if the given image's url is hosted by Genely or not
+  const backendUrl = process.env.REACT_APP_BACKEND_URL
+  
+  if (url.startsWith('http://') || url.startsWith('https://')) return url
+  return backendUrl + url
 }

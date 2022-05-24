@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import Home from "./components/pages/Home";
@@ -23,6 +23,8 @@ function App() {
   const [isAuth, setIsAuth] = useState()
   const [user, setUser] = useState()
   
+  const renderHeader = useRef(null)
+  
   useEffect(() => {
     const getUser = async() => {
       if (token) {
@@ -40,12 +42,12 @@ function App() {
     
   }, [token])
   
-  const temp = user => {
-    console.log(user);
+  const updateUser = user => {
     setUser(user)
+    // Update the profile picture in the header
+    //renderHeader.current()
   }
   
-  console.log(user);
   if (isLoading) return( <div className="App loading">Genely se réveille...</div> )
   
   return (
@@ -59,7 +61,7 @@ function App() {
         <Route path='/new-component' element={<CreateComponent isAuth={isAuth} user={user} />} />
         <Route path='/about' element={<About />} />
         <Route path='/:username' element={<Profile isAuth={isAuth} myUsername={user?.username} />} />
-        <Route path='/:username/settings' element={<EditProfile isAuth={isAuth} user={user} updateUser={user => temp(user)} />} />
+        <Route path='/:username/settings' element={<EditProfile isAuth={isAuth} user={user} updateUser={user => updateUser(user)} />} />
         <Route path='/:username/404' element={<PageNotFound />} />
         <Route path='/:username/:componentShortname' element={<Component isAuth={isAuth} myUsername={user?.username} />} />
         <Route path='/reset/password/:token' element={<ResetPassword />} />
