@@ -45,14 +45,14 @@ function App() {
   const updateUser = user => {
     setUser(user)
     // Update the profile picture in the header
-    //renderHeader.current()
+    renderHeader.current(user.avatarUrl)
   }
   
   if (isLoading) return( <div className="App loading">Genely se réveille...</div> )
   
   return (
     <div className="App">
-      <Header isAuth={isAuth} user={user} />
+      <Header isAuth={isAuth} user={user} render={renderHeader} />
       
       <Routes>
         <Route path='/' element={<Home />} />

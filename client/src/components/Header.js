@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 
 import Logout from '../assets/svg/Logout';
@@ -12,13 +12,11 @@ export default function Header(props) {
   const navigate = useNavigate()
   const isAuth = props.isAuth
   
-  const [user, setUser] = useState(props.user)
+  const user = props.user
+  const [avatarUrl, setAvatarUrl] = useState(props.user?.avatarUrl)
   const [showDropdown, setShowDropdown] = useState(false);
   
-  
-  useEffect(() => console.log(props.user), [props.user])
-  console.log(user);
-  
+  props.render.current = url => setAvatarUrl(url)
   
   const disconnection = () => {
     setShowDropdown(false)
@@ -41,9 +39,11 @@ export default function Header(props) {
         </Link>
         
         <div className='pp-container' onMouseEnter={() => setShowDropdown(true)} onMouseLeave={() => setShowDropdown(false)}>
-          <Link to={user.username}>
-            <img src={getImgUrl(user.avatarUrl)} alt='Profil' />
-          </Link>
+          <div className='wrapper'>
+            <Link to={user.username}>
+              <img src={getImgUrl(avatarUrl)} alt='Profil' />
+            </Link>
+          </div>
           { showDropdown &&
             <Dropdown
               user={user}

@@ -9,11 +9,10 @@ import { request } from '../../controller/request'
 
 export default function ProfileData(props) {
   const { username } = useParams()
-  const backendUrl = process.env.REACT_APP_BACKEND_URL
   const [user, setUser] = useState()
   const [isLoading, setIsLoading] = useState(true)
   const isUserProfile = props.isUserProfile
-  
+
   const navigate = useNavigate()
   
   useEffect(() => getUser(), [username])
@@ -40,7 +39,7 @@ export default function ProfileData(props) {
     <div className='profile-data'>
       <div className='left-part'>
         <div className='profile-picture'>
-          <img src={/* backendUrl + */ user.avatarUrl} alt='profile picture' />
+          <img src={getImgUrl(user.avatarUrl)} alt='profile avatar' />
         </div>
         
         <div className='data'>
@@ -72,4 +71,11 @@ function getDate(d) {
   const month = months[date.getMonth()]
   
   return `${date.getDate()} ${month} ${date.getFullYear()}`
+}
+function getImgUrl(url) {
+  // Check if the given image's url is hosted by Genely or not
+  const backendUrl = process.env.REACT_APP_BACKEND_URL
+  
+  if (url.startsWith('http://') || url.startsWith('https://')) return url
+  return backendUrl + url
 }

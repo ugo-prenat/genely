@@ -22,6 +22,7 @@ export default function EditProfile(props) {
   const [actualPassword, setActualPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
   const [successFullnameModif, setSuccessFullnameModif] = useState(false)
+  const [successPasswordModif, setSuccessPasswordModif] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   
   const navigate = useNavigate()
@@ -30,6 +31,7 @@ export default function EditProfile(props) {
     // Setup tab title
     document.title = 'Genely - modifié votre profil'
     if (!isUserProfile) navigate(`/${username}`)
+    // eslint-disable-next-line
   }, [])
   
   const patchUsername = async _ => {
@@ -76,7 +78,9 @@ export default function EditProfile(props) {
     <div className='wrapper'>
       
       <div className='profile-picture-container'>
-        <img src={getImgUrl(profilePicture)} alt='profile avatar' />
+        <div className='profile-picture-wrapper'>
+          <img src={getImgUrl(profilePicture)} alt='profile avatar' />
+        </div>
         <input
           type='file'
           accept="image/png, image/jpeg, image/jpg"
@@ -137,6 +141,22 @@ export default function EditProfile(props) {
             value={newPassword}
             onChange={e => setNewPassword(e.target.value)}
           />
+          
+          <div className='submit-btns'>
+            <span className={`save-btn ${fullname === '' ? '' : originalFullname !== fullname ? 'active' : ''}`} onClick={() => patchUsername()}>Modifier</span>
+            <span className='cancel-btn' onClick={() => setFullname(originalFullname)}>Annuler</span>
+            <motion.span
+              animate={
+                {
+                  y: successFullnameModif ? 10 : 0,
+                  visibility: successFullnameModif ? 'visible' : 'hidden'
+                }
+              }
+              className='success-modification'
+              >
+                <Check /> Mot de passe modifier
+              </motion.span>
+          </div>
         </div>
       </div>
     </div>
