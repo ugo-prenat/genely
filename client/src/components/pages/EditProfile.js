@@ -149,7 +149,7 @@ export default function EditProfile(props) {
               animate={
                 {
                   y: successFullnameModif ? 10 : 0,
-                  visibility: successFullnameModif ? 'visible' : 'hidden'
+                  visibility: successPasswordModif ? 'visible' : 'hidden'
                 }
               }
               className='success-modification'

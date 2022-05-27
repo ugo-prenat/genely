@@ -5,7 +5,7 @@ const Users = db.schema.users
 module.exports = async(req, res) => {
   // Create a component
   
-  const user = await Users.findOne({ username: req.user.username })
+  const user = req.user
   const step = parseInt(req.query.step)
   const data = req.body
   
@@ -19,12 +19,7 @@ module.exports = async(req, res) => {
     shortname: data.shortname,
     fullname: data.fullname,
     description: data.description,
-    creator: {
-      id: user.id,
-      username: user.username,
-      fullname: user.fullname,
-      avatarUrl: user.avatarUrl
-    },
+    creator: { id: user.id },
     isPublic: data.visibility === 'public',
     tree: data.tree,
     filters: data.filters,

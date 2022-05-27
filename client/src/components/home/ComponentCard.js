@@ -6,7 +6,7 @@ export default function ComponentCard(props) {
   
   const component = props.component
   const creator = component.creator
-  const illustration = component.illustrations[0].url  
+  const illustration = component.illustrations[0].url
   
   
   return (
@@ -26,18 +26,21 @@ export default function ComponentCard(props) {
 
       <div className='creator'>
         <a href={creator.username}>
-          <img src={/* backendUrl + */ creator.avatarUrl} alt={`${creator.username}-avatar`} />
+          <div className='profile-picture'>
+            <img src={getImgUrl(creator.avatarUrl)} alt={`${creator.username}-avatar`} />
+          </div>
           <div className='creator-names'>
             <p className='fullname'>{creator.fullname}</p>
           </div>
         </a>
       </div>
-      
-      {/* <div>
-        { component.filters.map((filter, index) =>
-          <p key={index}>{filter.name}</p>
-        )}
-      </div> */}
     </div>
   )
+}
+function getImgUrl(url) {
+  // Check if the given image's url is hosted by Genely or not
+  const backendUrl = process.env.REACT_APP_BACKEND_URL
+  
+  if (url.startsWith('http://') || url.startsWith('https://')) return url
+  return backendUrl + url
 }
