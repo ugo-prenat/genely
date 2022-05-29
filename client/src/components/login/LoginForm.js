@@ -74,7 +74,7 @@ export default function LoginForm(props) {
             { showPassword ? <EyeOpen /> : <EyeClose /> }
           </div>
           
-          { errors.password && <ErrorMsg msg={errors.password.message} /> }          
+          { errors.password && <ErrorMsg msg={errors.password.message} /> }
         </div>
         
         <Button

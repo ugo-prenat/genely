@@ -4,9 +4,12 @@ import { motion } from 'framer-motion'
 
 import Path from '../Path';
 import { request } from '../../controller/request'
+import ErrorMsg from '../forms/ErrorMsg';
 
 import Check from '../../assets/svg/Check'
 import Upload from '../../assets/svg/Upload'
+import EyeClose from '../../assets/svg/EyeClose';
+import EyeOpen from '../../assets/svg/EyeOpen';
 
 import '../../styles/editProfile.scss'
 
@@ -17,12 +20,9 @@ export default function EditProfile(props) {
   const isUserProfile = props.isAuth && user.username === username
   const originalFullname = user.fullname
   
-  const [fullname, setFullname] = useState(originalFullname)
   const [profilePicture, setProfilePicture] = useState(user.avatarUrl)
-  const [actualPassword, setActualPassword] = useState('')
-  const [newPassword, setNewPassword] = useState('')
+  const [fullname, setFullname] = useState(originalFullname)
   const [successFullnameModif, setSuccessFullnameModif] = useState(false)
-  const [successPasswordModif, setSuccessPasswordModif] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   
   const navigate = useNavigate()
@@ -129,38 +129,9 @@ export default function EditProfile(props) {
           </div>
         </div>
         
-        <div className='section reset-password'>
-          <p className='section-title'>Modifier votre mot de passe</p>
-          <input
-            placeholder='Mot de passe actuel'
-            value={actualPassword}
-            onChange={e => setActualPassword(e.target.value)}
-          />
-          <input
-            placeholder='Nouveau mot de passe'
-            value={newPassword}
-            onChange={e => setNewPassword(e.target.value)}
-          />
-          
-          <div className='submit-btns'>
-            <span className={`save-btn ${fullname === '' ? '' : originalFullname !== fullname ? 'active' : ''}`} onClick={() => patchUsername()}>Modifier</span>
-            <span className='cancel-btn' onClick={() => setFullname(originalFullname)}>Annuler</span>
-            <motion.span
-              animate={
-                {
-                  y: successFullnameModif ? 10 : 0,
-                  visibility: successPasswordModif ? 'visible' : 'hidden'
-                }
-              }
-              className='success-modification'
-              >
-                <Check /> Mot de passe modifier
-              </motion.span>
-          </div>
-        </div>
       </div>
     </div>
-  </div>;
+  </div>
 }
 function getImgUrl(url) {
   // Check if the given image's url is hosted by Genely or not
