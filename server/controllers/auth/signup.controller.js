@@ -33,12 +33,11 @@ const manuallySignup = async (req, res) => {
     email,
     password,
     isAuthWithGoogle: false,
-    avatarUrl: 'https://oasys.ch/wp-content/uploads/2019/03/photo-avatar-profil.png',
+    avatarUrl: undefined,
     isAdmin: false,
     publicComponents: 0,
     privateComponents: 0,
     likedComponents: []
-    
   })
   
   const jwtToken = generateAccessToken(user)

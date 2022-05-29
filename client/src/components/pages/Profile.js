@@ -35,6 +35,7 @@ export default function Profile(props) {
       <ProfileTabs
         activeTab={activeTab}
         setActiveTab={tab => loadTab(tab)}
+        isUserProfile={isUserProfile}
       />
       <ComponentsList
         isUserProfile={isUserProfile}

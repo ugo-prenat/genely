@@ -1,4 +1,8 @@
-module.exports = (req, res) => {
+const db = require('../../db/export')
+const Users = db.schema.users
+
+module.exports = async(req, res) => {
   // Return user based on his authentication token
-  res.status(200).send({ status: 200, user: req.user })
+  const user = await Users.findOne({ username: req.user.username })
+  res.status(200).send({ status: 200, user })
 }

@@ -1,6 +1,5 @@
 const express = require('express')
 const router = express.Router()
-const mongoose = require('mongoose');
 const authenticateToken = require('../middlewares/token/authenticateToken');
 
 const upload = require('../middlewares/imgUpload')

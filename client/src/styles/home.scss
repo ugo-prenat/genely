@@ -166,7 +166,7 @@
         }
         .bottom-btns {
           display: flex;
-          justify-content: end;
+          justify-content: flex-end;
           margin-top: 15px;
           span {
             color: $color-blue-200;
@@ -184,7 +184,6 @@
       }
     }
   }
-  
   .component-list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
@@ -250,13 +249,20 @@
         margin: 0 7px;
         padding: 0 5px 10px;
         border-radius: 0 0 7px 7px;
-        img {
+        .profile-picture {
           width: 33px;
           height: 33px;
           border-radius: 50%;
-          margin-right: 10px;
+          overflow: hidden;
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
         }
         .creator-names {
+          width: calc(100% - 33px - 10px);
+          padding-left: 10px;
           overflow: hidden;
           p {
             font-size: 14px;

@@ -70,7 +70,7 @@ export function Form5(props) {
           <input
             {...register('files')}
             type='file'
-            accept="image/*"
+            accept="image/png, image/jpeg"
             multiple
             onChange={onSelectFolder}
           />

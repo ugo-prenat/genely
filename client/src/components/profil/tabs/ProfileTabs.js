@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 export default function ProfileTabs(props) {
   const [activeTab, setActiveTab] = useState(props.activeTab)
+  const isUserProfile = props.isUserProfile
   
   useEffect(() => setActiveTab(props.activeTab), [props])
   
@@ -11,7 +12,12 @@ export default function ProfileTabs(props) {
         className={activeTab === 'personal' ? 'active' : ''}
         onClick={() => props.setActiveTab('personal')}
       >
-        Mes composants
+        {
+          isUserProfile ?
+            'Mes composants'
+          :
+            'Composants'
+        }
       </p>
       
       <p

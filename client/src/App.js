@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import Home from "./components/pages/Home";
@@ -13,8 +13,8 @@ import ResetPassword from "./components/pages/ResetPassword";
 import CreateComponent from "./components/pages/CreateComponent";
 
 import Header from "./components/Header";
-
 import { request as fetch } from './controller/request'
+
 
 function App() {
   const token = localStorage.getItem('token')
@@ -22,6 +22,8 @@ function App() {
   const [isLoading, setIsLoading] = useState(true)
   const [isAuth, setIsAuth] = useState()
   const [user, setUser] = useState()
+  
+  const renderHeader = useRef(null)
   
   useEffect(() => {
     const getUser = async() => {
@@ -40,11 +42,17 @@ function App() {
     
   }, [token])
   
+  const updateUser = user => {
+    setUser(user)
+    // Update the profile picture in the header
+    renderHeader.current(user.avatarUrl)
+  }
+  
   if (isLoading) return( <div className="App loading">Genely se réveille...</div> )
   
   return (
     <div className="App">
-      <Header isAuth={isAuth} user={user} />
+      <Header isAuth={isAuth} user={user} render={renderHeader} />
       
       <Routes>
         <Route path='/' element={<Home />} />
@@ -53,7 +61,7 @@ function App() {
         <Route path='/new-component' element={<CreateComponent isAuth={isAuth} user={user} />} />
         <Route path='/about' element={<About />} />
         <Route path='/:username' element={<Profile isAuth={isAuth} myUsername={user?.username} />} />
-        <Route path='/:username/settings' element={<EditProfile isAuth={isAuth} user={user} />} />
+        <Route path='/:username/settings' element={<EditProfile isAuth={isAuth} user={user} updateUser={user => updateUser(user)} />} />
         <Route path='/:username/404' element={<PageNotFound />} />
         <Route path='/:username/:componentShortname' element={<Component isAuth={isAuth} myUsername={user?.username} />} />
         <Route path='/reset/password/:token' element={<ResetPassword />} />

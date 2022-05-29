@@ -11,9 +11,12 @@ import '../styles/header.scss'
 export default function Header(props) {
   const navigate = useNavigate()
   const isAuth = props.isAuth
-  const user = props.user
   
+  const user = props.user
+  const [avatarUrl, setAvatarUrl] = useState(props.user?.avatarUrl)
   const [showDropdown, setShowDropdown] = useState(false);
+  
+  props.render.current = url => setAvatarUrl(url)
   
   const disconnection = () => {
     setShowDropdown(false)
@@ -25,7 +28,7 @@ export default function Header(props) {
   
   return <div className='header-component'>
     <Link to='/'>
-      <h1>Genely</h1>  
+      <h1>Genely</h1>
     </Link>
     
     {
@@ -36,9 +39,11 @@ export default function Header(props) {
         </Link>
         
         <div className='pp-container' onMouseEnter={() => setShowDropdown(true)} onMouseLeave={() => setShowDropdown(false)}>
-          <Link to={user.username}>
-            <img src={user.avatarUrl} alt='Profil' />
-          </Link>
+          <div className='wrapper'>
+            <Link to={user.username}>
+              <img src={getImgUrl(avatarUrl)} alt='Profil' />
+            </Link>
+          </div>
           { showDropdown &&
             <Dropdown
               user={user}
@@ -63,15 +68,6 @@ function Dropdown(props) {
   const user = props.user
   
   return <div className='dropdown'>
-    {/* <div className='user-data'>
-      <Link to={user.username} onClick={() => props.hideDropdown()}>
-        <img src={user.avatarUrl} alt={user.username + '-picture'} />
-        <div className='names'>
-          <p className='fullname'>{ user.fullname }</p>
-          <p className='username'>@{ user.username }</p>
-        </div>
-      </Link>
-    </div> */}
     <div className='links'>
       <Link to={user.username} onClick={() => props.hideDropdown()}>
         <Profil />
@@ -91,4 +87,11 @@ function Dropdown(props) {
       </Link>
     </div>
   </div>
+}
+function getImgUrl(url) {
+  // Check if the given image's url is hosted by Genely or not
+  const backendUrl = process.env.REACT_APP_BACKEND_URL
+  
+  if (url.startsWith('http://') || url.startsWith('https://')) return url
+  return backendUrl + url
 }

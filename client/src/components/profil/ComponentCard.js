@@ -51,15 +51,23 @@ export function Visibility(props) {
 }
 
 export function Creator(props) {
-  const backendUrl = process.env.REACT_APP_BACKEND_URL
   const creator = props.creator
   
   return <div className='creator'>
     <a href={creator.username}>
-      <img src={/* backendUrl + */ creator.avatarUrl} alt={`${creator.username}-avatar`} />
+      <div className='profile-picture'>
+        <img src={getImgUrl(creator.avatarUrl)} alt={`${creator.username}-avatar`} />
+      </div>
       <div className='creator-names'>
         <p className='fullname'>{creator.fullname}</p>
       </div>
     </a>
   </div>  
+}
+function getImgUrl(url) {
+  // Check if the given image's url is hosted by Genely or not
+  const backendUrl = process.env.REACT_APP_BACKEND_URL
+  
+  if (url.startsWith('http://') || url.startsWith('https://')) return url
+  return backendUrl + url
 }
