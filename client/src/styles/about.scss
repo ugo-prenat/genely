@@ -1,0 +1,34 @@
+@import './variables';
+
+.about-page-component {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  p {
+    padding: 0 20%;
+    text-align: justify;
+  }
+  h1 {
+    margin-bottom: 50px;
+    font-size: 35px;
+  }
+  .github-icon {
+    position: absolute;
+    bottom: 30px;
+    right: 40px;
+    cursor: pointer;
+    a {
+      color: $color-white;
+    }
+    &:hover svg {
+      opacity: .8;
+    }
+    svg {
+      width: 30px;
+      height: 30px;
+      opacity: .2;
+      transition: opacity .3s;
+    }
+  }
+}
