@@ -5,6 +5,7 @@ import FolderTree from '../folderTree/FolderTree';
 
 export default function ComponentCode(props) {
   const component = props.component
+  
   const firstFile = getFirstFile(component.tree)
   
   const [fileUrl, setFileUrl] = useState(firstFile.url)
@@ -16,7 +17,6 @@ export default function ComponentCode(props) {
     setFileUrl(url)
     setfilename(name)
   }
-  
   
   return (
     <div className='component-code tab'>
@@ -33,11 +33,17 @@ export default function ComponentCode(props) {
     </div>
   )
 }
-
 function getFirstFile(tree) {
-  // Finf the first file of the component's tree
-  if (tree[0].type === 'file') return tree[0]
-  else {
-    return tree[0].children[0]
+  // Find the first file of the component's tree
+  let file
+  
+  tree.forEach(item => {
+    if (item.type === 'file' && !file) return file = item
+  })
+  if (!file) file = { 
+    name: "loading",
+    type: "file",
+    url: "/uploads/file/evtd5b1iXrjYyghjtS2fp6-loading"
   }
+  return file
 }

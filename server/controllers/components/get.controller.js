@@ -58,19 +58,18 @@ const getAll = async(req, res) => {
 }
 const getSpecific = async(req, res) => {
   // Return a specific component
-  const creator = req.params.creator
+  const creator = await Users.findOne({ username: req.params.creator })
   const shortname = req.params.name
   
-  const component = await Components.findOne({ 'creator.username': creator, shortname })
+  const component = await Components.findOne({ 'creator.id': creator.id, shortname })
   if (!component) return res.status(400).send({ status: 400, msg: 'component not found' })
   
   // Set the author's component data
-  const author = await Users.findOne({ username: creator })
   component.creator = {
-    id: component.creator.id,
-    username: author ? author.username : 'Utilisateur supprimé',
-    fullname: author ? author.fullname : 'Utilisateur supprimé',
-    avatarUrl: author ? author.avatarUrl : 'https://oasys.ch/wp-content/uploads/2019/03/photo-avatar-profil.png'
+    id: creator.id,
+    username: creator ? creator.username : 'Utilisateur supprimé',
+    fullname: creator ? creator.fullname : 'Utilisateur supprimé',
+    avatarUrl: creator ? creator.avatarUrl : 'https://oasys.ch/wp-content/uploads/2019/03/photo-avatar-profil.png'
   }
   
   res.status(200).send({ status: 200, component })
