@@ -1,7 +1,6 @@
 import React, { useRef } from 'react'
 
 import ComponentCode from './ComponentCode'
-import ComponentIllustrations from './ComponentIllustrations'
 import ImagesList from '../ImagesList'
 import MainImage from '../MainImage'
 

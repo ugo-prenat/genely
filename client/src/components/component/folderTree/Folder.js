@@ -1,7 +1,6 @@
 import React from 'react'
 
 import File from './File';
-import FolderCloseIcon from '../../../assets/svg/FolderClose'
 import { FolderOpen as FolderOpenIcon} from '../../../assets/svg/FolderOpen';
 
 export default function Folder(props) {

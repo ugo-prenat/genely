@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 
 import ComponentDescription from './ComponentDescription'
 import FiltersList from './FiltersList'
-import Download from '../../assets/svg/Download'
 import { request } from '../../controller/request'
 
 import Heart from '../../assets/svg/Heart'
@@ -19,6 +18,7 @@ export default function ComponentData(props) {
   useEffect(() => {
     // Check if user liked the component
     if (isAuth) getIsLiked()
+    // eslint-disable-next-line
   }, [])
   
   const getIsLiked = async _ => {
