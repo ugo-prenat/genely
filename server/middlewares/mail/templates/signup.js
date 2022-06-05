@@ -1,6 +1,7 @@
 const transporter = require('../transporter')
 const template = require('../models/signup')
 
+
 module.exports = to => {
   const options = {
     from: process.env.MAIL_GENELY,

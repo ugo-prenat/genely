@@ -1,6 +1,7 @@
 const db = require('../../db/export')
 const Components = db.schema.components
 const Users = db.schema.users
+const mailer = require('../../middlewares/mail/export')
 
 module.exports = async(req, res) => {
   // Create a component
@@ -32,6 +33,7 @@ module.exports = async(req, res) => {
   
   await user.save()
   newComponent.save(() => {
+    mailer.sendAdmin.componentCreation(newComponent.url, user.fullname)
     res.status(200).send({ status: 200, msg: `Component ${componentId} created` })
   })
 }
