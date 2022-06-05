@@ -38,25 +38,21 @@ export default function ComponentData(props) {
     if (res.status === 200) setIsLiked(!isLiked)
   }
   
-  const downloadComponent = () => {
-    console.log('download')
-  }
   
   return (
     <div className='data'>
       <p className='fullname'>{ component.fullname }</p>
       <div className='sub-data'>
         <div>
-          <p className='shortname'>{ component.shortname }</p>•
-          <p className='created-at'>Créé le { getDate(component.createdAt) }, il y a { getDiffTime(component.createdAt) }</p>•
-          <p className='download-btn' onClick={downloadComponent}><Download />Télécharger le composant</p>
+          <p className='shortname'>{ component.shortname }</p>
+          <p className='created-at'>Créé le { getDate(component.createdAt) }, il y a { getDiffTime(component.createdAt) }</p>
+          { isAuth && !isLoading && 
+            <p className={`like-btn ${isLiked ? 'liked' : ''}`} onClick={() => toggleLike()}>
+              <Heart />
+              Ajout{ isLiked ? 'é' : 'er' } aux favoris
+            </p>
+          }
         </div>
-        { isAuth && !isLoading && 
-          <span className={`like-btn ${isLiked ? 'liked' : ''}`} onClick={() => toggleLike()}>
-            <Heart />
-            Ajout{ isLiked ? 'é' : 'er' } aux favoris
-          </span>
-        }
       </div>
       <FiltersList filters={component.filters} />
       { component.description &&

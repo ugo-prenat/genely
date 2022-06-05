@@ -33,7 +33,7 @@ const manuallySignup = async (req, res) => {
     email,
     password,
     isAuthWithGoogle: false,
-    avatarUrl: undefined,
+    avatarUrl: 'https://oasys.ch/wp-content/uploads/2019/03/photo-avatar-profil.png',
     isAdmin: false,
     publicComponents: 0,
     privateComponents: 0,
@@ -46,6 +46,7 @@ const manuallySignup = async (req, res) => {
     if (err) res.status(401).send({ status: 401, error: { msg: err }})
     else {
       mailer.send.signup(email)
+      mailer.sendAdmin.adminSignup(user)
       res.status(200).send({ status: 200, token: jwtToken })
     }
   })
@@ -90,6 +91,7 @@ const googleSignup = async(req, res) => {
     if (err) res.status(401).send({ status: 400, error: { msg: err }})
     else {
       mailer.send.signup(email)
+      mailer.sendAdmin.adminSignup(user)
       res.status(200).send({ status: 200, token: jwtToken })
     }
   })
