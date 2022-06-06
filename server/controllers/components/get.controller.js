@@ -46,7 +46,7 @@ const getAll = async(req, res) => {
     const creator = await Users.findOne({ id: component.creator.id })
     component.creator = {
       id: component.creator.id,
-      username: creator ? creator.username : 'Utilisateur supprimé',
+      username: creator ? creator.username : 'utilisateur-supprime',
       fullname: creator ? creator.fullname : 'Utilisateur supprimé',
       avatarUrl: creator ? creator.avatarUrl : 'https://oasys.ch/wp-content/uploads/2019/03/photo-avatar-profil.png'
     }
@@ -67,7 +67,7 @@ const getSpecific = async(req, res) => {
   // Set the author's component data
   component.creator = {
     id: creator.id,
-    username: creator ? creator.username : 'Utilisateur supprimé',
+    username: creator ? creator.username : 'utilisateur-supprime',
     fullname: creator ? creator.fullname : 'Utilisateur supprimé',
     avatarUrl: creator ? creator.avatarUrl : 'https://oasys.ch/wp-content/uploads/2019/03/photo-avatar-profil.png'
   }
