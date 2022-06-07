@@ -36,3 +36,23 @@
     }
   }
 }
+@media (max-width: 800px) {
+  .about-page-component p {
+    padding: 0 10%;
+  }
+}
+@media (max-width: 600px) {
+  .about-page-component {
+    margin-top: 75px;
+    p {
+      padding: 0;
+    }
+  }
+}
+@media (max-width: 500px) {
+  .about-page-component {
+    img {
+      width: 100px;
+    }
+  }
+}

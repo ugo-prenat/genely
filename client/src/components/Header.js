@@ -7,7 +7,6 @@ import Settings from '../assets/svg/Settings';
 import Question from '../assets/svg/Question';
 
 import '../styles/header.scss'
-import logo from '../assets/img/logo192.png'
 
 
 export default function Header(props) {
