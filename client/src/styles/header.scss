@@ -110,8 +110,17 @@
       width: 9px;
       height: 9px;
       transform: rotate(45deg);
-      /* background: $color-dark-200; */
       background: $color-white;
+    }
+  }
+}
+@media (max-width: 450px) {
+  .header-component {
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 100px;
+    .dropdown {
+      top: 100px;
     }
   }
 }

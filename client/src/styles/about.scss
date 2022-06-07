@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  margin-top: 15vh;
   p {
     padding: 0 20%;
     text-align: justify;
@@ -12,6 +12,10 @@
   h1 {
     margin-bottom: 50px;
     font-size: 35px;
+  }
+  img {
+    width: 150px;
+    margin-bottom: 10px;
   }
   .github-icon {
     position: absolute;

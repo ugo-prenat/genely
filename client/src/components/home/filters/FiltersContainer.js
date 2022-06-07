@@ -92,66 +92,68 @@ export default function Filters(props) {
         value={urlSearchInput}
       />
       
-      <div className='filter-select'>
-        { isLoading ?
-            <div className='select-title is-loading'>Technologies <Triangle /></div>
-          :
-            <div 
-              onClick={() => setDisplayFilterList(displayFilterList === 'tech' ? '' : 'tech')}
-              className={`select-title ${displayFilterList === 'tech' ? 'opened' : ''}`}
-            >
-              Technologies
-              { selectedTechFilters.length > 0 ?
-                  <span className='filter-length'>{ selectedTechFilters.length }</span>
-                :
-                <span className='triangle'><Triangle /></span>
-              }
-            </div>
-        }
-        { displayFilterList === 'tech' &&
-        
-          <FiltersList
-            filters={techFilters}
-            
-            addToFilters={filter => addToTechFilters(filter)}
-            removeFromFilters={filter => removeFromTechFilters(filter) }
-            selectedFilters={selectedTechFilters}
-            
-            clearFilters={clearTechFilters}
-            hideFilterList={() => setDisplayFilterList('')}
-          />
-        }
-      </div>
-      
-      <div className='filter-select'>
-        { isLoading ?
-            <div className='select-title is-loading'>Catégories <Triangle /></div>
-          :
-            <div 
-              onClick={() => setDisplayFilterList(displayFilterList === 'category' ? '' : 'category')}
-              className={`select-title ${displayFilterList === 'category' ? 'opened' : ''}`}
-            >
-              Catégories
-              { selectedCategoryFilters.length > 0 ?
-                  <span className='filter-length'>{ selectedCategoryFilters.length }</span>
-                :
+      <div className='filters-select-group'>
+        <div className='filter-select'>
+          { isLoading ?
+              <div className='select-title is-loading'>Technologies <Triangle /></div>
+            :
+              <div 
+                onClick={() => setDisplayFilterList(displayFilterList === 'tech' ? '' : 'tech')}
+                className={`select-title ${displayFilterList === 'tech' ? 'opened' : ''}`}
+              >
+                Technologies
+                { selectedTechFilters.length > 0 ?
+                    <span className='filter-length'>{ selectedTechFilters.length }</span>
+                  :
                   <span className='triangle'><Triangle /></span>
-              }
-            </div>
-        }
-        { displayFilterList === 'category' &&
+                }
+              </div>
+          }
+          { displayFilterList === 'tech' &&
+          
+            <FiltersList
+              filters={techFilters}
+              
+              addToFilters={filter => addToTechFilters(filter)}
+              removeFromFilters={filter => removeFromTechFilters(filter) }
+              selectedFilters={selectedTechFilters}
+              
+              clearFilters={clearTechFilters}
+              hideFilterList={() => setDisplayFilterList('')}
+            />
+          }
+        </div>
         
-          <FiltersList
-            filters={categoryFilters}
-            
-            addToFilters={filter => addToCategoryFilters(filter)}
-            removeFromFilters={filter => removeFromCategoryFilters(filter) }
-            selectedFilters={selectedCategoryFilters}
-            
-            clearFilters={clearCategoryFilters}
-            hideFilterList={() => setDisplayFilterList('')}
-          />
-        }
+        <div className='filter-select'>
+          { isLoading ?
+              <div className='select-title is-loading'>Catégories <Triangle /></div>
+            :
+              <div 
+                onClick={() => setDisplayFilterList(displayFilterList === 'category' ? '' : 'category')}
+                className={`select-title ${displayFilterList === 'category' ? 'opened' : ''}`}
+              >
+                Catégories
+                { selectedCategoryFilters.length > 0 ?
+                    <span className='filter-length'>{ selectedCategoryFilters.length }</span>
+                  :
+                    <span className='triangle'><Triangle /></span>
+                }
+              </div>
+          }
+          { displayFilterList === 'category' &&
+          
+            <FiltersList
+              filters={categoryFilters}
+              
+              addToFilters={filter => addToCategoryFilters(filter)}
+              removeFromFilters={filter => removeFromCategoryFilters(filter) }
+              selectedFilters={selectedCategoryFilters}
+              
+              clearFilters={clearCategoryFilters}
+              hideFilterList={() => setDisplayFilterList('')}
+            />
+          }
+        </div>
       </div>
     </div>
   )
