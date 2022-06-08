@@ -69,6 +69,7 @@ form {
       font-size: 14px;
       font-weight: 500;
       user-select: none;
+      white-space: nowrap;
     }
     input, textarea {
       width: calc(100% - 30px - 4px);
@@ -162,4 +163,15 @@ form {
 }
 .forgot-password-form {
   width: 450px;
+}
+@media (max-width: 500px) {
+  .forgot-password-form {
+    width: calc(100% - 50px);
+    .success-reset-password {
+      width: calc(100% - 100px);
+    }
+    form {
+      padding: 25px;
+    }
+  }
 }
