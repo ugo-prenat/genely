@@ -8,6 +8,7 @@ import Question from '../assets/svg/Question';
 
 import '../styles/header.scss'
 
+
 export default function Header(props) {
   const navigate = useNavigate()
   const isAuth = props.isAuth

@@ -13,4 +13,23 @@
   .signup-form {
     width: 450px;
   }
+  @media (max-width: 500px) {
+    h1 {
+      display: none;
+    }
+    .signup-form {
+      width: calc(100% - 50px);
+      form {
+        padding: 25px;
+      }
+    }
+  }
+  @media (max-width: 400px) {
+    .signup-form {
+      width: calc(100% - 20px);
+      form {
+        padding: 15px;
+      }
+    }
+  }
 }

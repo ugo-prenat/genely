@@ -8,7 +8,10 @@ export default function FilterCard(props) {
   const selectedFilters = props.selectedFilters
   const navigate = useNavigate()
   
-  useEffect(() => setIsSelected(isFilterSelected()), [selectedFilters])
+  useEffect(() => {
+    setIsSelected(isFilterSelected())
+    // eslint-disable-next-line
+  }, [selectedFilters])
   
   
   const isFilterSelected = () => {
@@ -36,7 +39,7 @@ export default function FilterCard(props) {
     }
   }
   
-  const removeUrlParam = () => {
+  /* const removeUrlParam = () => {
     const urlParams = new URLSearchParams(window.location.search)
     let filters = urlParams.get('filters').split(',')
     let search = urlParams.get('search')
@@ -51,7 +54,7 @@ export default function FilterCard(props) {
     
     filters = filters ? filters += `,${filter.lowercase}` : filter.lowercase
     navigate(`?filters=${filters}${search ? `&search=${search}` : ''}`)
-  }
+  } */
   
   
   return (
