@@ -9,6 +9,7 @@ router.post('/', authenticateToken, componentController.create)
 router.get('/', componentController.getAll)
 router.get('/:creator/:name', componentController.getSpecific)
 router.get('/liked', componentController.getLiked)
+router.delete('/:id', authenticateToken, componentController.remove)
 
 
 module.exports = router

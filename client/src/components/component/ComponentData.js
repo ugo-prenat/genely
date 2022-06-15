@@ -1,19 +1,26 @@
 import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import ComponentDescription from './ComponentDescription'
 import FiltersList from './FiltersList'
 import { request } from '../../controller/request'
 
 import Heart from '../../assets/svg/Heart'
+import Trash from '../../assets/svg/Trash'
 
 
 export default function ComponentData(props) {
   const component = props.component
   const myUsername = props.myUsername
   const isAuth = props.isAuth
-  
+  const isUserComponent = props.isAuth && myUsername === component.creator.username
+
   const [isLiked, setIsLiked] = useState()
   const [isLoading, setIsLoading] = useState(true)
+  const [isDeleting, setIsDeleting] = useState(false)
+  const [showDeleteMsg, setShowDeleteMsg] = useState(false)
+  
+  const navigate = useNavigate()
   
   useEffect(() => {
     // Check if user liked the component
@@ -37,7 +44,14 @@ export default function ComponentData(props) {
     
     if (res.status === 200) setIsLiked(!isLiked)
   }
-  
+  const deleteComponent = async _ => {
+    setIsDeleting(true)
+    const res = await request.remove(`/components/${component.id}`)
+    if (res.status === 200) navigate('/')
+      
+    setIsDeleting(false)
+    setShowDeleteMsg(false)
+  }
   
   return (
     <div className='data'>
@@ -52,16 +66,42 @@ export default function ComponentData(props) {
               Ajout{ isLiked ? 'é' : 'er' } aux favoris
             </p>
           }
+          { isUserComponent &&
+              <span onClick={() => setShowDeleteMsg(true)} className='delete-btn'>
+                <Trash />
+                { isDeleting ? 'Suppression...' : 'Supprimer' }
+              </span>
+          }
         </div>
       </div>
       <FiltersList filters={component.filters} />
       { component.description &&
         <ComponentDescription description={component.description} />
       }
+      { showDeleteMsg &&
+        <DeletePopUp
+          hide={() => setShowDeleteMsg(false)}
+          delete={deleteComponent}
+          isDeleting={isDeleting}
+        />
+      }
     </div>
   )
 }
 
+export function DeletePopUp(props) {
+  
+  return(
+    <div className='delete-popup-wrapper'>
+      <span onClick={props.hide} className='background'></span>
+      <div className='delete-popup-container'>
+        <p>Êtes-vous sûr de vouloir supprimer ce composant ?</p>
+        <span className='btn' onClick={props.hide}>Annuler</span>
+        <span className='btn delete' onClick={props.delete}>{props.isDeleting ? 'Suppression...' : 'Supprimer' }</span>
+      </div>
+    </div>
+  )
+}
 function getDate(d) {
   // Return a good formated date
   const months = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
