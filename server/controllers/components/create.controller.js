@@ -5,7 +5,6 @@ const mailer = require('../../middlewares/mail/export')
 
 module.exports = async(req, res) => {
   // Create a component
-  
   const user = await Users.findOne({ id: req.user.id })
   const step = parseInt(req.query.step)
   const data = req.body

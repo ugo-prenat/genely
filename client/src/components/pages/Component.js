@@ -45,7 +45,11 @@ export default function Component(props) {
       { 'name': username, 'link': `/${username}` },
       { 'name': componentShortname, 'link': `/${username}/${componentShortname}` }
     ]} />
-    <ComponentData component={component} myUsername={props.myUsername} isAuth={props.isAuth} />
+    <ComponentData
+      component={component}
+      myUsername={props.myUsername}
+      isAuth={props.isAuth}
+    />
     
     
     <ComponentTabs activeTab={activeTab} setActiveTab={tab => setActiveTab(tab)} />

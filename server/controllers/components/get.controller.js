@@ -33,7 +33,7 @@ const getAll = async(req, res) => {
   const isUserAuth = checkIsUserAuth(req.query.visibility, usernameQuery, req.headers.authorization)
   
   
-  if (usernameQuery) findParams['creator.username'] = usernameQuery.toLowerCase()
+  if (usernameQuery) findParams['creator.id'] = await getUserId(usernameQuery.toLowerCase())
   if (!isUserAuth) findParams.isPublic = true
   
   const comps = await Components
@@ -118,6 +118,11 @@ function checkIsUserAuth(arg, username, authHeader) {
     })
   }
   return toReturn
+}
+async function getUserId(username) {
+  // Get user id from username
+  const user = await Users.findOne({ username })
+  return user.id
 }
 
 module.exports = { getAll, getSpecific, getLiked }
