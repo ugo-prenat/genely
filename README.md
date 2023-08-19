@@ -5,11 +5,6 @@
 
 <h1 align="center">Genely</h1>
 
-<p align="center">
-  <a href="https://app.netlify.com/sites/genely/deploys" target="_blank">
-    <img src="https://api.netlify.com/api/v1/badges/28160eb3-6cd3-424e-aaf8-e293aa8db19c/deploy-status" alt="Netlify Status" />
-  </a>
-</p>
 
 <br>
 <br>
